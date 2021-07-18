@@ -17,6 +17,7 @@ namespace CinemaPlus.AutoMapper
             CreateMap<Service, ServiceDto>().ReverseMap();
             CreateMap<CinemaClub, CinemaClubDto>().ReverseMap();
             CreateMap<Navbar, NavbarDto>().ReverseMap();
+            CreateMap<Footer, FooterDto>().ReverseMap();
         }
     }
 }

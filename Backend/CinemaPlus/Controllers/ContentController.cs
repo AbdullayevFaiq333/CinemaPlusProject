@@ -20,9 +20,10 @@ namespace CinemaPlus.Controllers
         private readonly IRepository<Service> _repositoryService;
         private readonly IRepository<CinemaClub> _repositoryCinemaClub;
         private readonly IRepository<Navbar> _repositoryNavbar;
+        private readonly IRepository<Footer> _repositoryFooter;
         private readonly IMapper _mapper;
 
-        public ContentController(IRepository<DolbyAtmos> repositoryDolbyAtmos, IMapper mapper, IRepository<Platinium> repositoryPlatinium = null, IRepository<Service> repositoryService = null, IRepository<CinemaClub> repositoryCinemaClub = null, IRepository<Navbar> repositoryNavbar = null)
+        public ContentController(IRepository<DolbyAtmos> repositoryDolbyAtmos, IMapper mapper, IRepository<Platinium> repositoryPlatinium = null, IRepository<Service> repositoryService = null, IRepository<CinemaClub> repositoryCinemaClub = null, IRepository<Navbar> repositoryNavbar = null, IRepository<Footer> repositoryFooter = null)
         {
             _repositoryDolbyAtmos = repositoryDolbyAtmos;
             _mapper = mapper;
@@ -30,6 +31,7 @@ namespace CinemaPlus.Controllers
             _repositoryService = repositoryService;
             _repositoryCinemaClub = repositoryCinemaClub;
             _repositoryNavbar = repositoryNavbar;
+            _repositoryFooter = repositoryFooter;
         }
 
         [HttpGet("getContentWebsite{laguageCode}")]
@@ -48,6 +50,7 @@ namespace CinemaPlus.Controllers
             var services = await _repositoryService.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
             var cinemaClubs = await _repositoryCinemaClub.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
             var navbars = await _repositoryNavbar.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
+            var footers = await _repositoryFooter.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
 
             var contentDto = new ContentDto
             {
@@ -55,7 +58,8 @@ namespace CinemaPlus.Controllers
                 PlatiniumDto = _mapper.Map<List<PlatiniumDto>>(platiniums),
                 ServiceDto=_mapper.Map<List<ServiceDto>>(services),
                 CinemaClubDto = _mapper.Map<List<CinemaClubDto>>(cinemaClubs),
-                NavbarDto = _mapper.Map<List<NavbarDto>>(navbars)
+                NavbarDto = _mapper.Map<List<NavbarDto>>(navbars),
+                FooterDto = _mapper.Map<List<FooterDto>>(footers)
             };
 
             return Ok(contentDto);

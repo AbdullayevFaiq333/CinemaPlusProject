@@ -15,5 +15,6 @@ namespace Entities.Models
         public ICollection<Service> Services { get; set; }
         public ICollection<CinemaClub> CinemaClubs { get; set; }
         public ICollection<Navbar> Navbars { get; set; }
+        public ICollection<Footer> Footers { get; set; }
     }
 }
