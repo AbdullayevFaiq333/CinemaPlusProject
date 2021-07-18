@@ -21,9 +21,10 @@ namespace CinemaPlus.Controllers
         private readonly IRepository<CinemaClub> _repositoryCinemaClub;
         private readonly IRepository<Navbar> _repositoryNavbar;
         private readonly IRepository<Footer> _repositoryFooter;
+        private readonly IRepository<SocialMedia> _repositorySocialMedia;
         private readonly IMapper _mapper;
 
-        public ContentController(IRepository<DolbyAtmos> repositoryDolbyAtmos, IMapper mapper, IRepository<Platinium> repositoryPlatinium = null, IRepository<Service> repositoryService = null, IRepository<CinemaClub> repositoryCinemaClub = null, IRepository<Navbar> repositoryNavbar = null, IRepository<Footer> repositoryFooter = null)
+        public ContentController(IRepository<DolbyAtmos> repositoryDolbyAtmos, IMapper mapper, IRepository<Platinium> repositoryPlatinium = null, IRepository<Service> repositoryService = null, IRepository<CinemaClub> repositoryCinemaClub = null, IRepository<Navbar> repositoryNavbar = null, IRepository<Footer> repositoryFooter = null, IRepository<SocialMedia> repositorySocialMedia = null)
         {
             _repositoryDolbyAtmos = repositoryDolbyAtmos;
             _mapper = mapper;
@@ -32,6 +33,7 @@ namespace CinemaPlus.Controllers
             _repositoryCinemaClub = repositoryCinemaClub;
             _repositoryNavbar = repositoryNavbar;
             _repositoryFooter = repositoryFooter;
+            _repositorySocialMedia = repositorySocialMedia;
         }
 
         [HttpGet("getContentWebsite{laguageCode}")]
@@ -51,6 +53,7 @@ namespace CinemaPlus.Controllers
             var cinemaClubs = await _repositoryCinemaClub.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
             var navbars = await _repositoryNavbar.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
             var footers = await _repositoryFooter.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
+            var socialMedias = await _repositorySocialMedia.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
 
             var contentDto = new ContentDto
             {
@@ -59,7 +62,8 @@ namespace CinemaPlus.Controllers
                 ServiceDto=_mapper.Map<List<ServiceDto>>(services),
                 CinemaClubDto = _mapper.Map<List<CinemaClubDto>>(cinemaClubs),
                 NavbarDto = _mapper.Map<List<NavbarDto>>(navbars),
-                FooterDto = _mapper.Map<List<FooterDto>>(footers)
+                FooterDto = _mapper.Map<List<FooterDto>>(footers),
+                SocialMediaDto = _mapper.Map<List<SocialMediaDto>>(socialMedias)
             };
 
             return Ok(contentDto);

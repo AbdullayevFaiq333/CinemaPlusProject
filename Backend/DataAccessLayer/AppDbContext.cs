@@ -19,5 +19,6 @@ namespace DataAccessLayer
         public DbSet<CinemaClub> CinemaClubs { get; set; }
         public DbSet<Navbar> Navbars { get; set; }
         public DbSet<Footer> Footers { get; set; }
+        public DbSet<SocialMedia> SocialMedias { get; set; }
     }
 }

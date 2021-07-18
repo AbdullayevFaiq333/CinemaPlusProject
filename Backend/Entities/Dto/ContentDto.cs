@@ -12,5 +12,6 @@ namespace Entities.Dto
         public List<CinemaClubDto> CinemaClubDto { get; set; }
         public List<NavbarDto> NavbarDto { get; set; }
         public List<FooterDto> FooterDto { get; set; }
+        public List<SocialMediaDto> SocialMediaDto { get; set; }
     }
 }
