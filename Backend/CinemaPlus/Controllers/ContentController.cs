@@ -36,7 +36,7 @@ namespace CinemaPlus.Controllers
             _repositorySocialMedia = repositorySocialMedia;
         }
 
-        [HttpGet("getContentWebsite{laguageCode}")]
+        [HttpGet("getContentWebsite/{laguageCode}")]
 
         public async Task<IActionResult> GetContent([FromRoute] string laguageCode)
         {
