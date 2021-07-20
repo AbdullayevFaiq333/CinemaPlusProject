@@ -1,7 +1,68 @@
 ﻿
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Detail";
+    Platinium platinum = Model;
 }
 
-<h1>Delete</h1>
 
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+
+            <h2 class="mt-0 header-title">Platinum Delete</h2>
+
+
+            <div class="table-responsive">
+                <table class="table table-dark mb-0">
+                    <thead>
+                        <tr>
+                            <th>Title & Description </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                <div data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer">
+                                    @platinum.Title
+
+                                </div>
+                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Description</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" style="background-color: midnightblue">
+
+                                                @platinum.Description
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card-body">
+    <h4 class="card-text" style="font-family: Montserrat, sans-serif;">Do you want to delete?</h4>
+</div>
+<div class="row" style="margin-left: 10px; padding-bottom: 15px">
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <a asp-action="Index" class="btn btn-secondary" style="margin-left: 10px">Go Back</a>
+</div>

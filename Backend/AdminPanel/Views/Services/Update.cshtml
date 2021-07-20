@@ -1,7 +1,30 @@
-﻿
+﻿@model Service
 @{
     ViewData["Title"] = "Update";
 }
 
-<h1>Update</h1>
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body bg-dark font-weight-bold text-white">
+                <h4 class="card-title text-white">Update Services in new language</h4>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Title">First Title</label>
+                        <input asp-for="Title" class="form-control" placeholder="FirstTitle">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>             
 
+                    <button type="submit" class="btn btn-warning mr-2">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary">Go back</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -59,13 +59,84 @@ namespace AdminPanel.Controllers
 
             return View(service);
         }
-        public IActionResult Update()
+        public IActionResult Update(int? id)
         {
-            return View();
+            if (id == null)
+                return NotFound();
+
+            var service = _dbContext.Services.Find(id);
+
+            if (service == null)
+                return NotFound();
+
+            return View(service);
         }
-        public IActionResult Delete()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Update(int? id, Service service)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (id == null)
+                return NotFound();
+
+            if (id != service.Id )
+                return BadRequest();
+
+            var dBservice = await _dbContext.Services.FindAsync(id);
+            if (dBservice == null)
+                return NotFound();
+
+            var isExist = await _dbContext.Services.AnyAsync(x => x.Title.ToLower() == service.Title.
+                                                                                 ToLower() && x.Id != id);
+            if (isExist)
+            {
+                ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
+                return View();
+            }
+
+            dBservice.Title = service.Title;
+            dBservice.Description = service.Description;
+
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+
+        }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var service = await _dbContext.Services.FindAsync(id);
+
+            if (service == null)
+                return NotFound();
+
+            return View(service);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteService(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var service = await _dbContext.Services.FindAsync(id);
+
+            if (service == null)
+                return NotFound();
+
+            _dbContext.Services.Remove(service);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }

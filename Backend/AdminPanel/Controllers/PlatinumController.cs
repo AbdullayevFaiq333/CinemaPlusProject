@@ -59,15 +59,86 @@ namespace AdminPanel.Controllers
 
             return View(platinum);
         }
-        public IActionResult Update()
+        public IActionResult Update(int? id)
         {
-            return View();
-        }
-        public IActionResult Delete()
-        {
-            return View();
+            if (id == null)
+                return NotFound();
+
+            var platinum = _dbContext.Platiniums.Find(id);
+
+            if (platinum == null)
+                return NotFound();
+
+            return View(platinum);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Update(int? id, Platinium platinum)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (id == null)
+                return NotFound();
+
+            if (id != platinum.Id)
+                return BadRequest();
+
+            var dBplatinum = await _dbContext.Platiniums.FindAsync(id);
+            if (dBplatinum == null)
+                return NotFound();
+
+            var isExist = await _dbContext.Platiniums.AnyAsync(x => x.Title.ToLower() == platinum.Title.
+                                                                                 ToLower() && x.Id != id);
+            if (isExist)
+            {
+                ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
+                return View();
+            }
+
+            dBplatinum.Title = platinum.Title;
+            dBplatinum.Description = platinum.Description;
+
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+
+        }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var platinum = await _dbContext.Platiniums.FindAsync(id);
+
+            if (platinum == null)
+                return NotFound();
+
+            return View(platinum);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeletePlatinum(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var platinum = await _dbContext.Platiniums.FindAsync(id);
+
+            if (platinum == null)
+                return NotFound();
+
+            _dbContext.Platiniums.Remove(platinum);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
 
     }
 }
