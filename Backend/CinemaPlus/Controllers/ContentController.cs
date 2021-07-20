@@ -24,9 +24,10 @@ namespace CinemaPlus.Controllers
         private readonly IRepository<SocialMedia> _repositorySocialMedia;
         private readonly IRepository<News> _repositoryNews;
         private readonly IRepository<AboutUsHeadPart> _repositoryAboutUsHeadPart;
+        private readonly IRepository<AboutUsBottomPart> _repositoryAboutUsBottomPart;
         private readonly IMapper _mapper;
 
-        public ContentController(IRepository<DolbyAtmos> repositoryDolbyAtmos, IMapper mapper, IRepository<Platinium> repositoryPlatinium = null, IRepository<Service> repositoryService = null, IRepository<CinemaClub> repositoryCinemaClub = null, IRepository<Navbar> repositoryNavbar = null, IRepository<Footer> repositoryFooter = null, IRepository<SocialMedia> repositorySocialMedia = null, IRepository<News> repositoryNews = null, IRepository<AboutUsHeadPart> repositoryAboutUsHeadPart = null)
+        public ContentController(IRepository<DolbyAtmos> repositoryDolbyAtmos, IMapper mapper, IRepository<Platinium> repositoryPlatinium = null, IRepository<Service> repositoryService = null, IRepository<CinemaClub> repositoryCinemaClub = null, IRepository<Navbar> repositoryNavbar = null, IRepository<Footer> repositoryFooter = null, IRepository<SocialMedia> repositorySocialMedia = null, IRepository<News> repositoryNews = null, IRepository<AboutUsHeadPart> repositoryAboutUsHeadPart = null, IRepository<AboutUsBottomPart> repositoryAboutUsBottomPart = null)
         {
             _repositoryDolbyAtmos = repositoryDolbyAtmos;
             _mapper = mapper;
@@ -38,6 +39,7 @@ namespace CinemaPlus.Controllers
             _repositorySocialMedia = repositorySocialMedia;
             _repositoryNews = repositoryNews;
             _repositoryAboutUsHeadPart = repositoryAboutUsHeadPart;
+            _repositoryAboutUsBottomPart = repositoryAboutUsBottomPart;
         }
 
         [HttpGet("getContentWebsite/{laguageCode}")]
@@ -60,6 +62,7 @@ namespace CinemaPlus.Controllers
             var socialMedias = await _repositorySocialMedia.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
             var news = await _repositoryNews.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
             var aboutUsHeadParts = await _repositoryAboutUsHeadPart.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
+            var aboutUsBottomParts = await _repositoryAboutUsBottomPart.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
 
             var contentDto = new ContentDto
             {
@@ -71,7 +74,8 @@ namespace CinemaPlus.Controllers
                 FooterDto = _mapper.Map<List<FooterDto>>(footers),
                 SocialMediaDto = _mapper.Map<List<SocialMediaDto>>(socialMedias),
                 NewsDto = _mapper.Map<List<NewsDto>>(news),
-                AboutUsHeadPartDto = _mapper.Map<List<AboutUsHeadPartDto>>(aboutUsHeadParts)
+                AboutUsHeadPartDto = _mapper.Map<List<AboutUsHeadPartDto>>(aboutUsHeadParts),
+                AboutUsBottomPartDto = _mapper.Map<List<AboutUsBottomPartDto>>(aboutUsBottomParts)
             };
 
             return Ok(contentDto);

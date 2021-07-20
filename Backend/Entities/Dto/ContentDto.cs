@@ -15,5 +15,6 @@ namespace Entities.Dto
         public List<SocialMediaDto> SocialMediaDto { get; set; }
         public List<NewsDto> NewsDto { get; set; }
         public List<AboutUsHeadPartDto> AboutUsHeadPartDto { get; set; }
+        public List<AboutUsBottomPartDto> AboutUsBottomPartDto { get; set; }
     }
 }

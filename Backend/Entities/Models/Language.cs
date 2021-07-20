@@ -19,5 +19,6 @@ namespace Entities.Models
         public ICollection<SocialMedia> SocialMedias { get; set; }
         public ICollection<News> News { get; set; }
         public ICollection<AboutUsHeadPart> AboutUsHeadParts { get; set; }
+        public ICollection<AboutUsBottomPart> AboutUsBottomParts { get; set; }
     }
 }

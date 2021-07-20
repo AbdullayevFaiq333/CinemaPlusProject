@@ -22,5 +22,6 @@ namespace DataAccessLayer
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<AboutUsHeadPart> AboutUsHeadParts { get; set; }
+        public DbSet<AboutUsBottomPart> AboutUsBottomParts { get; set; }
     }
 }
