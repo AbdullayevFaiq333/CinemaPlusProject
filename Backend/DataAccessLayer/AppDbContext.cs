@@ -20,5 +20,6 @@ namespace DataAccessLayer
         public DbSet<Navbar> Navbars { get; set; }
         public DbSet<Footer> Footers { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
+        public DbSet<News> News { get; set; }
     }
 }
