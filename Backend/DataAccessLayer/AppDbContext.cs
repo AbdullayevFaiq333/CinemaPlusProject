@@ -21,5 +21,6 @@ namespace DataAccessLayer
         public DbSet<Footer> Footers { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<AboutUsHeadPart> AboutUsHeadParts { get; set; }
     }
 }
