@@ -1,1 +1,45 @@
-﻿
+﻿@model DolbyAtmos
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body bg-dark font-weight-bold text-white">
+                <h4 class="card-title text-white">Create Dolby Atmos in new language</h4>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">                   
+                    <div class="form-group">
+                        <label asp-for="FirstTitle">First Title</label>
+                        <input asp-for="FirstTitle" class="form-control" placeholder="FirstTitle">
+                        <span asp-validation-for="FirstTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstDescription">First Description</label>
+                        <textarea asp-for="FirstDescription" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="FirstDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="YoutubeURL">YoutubeURL</label>
+                        <input asp-for="YoutubeURL" class="form-control" placeholder="YoutubeURL">
+                        <span asp-validation-for="YoutubeURL" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SecondTitle">Second Title</label>
+                        <input asp-for="SecondTitle" class="form-control" placeholder="SecondTitle">
+                        <span asp-validation-for="SecondTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SecondDescription">Second Description</label>
+                        <textarea asp-for="SecondDescription" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="SecondDescription" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-2">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary">Go back</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

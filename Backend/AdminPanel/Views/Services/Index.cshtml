@@ -1,14 +1,14 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    List<DolbyAtmos> dolbyAtmos = Model;
+    List<Service> services = Model;
 }
 
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Dolby Atmos</h4>
+                <h4 class="card-title">Service</h4>
                 <a asp-action="Create" class="btn btn-primary">Create</a>
                 <div class="table-responsive">
                     <table class="table">
@@ -16,21 +16,21 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Actions</th>
-                             
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var dolby in dolbyAtmos)
+                            @foreach (var service in services)
                             {
                             <tr>
                                 <td>
-                                    @dolby.FirstTitle
+                                    @service.Title
                                 </td>
 
                                 <td>
-                                    <a asp-action="Detail" asp-route-id="@dolby.Id"><i class="las la-info text-blue font-34"></i></a>
-                                    <a asp-action="Update" asp-route-id="@dolby.Id"><i class="las la-pen text-classic font-34"></i></a>
-                                    <a asp-action="Delete" asp-route-id="@dolby.Id"><i class="las la-trash-alt text-danger font-34"></i></a>
+                                    <a asp-action="Detail" asp-route-id="@service.Id"><i class="las la-info text-blue font-34"></i></a>
+                                    <a asp-action="Update" asp-route-id="@service.Id"><i class="las la-pen text-classic font-34"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@service.Id"><i class="las la-trash-alt text-danger font-34"></i></a>
                                 </td>
                             </tr>
                             }

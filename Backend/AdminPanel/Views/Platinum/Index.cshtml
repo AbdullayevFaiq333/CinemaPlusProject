@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    List<Platinium> platinum = Model;
+}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Platinum</h4>
+                <a asp-action="Create" class="btn btn-primary">Create</a>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var platin in platinum)
+                            {
+                                <tr>
+                                    <td>
+                                        @platin.Title
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="Detail" asp-route-id="@platin.Id"><i class="las la-info text-blue font-34"></i></a>
+                                        <a asp-action="Update" asp-route-id="@platin.Id"><i class="las la-pen text-classic font-34"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@platin.Id"><i class="las la-trash-alt text-danger font-34"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

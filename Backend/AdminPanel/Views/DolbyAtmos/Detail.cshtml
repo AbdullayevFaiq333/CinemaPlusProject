@@ -1,7 +1,89 @@
 ﻿
 @{
     ViewData["Title"] = "Detail";
+    DolbyAtmos dolbyAtmos = Model;
 }
 
-<h1>Detail</h1>
 
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+
+            <h2 class="mt-0 header-title">Dolby Atmos Details</h2>
+
+           
+            <div class="table-responsive">
+                <table class="table table-dark mb-0">
+                    <thead>
+                        <tr>
+                            <th>FirstTitle & FirstDescription </th>
+                            <th>YoutubeUrl</th>
+                            <th>SecondTitle & SecondDescription </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            
+                            <td>
+                                <div  data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer">
+                                    @dolbyAtmos.FirstTitle
+
+                                </div>
+                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">First Description</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" style="background-color: midnightblue">
+
+                                                @dolbyAtmos.FirstDescription
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                @dolbyAtmos.YoutubeURL
+                            </td>
+                            
+                            <td>
+                                <div data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer">
+                                    @dolbyAtmos.SecondTitle
+
+                                </div>
+                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Second Description</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" style="background-color: midnightblue">
+
+                                                @dolbyAtmos.SecondDescription
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>  
+<div class="row">
+    <a asp-action="Index" class="btn btn-primary" style="margin-left: 20px">Go Back</a>
+</div>
