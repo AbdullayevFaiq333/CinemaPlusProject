@@ -41,6 +41,17 @@ namespace CinemaPlus
                 });
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
+
             services.AddScoped(typeof(IRepository<>), typeof(EfCoreRepository<>));
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
@@ -67,6 +78,8 @@ namespace CinemaPlus
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowOrigin");
 
             app.UseEndpoints(endpoints =>
             {

@@ -22,6 +22,7 @@ namespace CinemaPlus.AutoMapper
             CreateMap<News, NewsDto>().ReverseMap();
             CreateMap<AboutUsHeadPart, AboutUsHeadPartDto>().ReverseMap();
             CreateMap<AboutUsBottomPart, AboutUsBottomPartDto>().ReverseMap();
+            CreateMap<Language, LanguageDto>().ReverseMap();
         }
     }
 }

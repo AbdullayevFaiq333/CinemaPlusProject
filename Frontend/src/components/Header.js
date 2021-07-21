@@ -1,17 +1,22 @@
 import React,{useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { fetchContent } from '../actions';
+import { fetchContent,fetchLanguages } from '../actions';
 
 
 const Header = () => {
     const dispatch = useDispatch();
 
+    const {languages} = useSelector(state => state.languages);
     const {content,loading} = useSelector(state => state.content);
 
     useEffect(() => {
         dispatch(fetchContent());
+        dispatch(fetchLanguages());
     }, [dispatch])
 
+    const handleClickLanguage = (code) => {
+        dispatch(fetchContent(code));
+    }
 
     return (
         <div>
@@ -20,7 +25,7 @@ const Header = () => {
                 <div className="row">
                     <div className="col-md-5 px-0">
                         <div className="nav-logo">
-                            <img src="./images/logo.svg" className="mr-auto"/>
+                            <img src="./images/logo.svg" className="mr-auto" alt="" />
                         </div>
                        
                     </div>
@@ -30,15 +35,17 @@ const Header = () => {
                              <ul className="d-flex" >
                                  {content.navbarDto.map(navbarItem => {
                                      return (
-                                         <li>{navbarItem.Title}</li>
+                                         <li key={navbarItem.id}>{navbarItem.title}</li>
                                      )
                                  })}
 
                              </ul>
-                             <ul>
-                                 <li>az</li>
-                                 <li>ru</li>
-                                 <li>en</li>
+                             <ul className="languages">
+                                 {languages.map(language => {
+                                     return (
+                                        <li key={language.id} onClick={() => handleClickLanguage(language.code)}>{language.code}</li>
+                                     )
+                                 })}
                              </ul>
                              
                              </div>

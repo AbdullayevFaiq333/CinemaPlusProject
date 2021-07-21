@@ -16,9 +16,19 @@
     height: 55px;
     background-color:#00ACEC ;
 }
+.nav-right-up{
+    display: flex;
+    justify-content: space-between;
+    .languages{
+        display: flex;
+        li{
+            cursor: pointer;
+        }
+    }
+}
 ul{
     li{
-        padding-right: 15%;
+        padding-right: 20px;
         list-style: none;
         
     }
