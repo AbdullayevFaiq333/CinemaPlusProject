@@ -1,35 +1,248 @@
 
-
-.nav-logo{
-    background-color: #334E9E;
-    padding: 10px;
-    height: 110px;
-    img{
-        height: 90px;
-        padding-left: 45%;
+//navbar
+.navbar{
+    .nav-logo{
+        background-color: #334E9E;
+        padding: 10px;
+        height: 110px;
+        img{
+            height: 90px;
+            padding-left: 45%;
+        }
     }
-}
-.nav-right-up{
-    height: 55px;
-}
-.nav-right-down{
-    height: 55px;
-    background-color:#00ACEC ;
-}
-.nav-right-up{
-    display: flex;
-    justify-content: space-between;
-    .languages{
+    .nav-right-up{
+        height: 55px;
+    }
+    .nav-right-down{
+        height: 55px;
+        background-color:#00ACEC ;
+    }
+    .nav-right-up{
         display: flex;
+        justify-content: space-between;
+        .languages{
+            display: flex;
+            li{
+                cursor: pointer;
+            }
+        }
+    }
+    ul{
         li{
-            cursor: pointer;
+            padding-right: 20px;
+            list-style: none;
+            
+        }
+    }
+    
+}
+
+
+//platinum
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+}  
+.platinum-section{
+    
+     background-image: url("http://localhost:3000/images/platinum/platinum-background.png");
+    
+    background-size: cover;
+    
+    .title{
+        font-weight: 700;
+        left: 45%;
+        color: white;
+        text-align: center;
+        font-family: 'Gotham-Medium';
+        font-size: 30px;
+        margin-bottom: 16px;
+        padding: 5% 0;
+    }
+    .title-img{
+        display: block;
+        clear: both;
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 800;
+        font-family: 'Gotham-Medium';
+        color: #61ccee;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        padding-top: 3%;
+    }
+    
+    
+    p{
+        
+        color: white;
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        padding-bottom: 10%;
+        font-weight: 700;
+        
+    }
+    .center-text{
+        text-align: center;
+    }
+    
+}
+
+body {
+    .dolbyAtmos {
+        background-image: url("http://localhost:3000/images/dolby/guide_bg.jpg");
+        width: 100%;
+        padding: 30px 0;
+        min-height: 300px;
+        background-size: cover;
+        p {
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            margin: 0px !important;
+            font-weight: bold;
+            line-height: 1.2em;
+        }
+        h5 {
+            margin: 0px !important;
+        }
+        .dolbyAtmos-Logo {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 10%;
+        }
+        .dolbyFirstDescription {
+            margin-top: 20px;
+        }
+    }
+    // footer {
+    //     background-image: url(../image/footer/prices_bg.jpg);
+    //     background-size: cover;
+    //     padding: 10px 0 15px 0;
+    //     label {
+    //         font-weight: bold;
+    //         display: block;
+    //         color: #fff;
+    //         margin: 10px 0 18px 6px;
+    //     }
+    //     ul {
+    //         list-style: none;
+    //         width: 100%;
+    //         float: left;
+    //         padding-top: 10px;
+    //         li {
+    //             margin-bottom: 4px;
+    //             a {
+    //                 font-weight: normal;
+    //                 font-size: 14px;
+    //                 line-height: 19px;
+    //                 color: #fff;
+    //                 font-family: 14px, 'Gotham-Medium';
+    //             }
+    //         }
+    //     }
+    //     .row {
+    //         padding-bottom: 15px;
+    //         border-bottom: 1px solid #fff;
+    //     }
+    //     .all_rights {
+    //         a {
+    //             float: none;
+    //             padding-top: 10px;
+    //             display: inline-block;
+    //             color: #fff;
+    //             text-decoration: underline;
+    //         }
+    //         font-size: 14px;
+    //         line-height: 16px;
+    //         color: #fff;
+    //         padding-top: 24px;
+    //         margin-left: -15px;
+    //         margin-right: -15px;
+    //     }
+    //     .social {
+    //         text-align: center;
+    //         border-left: 1px solid #fff;
+    //         a {
+    //             width: 40px;
+    //             height: 40px;
+    //             border: 1px solid #fff;
+    //             display: inline-block;
+    //             margin-left: 5px;
+    //             margin-right: 5px;
+    //             margin-bottom: 10px;
+    //         }
+    //         .fb {
+    //             background: url(../image/footer/fb.png) no-repeat center;
+    //         }
+    //         .twitter {
+    //             background: url(../image/footer/twitter.png) no-repeat center;
+    //         }
+    //         .youtube {
+    //             background: url(../image/footer/youtube.png) no-repeat center;
+    //         }
+    //         .instagram {
+    //             background: url(../image/footer/instagram.png) no-repeat center;
+    //         }
+    //     }
+    //     p {
+    //         display: block;
+    //         color: #fff;
+    //         margin: 10px 0 18px 6px;
+    //     }
+    //     .applications {
+    //         .app {
+    //             display: inline-block;
+    //             margin: 0 10px 10px;
+    //             img {
+    //                 height: 43px;
+    //             }
+    //         }
+    //         text-align: center;
+    //         border-left: 1px solid #fff;
+    //     }
+    // }
+    // text-decoration: none;
+    // width: 100%;
+    // font-family: 14px 'Gotham-Medium';
+    // overflow-x: hidden;
+    // color: #fff;
+}
+
+// Footer Media Query Start
+@media only screen and (max-width: 1200px) {
+    .social {
+        a,
+        .fb,
+        .twitter,
+        .youtube,
+        .instagram {
+            width: 40px;
+            height: 40px;
         }
     }
 }
-ul{
-    li{
-        padding-right: 20px;
-        list-style: none;
-        
+
+@media only screen and (max-width: 1003px) {
+    .social {
+        a,
+        .fb,
+        .twitter,
+        .youtube,
+        .instagram {
+            width: 35px;
+            height: 35px;
+        }
+    }
+    .respons {
+        font-size: 11px;
     }
 }
+

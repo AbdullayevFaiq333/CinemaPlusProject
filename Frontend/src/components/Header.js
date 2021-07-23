@@ -19,13 +19,13 @@ const Header = () => {
     }
 
     return (
-        <div>
+        <div className="navbar">
             {loading ? <h1>loading</h1> : (
                 <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-5 px-0">
                         <div className="nav-logo">
-                            <img src="./images/logo.svg" className="mr-auto" alt="" />
+                            <img src="./images/navbar/logo.svg" className="mr-auto" alt="" />
                         </div>
                        
                     </div>
