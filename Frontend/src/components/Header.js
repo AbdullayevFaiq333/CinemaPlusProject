@@ -1,21 +1,21 @@
 import React,{useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { fetchContent,fetchLanguages } from '../actions';
+import { fetchContentNavbar,fetchLanguages } from '../actions';
 
 
 const Header = () => {
     const dispatch = useDispatch();
 
     const {languages} = useSelector(state => state.languages);
-    const {content,loading} = useSelector(state => state.content);
+    const {contentNavbar,loading} = useSelector(state => state.contentNavbar);
 
     useEffect(() => {
-        dispatch(fetchContent());
+        dispatch(fetchContentNavbar());
         dispatch(fetchLanguages());
     }, [dispatch])
 
     const handleClickLanguage = (code) => {
-        dispatch(fetchContent(code));
+        dispatch(fetchContentNavbar(code));
     }
 
     return (
@@ -33,7 +33,7 @@ const Header = () => {
                          <div className="row" >
                              <div className="nav-right-up">
                              <ul className="d-flex" >
-                                 {content.navbarDto.map(navbarItem => {
+                                 {contentNavbar.navbarDto.map(navbarItem => {
                                      return (
                                          <li key={navbarItem.id}>{navbarItem.title}</li>
                                      )

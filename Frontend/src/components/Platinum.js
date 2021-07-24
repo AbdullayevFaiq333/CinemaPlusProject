@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Platinum = () => {
-  const { content,loading } = useSelector((state) => state.content);
+  const { contentPlatinum,loading } = useSelector((state) => state.contentPlatinum);
   return (
     <div className="platinum-section">
       <div className="container">
@@ -13,7 +13,7 @@ const Platinum = () => {
           {
             loading ? <h1>Loading</h1> : (
                 <>
-                {content.platiniumDto.map((platinumItem) => {
+                {contentPlatinum.platiniumDto.map((platinumItem) => {
                   return (
                     <div key={platinumItem.id} className="col-md-6">
                       <div className="center-text">

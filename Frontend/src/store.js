@@ -1,11 +1,12 @@
 import { createStore, combineReducers, applyMiddleware} from "redux";
-import { fetchContentReducer,fetchLanguagesReducer } from "./reducers";
+import { fetchContentNavbarReducer,fetchLanguagesReducer,fetchContentPlatinumReducer } from "./reducers";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 
 const reducers = combineReducers({
-    content: fetchContentReducer,
+    contentNavbar: fetchContentNavbarReducer,
     languages: fetchLanguagesReducer,
+    contentPlatinum: fetchContentPlatinumReducer,
 })
 
 const store = createStore(reducers,composeWithDevTools(applyMiddleware(thunk)));

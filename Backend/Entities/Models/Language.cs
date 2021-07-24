@@ -20,5 +20,7 @@ namespace Entities.Models
         public ICollection<News> News { get; set; }
         public ICollection<AboutUsHeadPart> AboutUsHeadParts { get; set; }
         public ICollection<AboutUsBottomPart> AboutUsBottomParts { get; set; }
+        public ICollection<Rules> Rules { get; set; }
+        public ICollection<FAQ> FAQs { get; set; }
     }
 }

@@ -23,5 +23,9 @@ namespace DataAccessLayer
         public DbSet<News> News { get; set; }
         public DbSet<AboutUsHeadPart> AboutUsHeadParts { get; set; }
         public DbSet<AboutUsBottomPart> AboutUsBottomParts { get; set; }
+        public DbSet<Rules> Rules { get; set; }
+        public DbSet<FAQ> FAQs { get; set; }
+
+        
     }
 }

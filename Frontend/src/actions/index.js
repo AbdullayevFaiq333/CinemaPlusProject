@@ -1,4 +1,6 @@
-import { FETCH_CONTENT,FETCH_CONTENT_SUCCESS,FETCH_CONTENT_FAIL,FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
+import { FETCH_CONTENT_NAVBAR,FETCH_CONTENT_NAVBAR_SUCCESS,FETCH_CONTENT_NAVBAR_FAIL,
+         FETCH_CONTENT_PLATINUM,FETCH_CONTENT_PLATINUM_SUCCESS,FETCH_CONTENT_PLATINUM_FAIL,
+         FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
 import api from "../api"
 
 export const fetchLanguages = () => async (dispatch) => {
@@ -13,14 +15,27 @@ export const fetchLanguages = () => async (dispatch) => {
     }
 }
 
-export const fetchContent = (languageCode = "AZ") => async (dispatch) => {
-    dispatch({type: FETCH_CONTENT});
+export const fetchContentNavbar = (languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_NAVBAR});
 
     try {
-        const response = await api.get(`Content/getContentWebsite/${languageCode}`);
+        const response = await api.get(`Content/getContentWebsiteNavbar/${languageCode}`);
 
-        dispatch({type: FETCH_CONTENT_SUCCESS,payload: response.data});
+        dispatch({type: FETCH_CONTENT_NAVBAR_SUCCESS,payload: response.data});
     } catch (e) {
-        dispatch({type: FETCH_CONTENT_FAIL,payload: e.message ? e.message : e});
+        dispatch({type: FETCH_CONTENT_NAVBAR_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentPlatinum = (languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_PLATINUM});
+
+    try {
+        const response = await api.get(`Content/getContentWebsitePlatinum/${languageCode}`);
+
+        dispatch({type: FETCH_CONTENT_PLATINUM_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_PLATINUM_FAIL,payload: e.message ? e.message : e});
     }
 }
