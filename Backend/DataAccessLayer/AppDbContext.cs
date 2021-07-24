@@ -25,6 +25,7 @@ namespace DataAccessLayer
         public DbSet<AboutUsBottomPart> AboutUsBottomParts { get; set; }
         public DbSet<Rules> Rules { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
+        public DbSet<Advertisement> Advertisements { get; set; }
 
         
     }

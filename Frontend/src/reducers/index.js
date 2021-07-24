@@ -26,7 +26,7 @@ export const fetchLanguagesReducer = (state = {loading: true,languages: []},acti
     }
 }
 
-export const fetchContentNavbarReducer = (state = {loading: true,content : {}},action) => {
+export const fetchContentNavbarReducer = (state = {loading: true,content : []},action) => {
     switch (action.type) {
         case FETCH_CONTENT_NAVBAR:
             return {
@@ -51,7 +51,7 @@ export const fetchContentNavbarReducer = (state = {loading: true,content : {}},a
 }
 
 
-export const fetchContentPlatinumReducer = (state = {loading: true,content : {}},action) => {
+export const fetchContentPlatinumReducer = (state = {loading: true,content : []},action) => {
     switch (action.type) {
         case FETCH_CONTENT_PLATINUM:
             return {
