@@ -7,11 +7,12 @@ const Header = () => {
     const dispatch = useDispatch();
 
     const {languages} = useSelector(state => state.languages);
-    const {contentNavbar,loading} = useSelector(state => state.contentNavbar);
+    const {content ,loading} = useSelector(state => state.contentNavbar);
 
     useEffect(() => {
         dispatch(fetchContentNavbar());
         dispatch(fetchLanguages());
+        
     }, [dispatch])
 
     const handleClickLanguage = (code) => {
@@ -33,7 +34,7 @@ const Header = () => {
                          <div className="row" >
                              <div className="nav-right-up">
                              <ul className="d-flex" >
-                                 {contentNavbar.navbarDto.map(navbarItem => {
+                                 {content.navbarDto.map(navbarItem => {
                                      return (
                                          <li key={navbarItem.id}>{navbarItem.title}</li>
                                      )

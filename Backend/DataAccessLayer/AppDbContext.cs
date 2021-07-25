@@ -26,6 +26,7 @@ namespace DataAccessLayer
         public DbSet<Rules> Rules { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
+        public DbSet<SecondNavbar> SecondNavbars { get; set; }
 
         
     }

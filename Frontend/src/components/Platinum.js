@@ -1,8 +1,17 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React,{useEffect} from "react";
+import { useSelector,useDispatch } from "react-redux";
+import { fetchContentPlatinum } from '../actions';
 
 const Platinum = () => {
-  const { contentPlatinum,loading } = useSelector((state) => state.contentPlatinum);
+    const dispatch = useDispatch();
+
+    const { content,loading } = useSelector((state) => state.contentPlatinum);
+
+    useEffect(() => {
+        dispatch(fetchContentPlatinum());
+        
+    }, [dispatch])
+  
   return (
     <div className="platinum-section">
       <div className="container">
@@ -13,7 +22,7 @@ const Platinum = () => {
           {
             loading ? <h1>Loading</h1> : (
                 <>
-                {contentPlatinum.platiniumDto.map((platinumItem) => {
+                {content.platiniumDto.map((platinumItem) => {
                   return (
                     <div key={platinumItem.id} className="col-md-6">
                       <div className="center-text">

@@ -20,7 +20,6 @@ export const fetchContentNavbar = (languageCode = "AZ") => async (dispatch) => {
 
     try {
         const response = await api.get(`Content/getContentWebsiteNavbar/${languageCode}`);
-
         dispatch({type: FETCH_CONTENT_NAVBAR_SUCCESS,payload: response.data});
     } catch (e) {
         dispatch({type: FETCH_CONTENT_NAVBAR_FAIL,payload: e.message ? e.message : e});
