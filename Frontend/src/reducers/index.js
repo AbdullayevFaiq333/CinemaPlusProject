@@ -1,5 +1,6 @@
 import { FETCH_CONTENT_NAVBAR,FETCH_CONTENT_NAVBAR_SUCCESS,FETCH_CONTENT_NAVBAR_FAIL,
          FETCH_CONTENT_PLATINUM,FETCH_CONTENT_PLATINUM_SUCCESS,FETCH_CONTENT_PLATINUM_FAIL,
+         FETCH_CONTENT_DOLBYATMOS,FETCH_CONTENT_DOLBYATMOS_SUCCESS,FETCH_CONTENT_DOLBYATMOS_FAIL,
          FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
 
 export const fetchLanguagesReducer = (state = {loading: true,languages: []},action) => {
@@ -65,6 +66,31 @@ export const fetchContentPlatinumReducer = (state = {loading: true,content : []}
                 loading: false
             }
         case FETCH_CONTENT_PLATINUM_FAIL:
+            return {
+                ...state,
+                error : action.payload,
+                loading: false
+            }
+        default:
+            return state;
+    }
+}
+
+
+export const fetchContentDolbyAtmosReducer = (state = {loading: true,content : []},action) => {
+    switch (action.type) {
+        case FETCH_CONTENT_DOLBYATMOS:
+            return {
+                ...state,
+                loading: true
+            }
+        case FETCH_CONTENT_DOLBYATMOS_SUCCESS:
+            return {
+                ...state,
+                content : action.payload,
+                loading: false
+            }
+        case FETCH_CONTENT_DOLBYATMOS_FAIL:
             return {
                 ...state,
                 error : action.payload,

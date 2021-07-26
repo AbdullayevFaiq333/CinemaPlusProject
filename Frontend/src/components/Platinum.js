@@ -4,7 +4,8 @@ import { fetchContentPlatinum } from '../actions';
 
 const Platinum = () => {
     const dispatch = useDispatch();
-
+    
+    
     const { content,loading } = useSelector((state) => state.contentPlatinum);
 
     useEffect(() => {
@@ -22,7 +23,7 @@ const Platinum = () => {
           {
             loading ? <h1>Loading</h1> : (
                 <>
-                {content.platiniumDto.map((platinumItem) => {
+                {content.map((platinumItem) => {
                   return (
                     <div key={platinumItem.id} className="col-md-6">
                       <div className="center-text">

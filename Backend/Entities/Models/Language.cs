@@ -23,5 +23,6 @@ namespace Entities.Models
         public ICollection<Rules> Rules { get; set; }
         public ICollection<FAQ> FAQs { get; set; }
         public ICollection<SecondNavbar> SecondNavbars { get; set; }
+        public ICollection<Branch> Branches { get; set; }
     }
 }

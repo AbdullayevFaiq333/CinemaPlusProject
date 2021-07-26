@@ -27,6 +27,10 @@ namespace DataAccessLayer
         public DbSet<FAQ> FAQs { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<SecondNavbar> SecondNavbars { get; set; }
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<Photos> Photos { get; set; }
+        public DbSet<Tariff> Tariffs { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         
     }

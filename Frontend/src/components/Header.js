@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { fetchContentNavbar,fetchLanguages } from '../actions';
-
+import { fetchContentNavbar,fetchContentPlatinum,fetchContentDolbyAtmos,fetchLanguages } from '../actions';
+import {Link} from "react-router-dom";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -17,6 +17,8 @@ const Header = () => {
 
     const handleClickLanguage = (code) => {
         dispatch(fetchContentNavbar(code));
+        dispatch(fetchContentPlatinum(code));
+        dispatch(fetchContentDolbyAtmos(code));
     }
 
     return (
@@ -36,7 +38,9 @@ const Header = () => {
                              <ul className="d-flex" >
                                  {content.navbarDto.map(navbarItem => {
                                      return (
-                                         <li key={navbarItem.id}>{navbarItem.title}</li>
+                                         <li key={navbarItem.id}>
+                                            <Link to={`${navbarItem.url}`} > {navbarItem.title}</Link>
+                                        </li>
                                      )
                                  })}
 
