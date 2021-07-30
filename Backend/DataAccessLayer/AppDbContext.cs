@@ -31,6 +31,8 @@ namespace DataAccessLayer
         public DbSet<Photos> Photos { get; set; }
         public DbSet<Tariff> Tariffs { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<CampaignDetail> CampaignDetails { get; set; }
 
         
     }

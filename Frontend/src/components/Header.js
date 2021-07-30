@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { fetchContentNavbar,fetchContentPlatinum,fetchContentDolbyAtmos,fetchLanguages } from '../actions';
+import { fetchContentNavbar,fetchContentPlatinum,fetchContentDolbyAtmos,
+         fetchLanguages,fetchContentService } from '../actions';
 import {Link} from "react-router-dom";
 
 const Header = () => {
@@ -19,12 +20,13 @@ const Header = () => {
         dispatch(fetchContentNavbar(code));
         dispatch(fetchContentPlatinum(code));
         dispatch(fetchContentDolbyAtmos(code));
+        dispatch(fetchContentService(code));
     }
 
     return (
         <div className="navbar">
             {loading ? <h1>loading</h1> : (
-                <div className="container-fluid">
+                <div className="container-fluid d-block">
                 <div className="row">
                     <div className="col-md-5 px-0">
                         <div className="nav-logo">
@@ -35,7 +37,7 @@ const Header = () => {
                     <div className="col-md-7">
                          <div className="row" >
                              <div className="nav-right-up">
-                             <ul className="d-flex" >
+                             <ul className="static_menu d-flex" >
                                  {content.navbarDto.map(navbarItem => {
                                      return (
                                          <li key={navbarItem.id}>
@@ -56,10 +58,14 @@ const Header = () => {
                              </div>
                              <div className="nav-right-down">
                              <ul className="d-flex" >
-                                <li>asd</li>
-                                <li>das</li>
-                                <li>sad</li>
-                                <li>sad</li>
+                                 {content.secondNavbarDto.map(secondNavbarItem => {
+                                     return (
+                                         <li key={secondNavbarItem.id}>
+                                            <Link to={`${secondNavbarItem.url}`} > {secondNavbarItem.title}</Link>
+                                        </li>
+                                     )
+                                 })}
+
                              </ul>
                              </div>
                          </div>

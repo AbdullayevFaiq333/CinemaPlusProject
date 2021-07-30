@@ -16,7 +16,7 @@ namespace Entities.Models
         public ICollection<CinemaClub> CinemaClubs { get; set; }
         public ICollection<Navbar> Navbars { get; set; }
         public ICollection<Footer> Footers { get; set; }
-        public ICollection<SocialMedia> SocialMedias { get; set; }
+        
         public ICollection<News> News { get; set; }
         public ICollection<AboutUsHeadPart> AboutUsHeadParts { get; set; }
         public ICollection<AboutUsBottomPart> AboutUsBottomParts { get; set; }
@@ -24,5 +24,7 @@ namespace Entities.Models
         public ICollection<FAQ> FAQs { get; set; }
         public ICollection<SecondNavbar> SecondNavbars { get; set; }
         public ICollection<Branch> Branches { get; set; }
+        public ICollection<Campaign> Campaigns { get; set; }
+        public ICollection<CampaignDetail> CampaignDetails { get; set; }
     }
 }

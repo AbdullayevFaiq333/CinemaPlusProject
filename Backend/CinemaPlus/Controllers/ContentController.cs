@@ -167,31 +167,13 @@ namespace CinemaPlus.Controllers
 
             var footers = await _repositoryFooter.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
             var footerDto = _mapper.Map<List<FooterDto>>(footers);
-
+            
+            
 
             return Ok(footerDto);
         }
 
-
-        [HttpGet("getContentWebsiteSocialMedia/{laguageCode}")]
-
-        public async Task<IActionResult> GetContentSocialMedia([FromRoute] string laguageCode)
-        {
-            if (string.IsNullOrEmpty(laguageCode))
-                return BadRequest();
-            var includeProperties = new List<string>
-            {
-                nameof(Language)
-
-            };
-
-            var socialMedias = await _repositorySocialMedia.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
-            var socialMediaDto = _mapper.Map<List<SocialMediaDto>>(socialMedias);
-
-
-            return Ok(socialMediaDto);
-        }
-
+        
 
         [HttpGet("getContentWebsiteNews/{laguageCode}")]
 

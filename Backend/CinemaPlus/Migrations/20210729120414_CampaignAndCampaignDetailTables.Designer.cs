@@ -4,14 +4,16 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaPlus.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210729120414_CampaignAndCampaignDetailTables")]
+    partial class CampaignAndCampaignDetailTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -529,10 +531,15 @@ namespace CinemaPlus.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LanguageId");
 
                     b.ToTable("SocialMedias");
                 });
@@ -750,6 +757,17 @@ namespace CinemaPlus.Migrations
                     b.Navigation("Language");
                 });
 
+            modelBuilder.Entity("Entities.Models.SocialMedia", b =>
+                {
+                    b.HasOne("Entities.Models.Language", "Language")
+                        .WithMany("SocialMedias")
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+                });
+
             modelBuilder.Entity("Entities.Models.Tariff", b =>
                 {
                     b.HasOne("Entities.Models.Branch", "Branch")
@@ -804,6 +822,8 @@ namespace CinemaPlus.Migrations
                     b.Navigation("SecondNavbars");
 
                     b.Navigation("Services");
+
+                    b.Navigation("SocialMedias");
                 });
 
             modelBuilder.Entity("Entities.Models.Photos", b =>

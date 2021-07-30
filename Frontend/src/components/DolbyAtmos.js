@@ -12,9 +12,9 @@ const DolbyAtmos = () => {
   }, [dispatch]);
 
   return (
-    <div class="dolbyAtmos">
-      <div class="container">
-        <div class="row">
+    <div className="dolbyAtmos">
+      <div className="container">
+        <div className="row">
           {loading ? (
             <h1>Loading</h1>
           ) : (
@@ -22,21 +22,21 @@ const DolbyAtmos = () => {
               {content.map((dolbyAtmosItem) => {
                 return (
                   <div key={content.id}>
-                    <div class="col-md-12">
+                    <div className="col-md-12">
                       <img
                         src={`./images/${dolbyAtmosItem.logo}`}
                         alt="DolbyAtmos"
-                        class="dolbyAtmos-Logo"
+                        className="dolbyAtmos-Logo"
                       />
                     </div>
-                    <div class="col-md-12" >
+                    <div className="col-md-12" >
                       <p>
                         <h5>
                           <strong>{dolbyAtmosItem.firstTitle}</strong>
                         </h5>
                       </p>
                       <p>{dolbyAtmosItem.firstDescription}</p>
-                      <div class="dolbyFirstDescription">
+                      <div className="dolbyFirstDescription">
                         <iframe
                           width="560"
                           height="315"
