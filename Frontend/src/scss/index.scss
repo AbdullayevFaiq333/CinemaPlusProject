@@ -149,6 +149,73 @@ body {
       text-align: center;
     }
   }
+  .campaigns {
+    .campgHead {
+      text-align: center;
+      height: 46px;
+      .campgTitle {
+        background: #334e9e;
+        color: #fff;
+        border-radius: 5px 5px 0 0;
+        padding: 15px 20px 12px 20px;
+        font-size: 18px;
+        line-height: 21px;
+        display: inline-block;
+        text-decoration: none;
+      }
+    }
+    .campgBody {
+      border-top: 5px solid #334e9e;
+      .campgBlueLine {
+        padding: 25px 0;
+        background: #334e9e;
+        text-align: center;
+      }
+      .row {
+        margin-left: -15px;
+        margin-right: -15px;
+        padding: 30px 0;
+        .col-md-4 {
+          position: relative;
+          min-height: 1px;
+          padding-left: 15px;
+          padding-right: 15px;
+          p {
+            font-size: 16px;
+            line-height: 20px;
+            color: #334e9e;
+            height: 55px;
+            display: table-cell;
+            vertical-align: bottom;
+            padding-bottom: 10px;
+          }
+
+          .campgImg {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            img {
+              width: 100%;
+            }
+          }
+          .campgLabel {
+            display: inline-block;
+            background: #009cff;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 10px;
+            font-family: "Gotham-Medium";
+            color: #fff;
+            position: absolute;
+            left: 10px;
+            bottom: 237px;
+            z-index: 99;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
   .advertisement {
     background: no-repeat center center fixed;
     background-size: cover;
@@ -178,9 +245,79 @@ body {
       }
     }
   }
+  .rules {
+    .start {
+      padding-top: 50px;
+      overflow-x: hidden;
+      .rulesBody {
+        padding-top: 0;
+        border-top: none;
+        .rules-name {
+          font-family: "Gotham-Medium";
+          font-size: 16px;
+          color: #314ca0;
+          letter-spacing: 0px;
+          line-height: 22px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid #cccccc;
+          margin-bottom: 12px;
+          padding-top: 20px;
+        }
+        .rulesText {
+          font-family: "Gotham-Light";
+          font-size: 14px;
+          color: #000000;
+          letter-spacing: 0px;
+          line-height: 22px;
+          margin-bottom: 40px;
+          li {
+            padding: 10px;
+          }
+        }
+      }
+    }
+  }
+  .faqInformation {
+    padding-top: 50px;
+    overflow-x: hidden;
+    .faqHeader {
+      text-align: center;
+      height: 46px;
+      .active {
+        background: #334e9e;
+        color: #fff;
+        border-radius: 5px 5px 0 0;
+        padding: 15px 20px 12px 20px;
+        font-size: 18px;
+        line-height: 21px;
+        display: inline-block;
+        cursor: pointer;
+      }
+    }
+    .faqBody {
+      border-top: 5px solid #334e9e;
+      .faqRow {
+        margin-left: -15px;
+        margin-right: -15px;
+        .faqInfo {
+          padding: 30px 0;
+          font-weight: bold;
+          p {
+            color: #000000;
+          }
+          .bs-example {
+            margin: 20px;
+          }
+          .accordion .fa {
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
+  }
   .newsSection {
     padding: 0 !important;
-
+    
     .allNews {
       display: block;
       text-align: center;
@@ -224,9 +361,9 @@ body {
       line-height: 26px;
     }
     .newsImg {
-      width: 100%;
-      display: block;
-      margin-bottom: 15px;
+      img{
+        width: 80%;
+      }
     }
     padding-top: 50px;
     text-align: center;
@@ -254,6 +391,9 @@ body {
       background: #334e9e;
       padding: 30px 0 100px 0;
       border-top: 5px solid #334e9e;
+    }
+    .news-title{
+      text-align: center;
     }
   }
   .dolbyAtmos {
@@ -290,6 +430,94 @@ body {
       margin-top: 20px;
     }
   }
+  .cineClub {
+    position: relative;
+    min-height: 840px;
+    .container-fluid {
+      margin-right: auto;
+      margin-left: auto;
+      padding-left: 15px;
+      padding-right: 15px;
+      .allTabs {
+        padding-top: 50px;
+        overflow-x: hidden;
+        padding-top: 0;
+        border-top: none;
+        padding-bottom: 87px;
+        max-width: 1200px;
+        margin: 0 auto;
+        strong {
+          color: #000000;
+        }
+        .texts {
+          display: block;
+          margin-block-start: 1em;
+          margin-block-end: 1em;
+          margin-inline-start: 0px;
+          margin-inline-end: 0px;
+          font-family: "Gotham-Light";
+          font-size: 17px;
+          color: gray;
+          letter-spacing: 0px;
+          line-height: 22px;
+          margin-bottom: 40px;
+          ul,
+          ol {
+            li {
+              margin-bottom: 10px;
+            }
+          }
+        }
+        table {
+          display: table;
+          border-collapse: separate;
+          box-sizing: border-box;
+          text-indent: initial;
+          border-spacing: 2px;
+          border-color: grey;
+          border-spacing: 0;
+          width:100%;
+          tbody {
+            display: table-row-group;
+            vertical-align: middle;
+            border-color: inherit;
+            tr {
+              display: table-row;
+              vertical-align: inherit;
+              border-color: inherit;
+              td {
+                display: table-cell;
+                text-align: center; 
+                vertical-align: middle;
+              }
+            }
+          }
+        }
+        .cineNews {
+          font-family: "Gotham-Light";
+          font-size: 14px;
+          color: #000000;
+          letter-spacing: 0px;
+          line-height: 22px;
+          margin-bottom: 40px;
+        }
+        .bigImage {
+          margin-bottom: 20px;
+        }
+        .cineName {
+          font-family: "Gotham-Medium";
+          font-size: 16px;
+          color: #314ca0;
+          letter-spacing: 0px;
+          line-height: 22px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid #cccccc;
+          margin-bottom: 12px;
+          padding-top: 20px;
+        }
+      }
+    }
+  }
   .footer {
     background-image: url("http://localhost:3000/images/footer/prices_bg.jpg");
     background-size: cover;
@@ -310,7 +538,7 @@ body {
       padding-top: 10px;
       li {
         margin-bottom: 4px;
-        a {
+        .respons {
           text-decoration: none;
           font-weight: normal;
           font-size: 14px;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Entities.Models
 {
-    public class Footer:IEntity
+    public class SecondFooter:IEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }

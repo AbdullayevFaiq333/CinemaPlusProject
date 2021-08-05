@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Entities.Dto
 {
-    public class FooterDto
+    public class SecondFooterDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

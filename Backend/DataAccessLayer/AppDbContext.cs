@@ -33,6 +33,17 @@ namespace DataAccessLayer
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<CampaignDetail> CampaignDetails { get; set; }
+        public DbSet<SecondFooter> SecondFooters { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieDetail> MovieDetails { get; set; }
+        public DbSet<MovieFormat> MovieFormats { get; set; }
+        public DbSet<Format> Formats { get; set; }
+        public DbSet<Session> Sessions { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Hall> Halls { get; set; }
+        public DbSet<Row> Rows { get; set; }
+        public DbSet<Seat> Seats { get; set; }
+
 
         
     }

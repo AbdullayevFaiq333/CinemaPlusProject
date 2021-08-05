@@ -26,5 +26,10 @@ namespace Entities.Models
         public ICollection<Branch> Branches { get; set; }
         public ICollection<Campaign> Campaigns { get; set; }
         public ICollection<CampaignDetail> CampaignDetails { get; set; }
+        public ICollection<SecondFooter> SecondFooters { get; set; }
+        public ICollection<Movie> Movies { get; set; }
+        public ICollection<MovieDetail> MovieDetails { get; set; }
+        public ICollection<Format> Formats { get; set; }
+        public ICollection<Hall> Halls { get; set; }
     }
 }

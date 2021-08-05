@@ -5,6 +5,8 @@ import { FETCH_CONTENT_NAVBAR,FETCH_CONTENT_NAVBAR_SUCCESS,FETCH_CONTENT_NAVBAR_
          FETCH_CONTENT_FOOTER,FETCH_CONTENT_FOOTER_SUCCESS,FETCH_CONTENT_FOOTER_FAIL,
          FETCH_CONTENT_SOCIALMEDIA,FETCH_CONTENT_SOCIALMEDIA_SUCCESS,FETCH_CONTENT_SOCIALMEDIA_FAIL,
          FETCH_CONTENT_ADVERTISEMENT,FETCH_CONTENT_ADVERTISEMENT_SUCCESS,FETCH_CONTENT_ADVERTISEMENT_FAIL,
+         FETCH_CONTENT_SECONDFOOTER,FETCH_CONTENT_SECONDFOOTER_SUCCESS,FETCH_CONTENT_SECONDFOOTER_FAIL,
+         FETCH_CONTENT_NEWS,FETCH_CONTENT_NEWS_SUCCESS,FETCH_CONTENT_NEWS_FAIL,
          FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
 import api from "../api"
 
@@ -109,4 +111,29 @@ export const fetchContentAdvertisement = () => async (dispatch) => {
     }
 }
 
+
+export const fetchContentSecondFooter = (languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_SECONDFOOTER});
+
+    try {
+        const response = await api.get(`Content/getContentWebsiteSecondFooter/${languageCode}`);
+
+        dispatch({type: FETCH_CONTENT_SECONDFOOTER_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_SECONDFOOTER_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentNews = (languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_NEWS});
+
+    try {
+        const response = await api.get(`Content/getContentWebsiteNews/${languageCode}`);
+
+        dispatch({type: FETCH_CONTENT_NEWS_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_NEWS_FAIL,payload: e.message ? e.message : e});
+    }
+}
 

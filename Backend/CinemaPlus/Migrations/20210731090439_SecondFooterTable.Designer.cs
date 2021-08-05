@@ -4,14 +4,16 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaPlus.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210731090439_SecondFooterTable")]
+    partial class SecondFooterTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -327,49 +329,6 @@ namespace CinemaPlus.Migrations
                     b.ToTable("Footers");
                 });
 
-            modelBuilder.Entity("Entities.Models.Format", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("Formats");
-                });
-
-            modelBuilder.Entity("Entities.Models.Hall", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("Halls");
-                });
-
             modelBuilder.Entity("Entities.Models.Language", b =>
                 {
                     b.Property<int>("Id")
@@ -386,104 +345,6 @@ namespace CinemaPlus.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Languages");
-                });
-
-            modelBuilder.Entity("Entities.Models.Movie", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.ToTable("Movies");
-                });
-
-            modelBuilder.Entity("Entities.Models.MovieDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("About")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Actors")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Director")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Duration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Genre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Treyler")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MovieId")
-                        .IsUnique();
-
-                    b.ToTable("MovieDetails");
-                });
-
-            modelBuilder.Entity("Entities.Models.MovieFormat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FormatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FormatId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("MovieFormats");
                 });
 
             modelBuilder.Entity("Entities.Models.Navbar", b =>
@@ -585,26 +446,6 @@ namespace CinemaPlus.Migrations
                     b.ToTable("Platiniums");
                 });
 
-            modelBuilder.Entity("Entities.Models.Row", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("HallId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberRow")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HallId");
-
-                    b.ToTable("Rows");
-                });
-
             modelBuilder.Entity("Entities.Models.Rules", b =>
                 {
                     b.Property<int>("Id")
@@ -626,26 +467,6 @@ namespace CinemaPlus.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("Rules");
-                });
-
-            modelBuilder.Entity("Entities.Models.Seat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("RowId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SeatNumber")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RowId");
-
-                    b.ToTable("Seats");
                 });
 
             modelBuilder.Entity("Entities.Models.SecondFooter", b =>
@@ -723,39 +544,6 @@ namespace CinemaPlus.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("Entities.Models.Session", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("HallId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
-
-                    b.HasIndex("HallId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("Sessions");
-                });
-
             modelBuilder.Entity("Entities.Models.SocialMedia", b =>
                 {
                     b.Property<int>("Id")
@@ -796,26 +584,6 @@ namespace CinemaPlus.Migrations
                         .IsUnique();
 
                     b.ToTable("Tariffs");
-                });
-
-            modelBuilder.Entity("Entities.Models.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SessionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
-
-                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Entities.Models.AboutUsBottomPart", b =>
@@ -944,77 +712,6 @@ namespace CinemaPlus.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Entities.Models.Format", b =>
-                {
-                    b.HasOne("Entities.Models.Language", "Language")
-                        .WithMany("Formats")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("Entities.Models.Hall", b =>
-                {
-                    b.HasOne("Entities.Models.Language", "Language")
-                        .WithMany("Halls")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("Entities.Models.Movie", b =>
-                {
-                    b.HasOne("Entities.Models.Language", "Language")
-                        .WithMany("Movies")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("Entities.Models.MovieDetail", b =>
-                {
-                    b.HasOne("Entities.Models.Language", "Language")
-                        .WithMany("MovieDetails")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Movie", "Movie")
-                        .WithOne("MovieDetail")
-                        .HasForeignKey("Entities.Models.MovieDetail", "MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-
-                    b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("Entities.Models.MovieFormat", b =>
-                {
-                    b.HasOne("Entities.Models.Format", "Format")
-                        .WithMany("MovieFormats")
-                        .HasForeignKey("FormatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Movie", "Movie")
-                        .WithMany("MovieFormats")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Format");
-
-                    b.Navigation("Movie");
-                });
-
             modelBuilder.Entity("Entities.Models.Navbar", b =>
                 {
                     b.HasOne("Entities.Models.Language", "Language")
@@ -1048,17 +745,6 @@ namespace CinemaPlus.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Entities.Models.Row", b =>
-                {
-                    b.HasOne("Entities.Models.Hall", "Hall")
-                        .WithMany("Rows")
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hall");
-                });
-
             modelBuilder.Entity("Entities.Models.Rules", b =>
                 {
                     b.HasOne("Entities.Models.Language", "Language")
@@ -1068,17 +754,6 @@ namespace CinemaPlus.Migrations
                         .IsRequired();
 
                     b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("Entities.Models.Seat", b =>
-                {
-                    b.HasOne("Entities.Models.Row", "Row")
-                        .WithMany("Seats")
-                        .HasForeignKey("RowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Row");
                 });
 
             modelBuilder.Entity("Entities.Models.SecondFooter", b =>
@@ -1114,33 +789,6 @@ namespace CinemaPlus.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Entities.Models.Session", b =>
-                {
-                    b.HasOne("Entities.Models.Branch", "Branch")
-                        .WithMany("Sessions")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Hall", "Hall")
-                        .WithMany("Sessions")
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Movie", "Movie")
-                        .WithMany("Sessions")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Branch");
-
-                    b.Navigation("Hall");
-
-                    b.Navigation("Movie");
-                });
-
             modelBuilder.Entity("Entities.Models.Tariff", b =>
                 {
                     b.HasOne("Entities.Models.Branch", "Branch")
@@ -1152,22 +800,9 @@ namespace CinemaPlus.Migrations
                     b.Navigation("Branch");
                 });
 
-            modelBuilder.Entity("Entities.Models.Ticket", b =>
-                {
-                    b.HasOne("Entities.Models.Session", "Session")
-                        .WithMany("Tickets")
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Session");
-                });
-
             modelBuilder.Entity("Entities.Models.Branch", b =>
                 {
                     b.Navigation("Contact");
-
-                    b.Navigation("Sessions");
 
                     b.Navigation("Tariff");
                 });
@@ -1175,18 +810,6 @@ namespace CinemaPlus.Migrations
             modelBuilder.Entity("Entities.Models.Campaign", b =>
                 {
                     b.Navigation("CampaignDetail");
-                });
-
-            modelBuilder.Entity("Entities.Models.Format", b =>
-                {
-                    b.Navigation("MovieFormats");
-                });
-
-            modelBuilder.Entity("Entities.Models.Hall", b =>
-                {
-                    b.Navigation("Rows");
-
-                    b.Navigation("Sessions");
                 });
 
             modelBuilder.Entity("Entities.Models.Language", b =>
@@ -1209,14 +832,6 @@ namespace CinemaPlus.Migrations
 
                     b.Navigation("Footers");
 
-                    b.Navigation("Formats");
-
-                    b.Navigation("Halls");
-
-                    b.Navigation("MovieDetails");
-
-                    b.Navigation("Movies");
-
                     b.Navigation("Navbars");
 
                     b.Navigation("News");
@@ -1232,28 +847,9 @@ namespace CinemaPlus.Migrations
                     b.Navigation("Services");
                 });
 
-            modelBuilder.Entity("Entities.Models.Movie", b =>
-                {
-                    b.Navigation("MovieDetail");
-
-                    b.Navigation("MovieFormats");
-
-                    b.Navigation("Sessions");
-                });
-
             modelBuilder.Entity("Entities.Models.Photos", b =>
                 {
                     b.Navigation("Branches");
-                });
-
-            modelBuilder.Entity("Entities.Models.Row", b =>
-                {
-                    b.Navigation("Seats");
-                });
-
-            modelBuilder.Entity("Entities.Models.Session", b =>
-                {
-                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

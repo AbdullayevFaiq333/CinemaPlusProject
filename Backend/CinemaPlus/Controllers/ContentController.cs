@@ -28,9 +28,10 @@ namespace CinemaPlus.Controllers
         private readonly IRepository<Rules> _repositoryRules;
         private readonly IRepository<FAQ> _repositoryFAQ;
         private readonly IRepository<SecondNavbar> _repositorySecondNavbar;
+        private readonly IRepository<SecondFooter> _repositorySecondFooter;
         private readonly IMapper _mapper;
 
-        public ContentController(IRepository<DolbyAtmos> repositoryDolbyAtmos, IMapper mapper, IRepository<Platinium> repositoryPlatinium = null, IRepository<Service> repositoryService = null, IRepository<CinemaClub> repositoryCinemaClub = null, IRepository<Navbar> repositoryNavbar = null, IRepository<Footer> repositoryFooter = null, IRepository<SocialMedia> repositorySocialMedia = null, IRepository<News> repositoryNews = null, IRepository<AboutUsHeadPart> repositoryAboutUsHeadPart = null, IRepository<AboutUsBottomPart> repositoryAboutUsBottomPart = null, IRepository<Rules> repositoryRules = null, IRepository<FAQ> repositoryFAQ = null, IRepository<SecondNavbar> repositorySecondNavbar = null)
+        public ContentController(IRepository<DolbyAtmos> repositoryDolbyAtmos, IMapper mapper, IRepository<Platinium> repositoryPlatinium = null, IRepository<Service> repositoryService = null, IRepository<CinemaClub> repositoryCinemaClub = null, IRepository<Navbar> repositoryNavbar = null, IRepository<Footer> repositoryFooter = null, IRepository<SocialMedia> repositorySocialMedia = null, IRepository<News> repositoryNews = null, IRepository<AboutUsHeadPart> repositoryAboutUsHeadPart = null, IRepository<AboutUsBottomPart> repositoryAboutUsBottomPart = null, IRepository<Rules> repositoryRules = null, IRepository<FAQ> repositoryFAQ = null, IRepository<SecondNavbar> repositorySecondNavbar = null, IRepository<SecondFooter> repositorySecondFooter = null)
         {
             _repositoryDolbyAtmos = repositoryDolbyAtmos;
             _mapper = mapper;
@@ -46,6 +47,7 @@ namespace CinemaPlus.Controllers
             _repositoryRules = repositoryRules;
             _repositoryFAQ = repositoryFAQ;
             _repositorySecondNavbar = repositorySecondNavbar;
+            _repositorySecondFooter = repositorySecondFooter;
         }
 
         [HttpGet("getContentWebsiteDolbyAtmos/{laguageCode}")]
@@ -167,13 +169,29 @@ namespace CinemaPlus.Controllers
 
             var footers = await _repositoryFooter.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
             var footerDto = _mapper.Map<List<FooterDto>>(footers);
-            
-            
-
+             
             return Ok(footerDto);
         }
 
-        
+        [HttpGet("getContentWebsiteSecondFooter/{laguageCode}")]
+
+        public async Task<IActionResult> GetContentSecondFooter([FromRoute] string laguageCode)
+        {
+            if (string.IsNullOrEmpty(laguageCode))
+                return BadRequest();
+            var includeProperties = new List<string>
+            {
+                nameof(Language)
+
+            };
+
+            var secondFooters = await _repositorySecondFooter.GetAllAsync(x => x.Language.Code.ToLower() == laguageCode.ToLower(), includeProperties);
+            var secondFooterDto = _mapper.Map<List<SecondFooterDto>>(secondFooters);
+           
+            return Ok(secondFooterDto);
+        }
+
+
 
         [HttpGet("getContentWebsiteNews/{laguageCode}")]
 
@@ -212,11 +230,9 @@ namespace CinemaPlus.Controllers
 
             var contentAboutUsDto = new ContentAboutUsDto
             {
-                
                 AboutUsHeadPartDto = _mapper.Map<List<AboutUsHeadPartDto>>(aboutUsHeadParts),
                 AboutUsBottomPartDto = _mapper.Map<List<AboutUsBottomPartDto>>(aboutUsBottomParts)
             };
-
 
             return Ok(contentAboutUsDto);
         }

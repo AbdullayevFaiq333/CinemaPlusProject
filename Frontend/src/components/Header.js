@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { fetchContentNavbar,fetchContentPlatinum,fetchContentDolbyAtmos,
-         fetchLanguages,fetchContentService } from '../actions';
+         fetchLanguages,fetchContentService,fetchContentFooter,
+         fetchContentSecondFooter } from '../actions';
 import {Link} from "react-router-dom";
 
 const Header = () => {
@@ -21,6 +22,8 @@ const Header = () => {
         dispatch(fetchContentPlatinum(code));
         dispatch(fetchContentDolbyAtmos(code));
         dispatch(fetchContentService(code));
+        dispatch(fetchContentFooter(code));
+        dispatch(fetchContentSecondFooter(code));
     }
 
     return (

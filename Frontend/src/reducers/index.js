@@ -5,6 +5,8 @@ import { FETCH_CONTENT_NAVBAR,FETCH_CONTENT_NAVBAR_SUCCESS,FETCH_CONTENT_NAVBAR_
          FETCH_CONTENT_FOOTER,FETCH_CONTENT_FOOTER_SUCCESS,FETCH_CONTENT_FOOTER_FAIL,
          FETCH_CONTENT_SOCIALMEDIA,FETCH_CONTENT_SOCIALMEDIA_SUCCESS,FETCH_CONTENT_SOCIALMEDIA_FAIL,
          FETCH_CONTENT_ADVERTISEMENT,FETCH_CONTENT_ADVERTISEMENT_SUCCESS,FETCH_CONTENT_ADVERTISEMENT_FAIL,
+         FETCH_CONTENT_SECONDFOOTER,FETCH_CONTENT_SECONDFOOTER_SUCCESS,FETCH_CONTENT_SECONDFOOTER_FAIL,
+         FETCH_CONTENT_NEWS,FETCH_CONTENT_NEWS_SUCCESS,FETCH_CONTENT_NEWS_FAIL,
          FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
 
 export const fetchLanguagesReducer = (state = {loading: true,languages: []},action) => {
@@ -195,6 +197,56 @@ export const fetchContentAdvertisementReducer = (state = {loading: true,content 
                 loading: false
             }
         case FETCH_CONTENT_ADVERTISEMENT_FAIL:
+            return {
+                ...state,
+                error : action.payload,
+                loading: false
+            }
+        default:
+            return state;
+    }
+}
+
+
+export const fetchContentSecondFooterReducer = (state = {loading: true,secondFooter : []},action) => {
+    switch (action.type) {
+        case FETCH_CONTENT_SECONDFOOTER:
+            return {
+                ...state,
+                loading: true
+            }
+        case FETCH_CONTENT_SECONDFOOTER_SUCCESS:
+            return {
+                ...state,
+                secondFooter : action.payload,
+                loading: false
+            }
+        case FETCH_CONTENT_SECONDFOOTER_FAIL:
+            return {
+                ...state,
+                error : action.payload,
+                loading: false
+            }
+        default:
+            return state;
+    }
+}
+
+
+export const fetchContentNewsReducer = (state = {loading: true,content : []},action) => {
+    switch (action.type) {
+        case FETCH_CONTENT_NEWS:
+            return {
+                ...state,
+                loading: true
+            }
+        case FETCH_CONTENT_NEWS_SUCCESS:
+            return {
+                ...state,
+                content : action.payload,
+                loading: false
+            }
+        case FETCH_CONTENT_NEWS_FAIL:
             return {
                 ...state,
                 error : action.payload,

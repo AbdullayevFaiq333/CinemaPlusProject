@@ -3,47 +3,47 @@ import React from "react";
 const CinemaClub = () => {
   return (
     <div>
-      <div class="cineClub">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="allTabs">
-                <h1 class="cineName">CineClub</h1>
-                <div class="bigImage">
-                  <img src="image/cinemaClub/cc1.1200x450.png" alt="" />
+      <div className="cineClub">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="allTabs">
+                <h1 className="cineName">CineClub</h1>
+                <div className="bigImage">
+                  <img src="images/cinemaClub/cc1.1200x450.png" alt="" />
                 </div>
-                <div class="cineNews">
-                  <table cellpadding="0" cellspacing="0" style="width:100%;">
+                <div className="cineNews">
+                  <table cellpadding="0" cellspacing="0" >
                     <tbody>
                       <tr>
-                        <td style="width: 50%; text-align: center; vertical-align: middle;">
+                        <td>
                           <p>CineClub Kartı - Standart</p>
                         </td>
-                        <td style="text-align: center; vertical-align: middle;">
+                        <td >
                           <p>CineClub Kartı - Platinum</p>
                         </td>
                       </tr>
                       <tr>
-                        <td style="text-align: center; vertical-align: middle;">
+                        <td >
                           <img
-                            src="image/cinemaClub/cc2.402x0-is.png"
+                            src="images/cinemaClub/cc2.402x0-is.png"
                             alt="standart"
-                            class="align_center"
+                            className="align_center"
                             height="200"
                           />
                         </td>
-                        <td style="text-align: center; vertical-align: middle;">
+                        <td >
                           <img
-                            src="image/cinemaClub/cc3.402x0-is.png"
+                            src="images/cinemaClub/cc3.402x0-is.png"
                             alt="Platinum"
-                            class="align_center"
+                            className="align_center"
                             height="200"
                           />
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                  <div class="termins texts">
+                  <div className="termins texts">
                     <strong>İstifadə olunan terminlər</strong>
 
                     <ul>
@@ -80,7 +80,7 @@ const CinemaClub = () => {
                       </li>
                     </ul>
                   </div>
-                  <div class="conditions texts">
+                  <div className="conditions texts">
                     <strong>
                       "CineClub" BONUS-TOPLAMA PROQRAMININ ŞƏRTLƏRİ:
                     </strong>

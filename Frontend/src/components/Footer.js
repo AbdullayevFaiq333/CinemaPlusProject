@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchContentFooter, fetchContentSocialMedia } from "../actions";
+import { fetchContentFooter, fetchContentSocialMedia,fetchContentSecondFooter } from "../actions";
+import {Link} from "react-router-dom";
 
 const Footer = () => {
   const dispatch = useDispatch();
 
   const { content } = useSelector((state) => state.contentFooter);
   const { socialMedia } = useSelector((state) => state.socialMedia);
+  const { secondFooter } = useSelector((state) => state.contentSecondFooter);
 
   useEffect(() => {
     dispatch(fetchContentFooter());
     dispatch(fetchContentSocialMedia());
+    dispatch(fetchContentSecondFooter());
   }, [dispatch]);
 
   return (
@@ -22,9 +25,9 @@ const Footer = () => {
               {content.map((footerItem) => {
                 return (
                   <li key={footerItem.id}>
-                    <a href="#" className="respons">
+                    <Link to={`${footerItem.url}`} className="respons">
                       {footerItem.title}
-                    </a>
+                    </Link>
                   </li>
                 );
               })}
@@ -32,21 +35,15 @@ const Footer = () => {
           </div>
           <div className="col-md-2 for-height">
             <ul>
-              <li>
-                <a href="#" className="respons">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" className="respons">
-                  Vakansiyalar
-                </a>
-              </li>
-              <li>
-                <a href="#" className="respons">
-                  Əlaqə
-                </a>
-              </li>
+            {secondFooter.map((secondFooterItem) => {
+                return (
+                  <li key={secondFooterItem.id}>
+                    <Link to={`${secondFooterItem.url}`} className="respons">
+                      {secondFooterItem.title}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="col-md-4 social for-height">
