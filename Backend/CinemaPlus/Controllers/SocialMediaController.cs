@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DataAccessLayer.Interfaces;
+using Buisness.Abstract;
 using Entities.Dto;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
@@ -15,19 +15,20 @@ namespace CinemaPlus.Controllers
     [ApiController]
     public class SocialMediaController : ControllerBase
     {
-        private readonly IRepository<SocialMedia> _repository;
+        private readonly ISocialMediaService _socialMediaService;
         private readonly IMapper _mapper;
 
-        public SocialMediaController(IRepository<SocialMedia> repository, IMapper mapper)
+        public SocialMediaController(IMapper mapper, ISocialMediaService socialMediaService)
         {
-            _repository = repository;
+
             _mapper = mapper;
+            _socialMediaService = socialMediaService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var socialMedias = await _repository.GetAllAsync();
+            var socialMedias = await _socialMediaService.GetAllSocialMediaAsync();
             var socialMediasDto = _mapper.Map<List<SocialMediaDto>>(socialMedias);
 
             return Ok(socialMediasDto);

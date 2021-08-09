@@ -9,6 +9,7 @@ import CinemaClub from "./components/CinemaClub";
 import FAQ from "./components/FAQ";
 import Rules from "./components/Rules";
 
+
 import {Route,Switch} from "react-router-dom";
 import { Suspense } from "react";
 import "slick-carousel/slick/slick.css"; 

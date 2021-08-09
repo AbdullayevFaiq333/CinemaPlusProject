@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DataAccessLayer.Interfaces;
+using Buisness.Abstract;
 using Entities.Dto;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
@@ -15,20 +15,21 @@ namespace CinemaPlus.Controllers
     [ApiController]
     public class LanguageController : ControllerBase
     {
-        private readonly IRepository<Language> _repository;
+        private readonly ILanguageService _languageService;
         private readonly IMapper _mapper;
 
-        public LanguageController(IRepository<Language> repository, IMapper mapper)
+        public LanguageController(IMapper mapper, ILanguageService languageService)
         {
-            _repository = repository;
+
             _mapper = mapper;
+            _languageService = languageService;
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var languages = await _repository.GetAllAsync();
+            var languages = await _languageService.GetAllLanguageAsync();
             var languagesDto = _mapper.Map<List<LanguageDto>>(languages);
 
             return Ok(languagesDto);

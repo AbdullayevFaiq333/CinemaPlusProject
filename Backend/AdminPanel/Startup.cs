@@ -1,4 +1,5 @@
-using DataAccessLayer;
+using DataAccess.Concret;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
