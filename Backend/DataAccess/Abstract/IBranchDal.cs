@@ -9,6 +9,6 @@ namespace DataAccess.Abstract
 {
     public interface IBranchDal : IRepository<Branch>
     {
-        Task<List<Branch>> GetBranchAsync(string languageCode,int id);
+        Task<List<Branch>> GetBranchAsync(string languageCode);
     }
 }

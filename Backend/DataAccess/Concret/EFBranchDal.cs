@@ -12,13 +12,12 @@ namespace DataAccess.Concret
 {
     public class EFBranchDal : EFRepositoryBase<Branch, AppDbContext>, IBranchDal
     {
-        public async Task<List<Branch>> GetBranchAsync(string languageCode,int id)
+        public async Task<List<Branch>> GetBranchAsync(string languageCode)
         {
             await using var context = new AppDbContext();
             return await context.Branches.Include(x => x.Language)
-                .Where(x => x.Language.Code == languageCode).Include(x => x.Photos)
-                .Where(x => x.Photos.Id == id).Include(x=>x.Tariff).Where(x=>x.Tariff.Id==id)
-                .Include(x=>x.Contact).Where(x=>x.Contact.Id==id)
+                .Include(x => x.Photos).Include(x=>x.Tariff).Include(x=>x.Contact)
+                .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }
     }

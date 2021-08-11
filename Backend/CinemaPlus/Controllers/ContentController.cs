@@ -93,11 +93,11 @@ namespace CinemaPlus.Controllers
 
         [HttpGet("getContentWebsiteBranch/{laguageCode}")]
 
-        public async Task<IActionResult> GetContentBranch([FromRoute] string laguageCode,int id)
+        public async Task<IActionResult> GetContentBranch([FromRoute] string laguageCode)
         {
             if (string.IsNullOrEmpty(laguageCode))
                 return BadRequest();
-            var branches = await _branchService.GetAllBranchAsync(laguageCode,id);
+            var branches = await _branchService.GetAllBranchAsync(laguageCode);
             if (branches == null)
                 return NotFound();
 
