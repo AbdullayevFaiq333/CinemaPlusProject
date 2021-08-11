@@ -10,6 +10,7 @@ namespace Buisness.Abstract
     {
         Task<DolbyAtmos> GetDolbyAtmosWithIdAsync(int id);
         Task<List<DolbyAtmos>> GetAllDolbyAtmosAsync();
+        Task<List<DolbyAtmos>> GetAllDolbyAtmosAsync(string languageCode);
         Task<bool> AddDolbyAtmosAsync(DolbyAtmos dolbyAtmos);
         Task<bool> UpdateDolbyAtmosAsync(DolbyAtmos dolbyAtmos);
         Task<bool> DeleteDolbyAtmosAsync(int id);

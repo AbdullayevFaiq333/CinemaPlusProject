@@ -42,6 +42,9 @@ namespace Buisness.Concret
             throw new NotImplementedException();
         }
 
-        
+        public async Task<List<DolbyAtmos>> GetAllDolbyAtmosAsync(string languageCode)
+        {
+            return await _dolbyAtmosDal.GetDolbyAtmosAsync(languageCode);
+        }
     }
 }

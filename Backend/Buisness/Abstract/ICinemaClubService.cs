@@ -10,6 +10,7 @@ namespace Buisness.Abstract
     {
         Task<CinemaClub> GetCinemaClubWithIdAsync(int id);
         Task<List<CinemaClub>> GetAllCinemaClubAsync();
+        Task<List<CinemaClub>> GetAllCinemaClubAsync(string languageCode);
         Task<bool> AddCinemaClubAsync(CinemaClub cinemaClub);
         Task<bool> UpdateCinemaClubAsync(CinemaClub cinemaClub);
         Task<bool> DeleteCinemaClubAsync(int id);

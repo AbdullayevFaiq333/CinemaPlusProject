@@ -40,5 +40,11 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Platinium>> GetAllPlatiniumAsync(string languageCode)
+        {
+            return await _platiniumDal.GetPlatiniumAsync(languageCode);
+
+        }
     }
 }

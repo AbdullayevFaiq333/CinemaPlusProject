@@ -42,5 +42,10 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Branch>> GetAllBranchAsync(string languageCode,int id)
+        {
+            return await _branchDal.GetBranchAsync(languageCode,id);
+        }
     }
 }

@@ -40,5 +40,10 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Hall>> GetAllHallAsync(string languageCode)
+        {
+            return await _hallDal.GetHallAsync(languageCode);
+        }
     }
 }

@@ -40,5 +40,11 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Rules>> GetAllRulesAsync(string languageCode)
+        {
+            return await _rulesDal.GetRulesAsync(languageCode);
+
+        }
     }
 }

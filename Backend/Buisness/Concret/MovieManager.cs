@@ -40,5 +40,11 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Movie>> GetAllMovieAsync(string languageCode)
+        {
+            return await _movieDal.GetMovieAsync(languageCode);
+
+        }
     }
 }

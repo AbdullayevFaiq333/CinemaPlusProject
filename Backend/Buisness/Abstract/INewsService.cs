@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<News> GetNewsWithIdAsync(int id);
         Task<List<News>> GetAllNewsAsync();
+        Task<List<News>> GetAllNewsAsync(string languageCode);
+
         Task<bool> AddNewsAsync(News news);
         Task<bool> UpdateNewsAsync(News news);
         Task<bool> DeleteNewsAsync(int id);

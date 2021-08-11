@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<Format> GetFormatWithIdAsync(int id);
         Task<List<Format>> GetAllFormatAsync();
+        Task<List<Format>> GetAllFormatAsync(string languageCode);
+
         Task<bool> AddFormatAsync(Format format);
         Task<bool> UpdateFormatAsync(Format format);
         Task<bool> DeleteFormatAsync(int id);

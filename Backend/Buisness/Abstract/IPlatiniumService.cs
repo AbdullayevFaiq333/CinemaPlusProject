@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<Platinium> GetPlatiniumWithIdAsync(int id);
         Task<List<Platinium>> GetAllPlatiniumAsync();
+        Task<List<Platinium>> GetAllPlatiniumAsync(string languageCode);
+
         Task<bool> AddPlatiniumAsync(Platinium platinium);
         Task<bool> UpdatePlatiniumAsync(Platinium platinium);
         Task<bool> DeletePlatiniumAsync(int id);

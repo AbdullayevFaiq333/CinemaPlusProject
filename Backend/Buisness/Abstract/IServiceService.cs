@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<Service> GetServiceWithIdAsync(int id);
         Task<List<Service>> GetAllServiceAsync();
+        Task<List<Service>> GetAllServiceAsync(string languageCode);
+
         Task<bool> AddServiceAsync(Service service);
         Task<bool> UpdateServiceAsync(Service service);
         Task<bool> DeleteServiceAsync(int id);

@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<SecondNavbar> GetSecondNavbarWithIdAsync(int id);
         Task<List<SecondNavbar>> GetAllSecondNavbarAsync();
+        Task<List<SecondNavbar>> GetAllSecondNavbarAsync(string languageCode);
+
         Task<bool> AddSecondNavbarAsync(SecondNavbar secondNavbar);
         Task<bool> UpdateSecondNavbarAsync(SecondNavbar secondNavbar);
         Task<bool> DeleteSecondNavbarAsync(int id);

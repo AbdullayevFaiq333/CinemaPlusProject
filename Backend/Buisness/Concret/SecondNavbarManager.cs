@@ -40,5 +40,11 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<SecondNavbar>> GetAllSecondNavbarAsync(string languageCode)
+        {
+            return await _secondNavbarDal.GetSecondNavbarAsync(languageCode);
+
+        }
     }
 }

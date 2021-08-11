@@ -10,6 +10,7 @@ namespace Buisness.Abstract
     {
         Task<Branch> GetBranchWithIdAsync(int id);
         Task<List<Branch>> GetAllBranchAsync();
+        Task<List<Branch>> GetAllBranchAsync(string languageCode,int id);
         Task<bool> AddBranchAsync(Branch branch);
         Task<bool> UpdateBranchAsync(Branch branch);
         Task<bool> DeleteBranchAsync(int id);

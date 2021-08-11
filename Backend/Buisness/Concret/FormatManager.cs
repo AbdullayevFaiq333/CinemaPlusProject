@@ -40,5 +40,11 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Format>> GetAllFormatAsync(string languageCode)
+        {
+            return await _formatDal.GetFormatAsync(languageCode);
+
+        }
     }
 }

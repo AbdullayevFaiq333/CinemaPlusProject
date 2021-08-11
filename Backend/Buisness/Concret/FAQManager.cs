@@ -40,5 +40,10 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<FAQ>> GetAllFAQAsync(string languageCode)
+        {
+            return await _fAQDal.GetFAQAsync(languageCode);
+        }
     }
 }

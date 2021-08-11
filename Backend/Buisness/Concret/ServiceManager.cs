@@ -40,5 +40,11 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Service>> GetAllServiceAsync(string languageCode)
+        {
+            return await _serviceDal.GetServiceAsync(languageCode);
+
+        }
     }
 }

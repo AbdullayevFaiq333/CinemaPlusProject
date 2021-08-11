@@ -40,5 +40,11 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Session>> GetAllServiceAsync()
+        {
+            return await _sessionDal.GetSessionAsync();
+
+        }
     }
 }

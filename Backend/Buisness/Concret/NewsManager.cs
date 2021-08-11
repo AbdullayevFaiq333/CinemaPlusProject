@@ -40,5 +40,11 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<News>> GetAllNewsAsync(string languageCode)
+        {
+            return await _newsDal.GetNewsAsync(languageCode);
+
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<Rules> GetRulesWithIdAsync(int id);
         Task<List<Rules>> GetAllRulesAsync();
+        Task<List<Rules>> GetAllRulesAsync(string languageCode);
+
         Task<bool> AddRulesAsync(Rules rules);
         Task<bool> UpdateRulesAsync(Rules rules);
         Task<bool> DeleteRulesAsync(int id);

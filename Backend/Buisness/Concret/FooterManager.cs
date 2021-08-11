@@ -40,5 +40,10 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Footer>> GetAllFooterAsync(string languageCode)
+        {
+            return await _footerDal.GetFooterAsync(languageCode);
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<Navbar> GetNavbarWithIdAsync(int id);
         Task<List<Navbar>> GetAllNavbarAsync();
+        Task<List<Navbar>> GetAllNavbarAsync(string languageCode);
+
         Task<bool> AddNavbarAsync(Navbar navbar);
         Task<bool> UpdateNavbarAsync(Navbar navbar);
         Task<bool> DeleteNavbarAsync(int id);

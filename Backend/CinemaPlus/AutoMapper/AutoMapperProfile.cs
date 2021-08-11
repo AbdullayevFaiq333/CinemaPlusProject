@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entities.Dto;
 using Entities.Models;
+using Entity.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,20 @@ namespace CinemaPlus.AutoMapper
             CreateMap<Advertisement, AdvertisementDto>().ReverseMap();
             CreateMap<SecondNavbar, SecondNavbarDto>().ReverseMap();
             CreateMap<SecondFooter, SecondFooterDto>().ReverseMap();
+            CreateMap<Branch, BranchDto>().ReverseMap();
+            CreateMap<Campaign, CampaignDto>().ReverseMap();
+            CreateMap<CampaignDetail, CampaignDetailDto>().ReverseMap();
+            CreateMap<Contact, ContactDto>().ReverseMap();
+            CreateMap<Format, FormatDto>().ReverseMap();
+            CreateMap<Hall, HallDto>().ReverseMap();
+            CreateMap<Movie, MovieDto>().ReverseMap();
+            CreateMap<MovieDetail, MovieDetailDto>().ReverseMap();
+            CreateMap<Photos, PhotosDto>().ReverseMap();
+            CreateMap<Row, RowDto>().ReverseMap();
+            CreateMap<Seat, SeatDto>().ReverseMap();
+            CreateMap<Session, SessionDto>().ReverseMap();
+            CreateMap<Tariff, TariffDto>().ReverseMap();
+            CreateMap<Ticket, TicketDto>().ReverseMap();
         }
     }
 }

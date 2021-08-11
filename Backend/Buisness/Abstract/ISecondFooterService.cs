@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<SecondFooter> GetSecondFooterWithIdAsync(int id);
         Task<List<SecondFooter>> GetAllSecondFooterAsync();
+        Task<List<SecondFooter>> GetAllSecondFooterAsync(string languageCode);
+
         Task<bool> AddSecondFooterAsync(SecondFooter secondFooter);
         Task<bool> UpdateSecondFooterAsync(SecondFooter secondFooter);
         Task<bool> DeleteSecondFooterAsync(int id);

@@ -42,5 +42,10 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Campaign>> GetAllCampaignAsync(string languageCode)
+        {
+            return await _campaignDal.GetCampaignAsync(languageCode);
+        }
     }
 }

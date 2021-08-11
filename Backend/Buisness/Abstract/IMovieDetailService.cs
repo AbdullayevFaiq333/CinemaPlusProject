@@ -10,6 +10,8 @@ namespace Buisness.Abstract
     {
         Task<MovieDetail> GetMovieDetailWithIdAsync(int id);
         Task<List<MovieDetail>> GetAllMovieDetailAsync();
+        Task<MovieDetail> GetAllMovieDetailAsync(string languageCode,int id);
+
         Task<bool> AddMovieDetailAsync(MovieDetail movieDetail);
         Task<bool> UpdateMovieDetailAsync(MovieDetail movieDetail);
         Task<bool> DeleteMovieDetailAsync(int id);

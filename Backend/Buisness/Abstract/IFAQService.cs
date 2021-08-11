@@ -10,6 +10,7 @@ namespace Buisness.Abstract
     {
         Task<FAQ> GetFAQWithIdAsync(int id);
         Task<List<FAQ>> GetAllFAQAsync();
+        Task<List<FAQ>> GetAllFAQAsync(string languageCode);
         Task<bool> AddFAQAsync(FAQ fAQ);
         Task<bool> UpdateFAQAsync(FAQ fAQ);
         Task<bool> DeleteFAQAsync(int id);

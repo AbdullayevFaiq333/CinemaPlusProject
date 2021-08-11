@@ -41,5 +41,10 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<CinemaClub>> GetAllCinemaClubAsync(string languageCode)
+        {
+            return await _cinemaClubDal.GetCinemaClubAsync(languageCode);
+        }
     }
 }

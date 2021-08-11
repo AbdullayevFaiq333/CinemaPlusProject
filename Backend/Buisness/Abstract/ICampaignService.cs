@@ -10,6 +10,7 @@ namespace Buisness.Abstract
     {
         Task<Campaign> GetCampaignWithIdAsync(int id);
         Task<List<Campaign>> GetAllCampaignAsync();
+        Task<List<Campaign>> GetAllCampaignAsync(string languageCode);
         Task<bool> AddCampaignAsync(Campaign campaign);
         Task<bool> UpdateCampaignAsync(Campaign campaign);
         Task<bool> DeleteCampaignAsync(int id);
