@@ -2,7 +2,8 @@ import { createStore, combineReducers, applyMiddleware} from "redux";
 import { fetchContentNavbarReducer,fetchLanguagesReducer,fetchContentPlatinumReducer,
          fetchContentDolbyAtmosReducer,fetchContentServiceReducer,fetchContentFooterReducer,
          fetchContentSocialMediaReducer,fetchContentAdvertisementReducer,fetchContentSecondFooterReducer,
-         fetchContentFAQReducer,
+         fetchContentFAQReducer,fetchContentCampaignsReducer,fetchContentCampaignDetailReducer,
+         fetchContentContactReducer,fetchContentMovieReducer,fetchContentMovieDetailReducer,
          fetchContentNewsReducer } from "./reducers";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
@@ -19,6 +20,12 @@ const reducers = combineReducers({
     contentSecondFooter:fetchContentSecondFooterReducer,
     contentNews:fetchContentNewsReducer,
     contentFAQ:fetchContentFAQReducer,
+    contentCampaigns:fetchContentCampaignsReducer,
+    contentCampaignDetail:fetchContentCampaignDetailReducer,
+    contact:fetchContentContactReducer,
+    contentMovie:fetchContentMovieReducer,
+    contentMovieDetail:fetchContentMovieDetailReducer,
+
 })
 
 const store = createStore(reducers,composeWithDevTools(applyMiddleware(thunk)));

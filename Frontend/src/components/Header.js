@@ -2,7 +2,9 @@ import React,{useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { fetchContentNavbar,fetchContentPlatinum,fetchContentDolbyAtmos,
          fetchLanguages,fetchContentService,fetchContentFooter,
-         fetchContentSecondFooter } from '../actions';
+         fetchContentSecondFooter,fetchContentNews,fetchContentFAQ,
+         fetchContentCampaigns,fetchContentCampaignDetail,fetchContentMovie,
+         fetchContentMovieDetail } from '../actions';
 import {Link} from "react-router-dom";
 
 const Header = () => {
@@ -24,6 +26,12 @@ const Header = () => {
         dispatch(fetchContentService(code));
         dispatch(fetchContentFooter(code));
         dispatch(fetchContentSecondFooter(code));
+        dispatch(fetchContentNews(code));
+        dispatch(fetchContentFAQ(code));
+        dispatch(fetchContentCampaigns(code));
+        dispatch(fetchContentCampaignDetail(code));
+        dispatch(fetchContentMovie(code));
+        dispatch(fetchContentMovieDetail(code));
     }
 
     return (
@@ -33,7 +41,7 @@ const Header = () => {
                 <div className="row">
                     <div className="col-md-5 px-0">
                         <div className="nav-logo">
-                            <img src="./images/navbar/logo.svg" className="mr-auto" alt="" />
+                            <img src="http://localhost:3000/images/navbar/logo.svg" className="mr-auto" alt="" />
                         </div>
                        
                     </div>
@@ -56,6 +64,9 @@ const Header = () => {
                                         <li key={language.id} onClick={() => handleClickLanguage(language.code)}>{language.code}</li>
                                      )
                                  })}
+                                 <img src="http://localhost:3000/images/navbar/ios.svg" />
+                                 <img src="http://localhost:3000/images/navbar/android.svg" />
+                                 
                              </ul>
                              
                              </div>
@@ -68,8 +79,9 @@ const Header = () => {
                                         </li>
                                      )
                                  })}
-
+                                <div className="phone"><i class="fas fa-phone-alt"></i>+99412 499 89 88</div>
                              </ul>
+                             
                              </div>
                          </div>
                     </div>

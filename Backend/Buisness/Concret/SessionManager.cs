@@ -23,7 +23,7 @@ namespace Buisness.Concret
 
         public async Task<List<Session>> GetAllSessionAsync()
         {
-            return await _sessionDal.GetAllAsync();
+            return await _sessionDal.GetSessionAsync();
         }
 
         public Task<bool> AddSessionAsync(Session session)
@@ -41,10 +41,6 @@ namespace Buisness.Concret
             throw new NotImplementedException();
         }
 
-        public async Task<List<Session>> GetAllServiceAsync()
-        {
-            return await _sessionDal.GetSessionAsync();
-
-        }
+        
     }
 }

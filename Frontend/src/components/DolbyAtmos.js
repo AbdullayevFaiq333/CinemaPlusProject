@@ -5,7 +5,7 @@ import { fetchContentDolbyAtmos } from "../actions";
 const DolbyAtmos = () => {
   const dispatch = useDispatch();
 
-  const { content, loading } = useSelector((state) => state.contentDolbyAtmos);
+  const { content } = useSelector((state) => state.contentDolbyAtmos);
 
   useEffect(() => {
     dispatch(fetchContentDolbyAtmos());
@@ -15,9 +15,7 @@ const DolbyAtmos = () => {
     <div className="dolbyAtmos">
       <div className="container">
         <div className="row">
-          {loading ? (
-            <h1>Loading</h1>
-          ) : (
+          { (
             <>
               {content.map((dolbyAtmosItem) => {
                 return (

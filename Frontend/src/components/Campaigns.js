@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchContentCampaigns } from "../actions";
+import {Link} from "react-router-dom";
 
 const Campaigns = () => {
+  const dispatch = useDispatch();
+
+  const { content } = useSelector((state) => state.contentCampaigns);
+
+  useEffect(() => {
+    dispatch(fetchContentCampaigns());
+  }, [dispatch]);
   return (
     <div className="campaigns">
       <div className="container">
@@ -14,112 +24,23 @@ const Campaigns = () => {
             <div className="campgBody">
               <div className="campgBlueLine"></div>
               <div className="row">
-                <div className="col-md-4">
-                  {" "}
-                  <strong className="campgLabel">HOT</strong>
-                  <div className="campgImg">
-                    <p>"Qış Nağılı"na sərfəli aksiya!</p>
-                    <a href="indexQisNagiliDetail.html">
-                      {" "}
-                      <img
-                        src="images/campaigns/qn_aksiya.600x400.png"
-                        alt="Qis Nagili"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="campgImg">
-                    <p>Mastercard</p>
-                    <a href="indexMasterCardDetail.html">
-                      {" "}
-                      <img
-                        src="images/campaigns/master_5_aksiya.600x400.jpg"
-                        alt="Qis Nagili"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="campgImg">
-                    <p>McDonald’s-dan super təklif!</p>
-                    <a href="indexMcDonaldsDetail.html">
-                      {" "}
-                      <img
-                        src="images/campaigns/mcdonalds.600x400.png"
-                        alt="Qis Nagili"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <strong className="campgLabel">HOT</strong>
-                  <div className="campgImg">
-                    <p>Super Gün (Bakı şəh.)</p>
-                    <a href="indexSuperGun.html">
-                      {" "}
-                      <img
-                        src="images/campaigns/campaign_baku.600x400.png"
-                        alt="Qis Nagili"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className="campgImg">
-                    <p>Super Gün və Ailə Günü (Gəncə şəh., Sumqayıt şəh.)</p>
-                    <a href="indexAileGunu.html">
-                      {" "}
-                      <img
-                        src="images/campaigns/gence_campaign_1.600x400.png"
-                        alt="Qis Nagili"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <strong className="campgLabel">HOT</strong>
-                  <div className="campgImg">
-                    <p>Carlsberg Combo</p>
-                    <a href="indexCarslberg.html">
-                      {" "}
-                      <img
-                        src="images/campaigns/football.600x400.png"
-                        alt="Qis Nagili"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <strong className="campgLabel">HOT</strong>
-                  <div className="campgImg">
-                    <p>COMBO Menyu</p>
-                    <a href="indexComboMenu.html">
-                      {" "}
-                      <img
-                        src="images/campaigns/combo_menus_2_2.600x400.png"
-                        alt="Qis Nagili"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <strong className="campgLabel">HOT</strong>
-                  <div className="campgImg">
-                    <p>Ulduzum</p>
-                    <a href="indexUlduzum.html">
-                      {" "}
-                      <img
-                        src="images/campaigns/ulduzum.600x400.png"
-                        alt="Qis Nagili"
-                      />
-                    </a>
-                  </div>
-                </div>
+                {content.map((campaignItem) => {
+                  return (
+                    <div key={campaignItem.id} className="col-md-4">
+                      
+                      <div className="campgImg">
+                        <p>{campaignItem.title}</p>
+                        <Link to={`campaign/${campaignItem.id}`} >
+                          
+                          <img
+                            src={`./images/${campaignItem.image}`}
+                            alt="Qis Nagili"
+                          />
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

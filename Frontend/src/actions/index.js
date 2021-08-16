@@ -8,6 +8,12 @@ import { FETCH_CONTENT_NAVBAR,FETCH_CONTENT_NAVBAR_SUCCESS,FETCH_CONTENT_NAVBAR_
          FETCH_CONTENT_SECONDFOOTER,FETCH_CONTENT_SECONDFOOTER_SUCCESS,FETCH_CONTENT_SECONDFOOTER_FAIL,
          FETCH_CONTENT_NEWS,FETCH_CONTENT_NEWS_SUCCESS,FETCH_CONTENT_NEWS_FAIL,
          FETCH_CONTENT_FAQ,FETCH_CONTENT_FAQ_SUCCESS,FETCH_CONTENT_FAQ_FAIL,
+         FETCH_CONTENT_CAMPAIGNS,FETCH_CONTENT_CAMPAIGNS_SUCCESS,FETCH_CONTENT_CAMPAIGNS_FAIL,
+         FETCH_CONTENT_CAMPAIGNDETAIL,FETCH_CONTENT_CAMPAIGNDETAIL_SUCCESS,FETCH_CONTENT_CAMPAIGNDETAIL_FAIL,
+         FETCH_CONTENT_CONTACT,FETCH_CONTENT_CONTACT_SUCCESS,FETCH_CONTENT_CONTACT_FAIL,
+         FETCH_CONTENT_TARIFF,FETCH_CONTENT_TARIFF_SUCCESS,FETCH_CONTENT_TARIFF_FAIL,
+         FETCH_CONTENT_MOVIE,FETCH_CONTENT_MOVIE_SUCCESS,FETCH_CONTENT_MOVIE_FAIL,
+         FETCH_CONTENT_MOVIEDETAIL,FETCH_CONTENT_MOVIEDETAIL_SUCCESS,FETCH_CONTENT_MOVIEDETAIL_FAIL,
          FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
 import api from "../api"
 
@@ -39,7 +45,7 @@ export const fetchContentPlatinum = (languageCode = "AZ") => async (dispatch) =>
     dispatch({type: FETCH_CONTENT_PLATINUM});
 
     try {
-        const response = await api.get(`Content/getContentWebsitePlatinum/${languageCode}`);
+        const response = await api.get(`Content/getContentWebsitePlatinium/${languageCode}`);
 
         dispatch({type: FETCH_CONTENT_PLATINUM_SUCCESS,payload: response.data});
     } catch (e) {
@@ -151,3 +157,80 @@ export const fetchContentFAQ = (languageCode = "AZ") => async (dispatch) => {
     }
 }
 
+
+export const fetchContentCampaigns = (languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_CAMPAIGNS});
+
+    try {
+        const response = await api.get(`Content/getContentWebsiteCampaign/${languageCode}`);
+
+        dispatch({type: FETCH_CONTENT_CAMPAIGNS_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_CAMPAIGNS_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentCampaignDetail = (id,languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_CAMPAIGNDETAIL});
+
+    try {
+        const response = await api.get(`Content/getContentWebsiteCampaignDetail/${languageCode}/${id}`);
+
+        dispatch({type: FETCH_CONTENT_CAMPAIGNDETAIL_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_CAMPAIGNDETAIL_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentContact = () => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_CONTACT});
+
+    try {
+        const response = await api.get(`Contact`);
+
+        dispatch({type: FETCH_CONTENT_CONTACT_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_CONTACT_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentTariff = () => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_TARIFF});
+
+    try {
+        const response = await api.get(`Contact`);
+
+        dispatch({type: FETCH_CONTENT_TARIFF_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_TARIFF_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentMovie = (languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_MOVIE});
+
+    try {
+        const response = await api.get(`Content/getContentWebsiteMovie/${languageCode}`);
+
+        dispatch({type: FETCH_CONTENT_MOVIE_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_MOVIE_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentMovieDetail = (id,languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_MOVIEDETAIL});
+
+    try {
+        const response = await api.get(`Content/getContentWebsiteMovieDetail/${languageCode}/${id}`);
+
+        dispatch({type: FETCH_CONTENT_MOVIEDETAIL_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_MOVIEDETAIL_FAIL,payload: e.message ? e.message : e});
+    }
+}

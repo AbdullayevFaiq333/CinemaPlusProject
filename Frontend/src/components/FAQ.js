@@ -11,38 +11,43 @@ export default function Accordion() {
 
   useEffect(() => {
       dispatch(fetchContentFAQ());
-      
+      console.log(refHeight);
   }, [dispatch])
 
   const [toggle, setToggle] = useState(false);
-  const [heightEl, setHeightEl] = useState();
+  const [toggleClass, setToggleClass] = useState({});
+  const [heightEl, setHeightEl] = useState(0);
 
   const refHeight = useRef();
+  const refButton = useRef();
 
   useEffect(() => {
     console.log(refHeight);
-    setHeightEl(`${refHeight.current.scrollHeight}px`);
-  }, []);
+    if(refHeight.current !== undefined){
+      setHeightEl(`${refHeight.current.scrollHeight}px`);
+    }
+  }, [content]);
 
-  const toggleState = () => {
+  const toggleState = (id) => {
     setToggle(!toggle);
+    setToggleClass({...toggleClass, id: id})
   };
 
   console.log(toggle);
   return (<>{content.map((FAQItem) => {
     return (
-      <div key={FAQItem.id} className="accordion">
-      <button onClick={toggleState} className="accordion-visible">
+      <div key={FAQItem.id} className="accordion ">
+      <button onClick={() => toggleState(FAQItem.id)} className={`accordion-visible ${FAQItem.id}`} ref={refButton}>
         <span>{FAQItem.title}</span>
         <img className={toggle && "active"} src="images/FAQ/chevron.svg" />
       </button>
 
       <div
-        className={toggle ? "accordion-toggle animated" : "accordion-toggle"}
-        style={{ height: toggle ? `${heightEl}` : "0px" }}
+        className={`accordion-toggle ${toggle && toggleClass.id === FAQItem.id ? `animated` : " "}`}
+        style={{ height: toggle && toggleClass.id === FAQItem.id ? `${heightEl}` : "0px" }}
         ref={refHeight}
       >
-        <p aria-hidden={toggle ? "true" : "false"}>
+        <p aria-hidden={toggle && toggleClass.id === FAQItem.id ? "true" : "false"}>
         {FAQItem.description}
         </p>
       </div>
@@ -50,25 +55,7 @@ export default function Accordion() {
    
     );
   })}
-    <div className="accordion">
-      <button onClick={toggleState} className="accordion-visible">
-        <span>Lorem ipsum dolor sit amet.</span>
-        <img className={toggle && "active"} src="images/FAQ/chevron.svg" />
-      </button>
-
-      <div
-        className={toggle ? "accordion-toggle animated" : "accordion-toggle"}
-        style={{ height: toggle ? `${heightEl}` : "0px" }}
-        ref={refHeight}
-      >
-        <p aria-hidden={toggle ? "true" : "false"}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore,
-          suscipit quae maiores sunt ducimus est dolorem perspiciatis earum
-          corporis unde, dicta quibusdam aut placeat dignissimos distinctio vel
-          quo eligendi ipsam.
-        </p>
-      </div>
-    </div>
+    
     </>
   );
 }

@@ -16,7 +16,7 @@ const Advertisement = () => {
     <>
     {content.map((advertisementItem) => {
       return (
-        <div key={content.id} className="advertisement" style={{
+        <div key={advertisementItem.id} className="advertisement" style={{
           backgroundImage:
           `url(http://localhost:3000/images/${advertisementItem.background})`,
         }}>

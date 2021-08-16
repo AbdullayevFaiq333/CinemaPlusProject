@@ -6,7 +6,7 @@ const Platinum = () => {
     const dispatch = useDispatch();
     
     
-    const { content,loading } = useSelector((state) => state.contentService);
+    const { content } = useSelector((state) => state.contentService);
 
     useEffect(() => {
         dispatch(fetchContentService());
@@ -15,13 +15,14 @@ const Platinum = () => {
   
   return (
     <div className="service-section">
+      <div class="overlay"></div>
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <div className="title">Service</div>
           </div>
           {
-            loading ? <h1>Loading</h1> : (
+             (
                 <>
                 {content.map((serviceItem) => {
                   return (

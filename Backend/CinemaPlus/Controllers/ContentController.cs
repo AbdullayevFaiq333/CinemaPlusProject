@@ -32,6 +32,10 @@ namespace CinemaPlus.Controllers
         private readonly IPlatiniumService _platiniumService;
         private readonly IServiceService _serviceService;
         private readonly IRulesService _rulesService;
+        private readonly IFormatService _formatService;
+        private readonly IHallService _hallService;
+        private readonly IMovieService _movieService;
+        private readonly IMovieDetailService _movieDetailService;
        
         private readonly IMapper _mapper;
 
@@ -40,7 +44,8 @@ namespace CinemaPlus.Controllers
             ICampaignDetailService campaignDetailService, ICinemaClubService cinemaClubService, IDolbyAtmosService dolbyAtmosService,
             IFAQService fAQService, IFooterService footerService, ISecondFooterService secondFooterService, INavbarService navbarService,
             ISecondNavbarService secondNavbarService, INewsService newsService, IPlatiniumService platiniumService,
-            IServiceService serviceService, IRulesService rulesService)
+            IServiceService serviceService, IRulesService rulesService, IFormatService formatService, IHallService hallService,
+            IMovieService movieService, IMovieDetailService movieDetailService)
         {
             _aboutUsBottomPartService = aboutUsBottomPartService;
             _mapper = mapper;
@@ -59,6 +64,10 @@ namespace CinemaPlus.Controllers
             _platiniumService = platiniumService;
             _serviceService = serviceService;
             _rulesService = rulesService;
+            _formatService = formatService;
+            _hallService = hallService;
+            _movieService = movieService;
+            _movieDetailService = movieDetailService;
         }
 
 
@@ -119,17 +128,25 @@ namespace CinemaPlus.Controllers
             return Ok(campaignDto);
         }
 
-        [HttpGet("getContentWebsiteCampaignDetail/{laguageCode}")]
-
+        [HttpGet("getContentWebsiteCampaignDetail/{laguageCode}/{id}")]
         public async Task<IActionResult> GetContentCampaignDetail([FromRoute] string laguageCode,int id)
         {
             if (string.IsNullOrEmpty(laguageCode))
                 return BadRequest();
-            var campaignDetails = await _campaignDetailService.GetAllCampaignDetailAsync(laguageCode,id);
-            if (campaignDetails == null)
+            var campaignDetail = await _campaignDetailService.GetAllCampaignDetailAsync(laguageCode,id);
+            if (campaignDetail == null)
                 return NotFound();
 
-            var campaignDetailDto = _mapper.Map<CampaignDetailDto>(campaignDetails);
+            var campaignDetailDto = new CampaignDetailDto
+            {
+                Id = campaignDetail.Id,
+                Title = campaignDetail.Campaign.Title,
+                Image = campaignDetail.Campaign.Image,
+                Date = campaignDetail.Date,
+                Description = campaignDetail.Description
+            };
+
+            
             return Ok(campaignDetailDto);
         }
 
@@ -287,6 +304,84 @@ namespace CinemaPlus.Controllers
             var rulesDto = _mapper.Map<List<RulesDto>>(rules);
             return Ok(rulesDto);
         }
+
+
+        [HttpGet("getContentWebsiteFormat/{laguageCode}")]
+
+        public async Task<IActionResult> GetContentFormat([FromRoute] string laguageCode)
+        {
+            if (string.IsNullOrEmpty(laguageCode))
+                return BadRequest();
+            var formats = await _formatService.GetAllFormatAsync(laguageCode);
+            if (formats == null)
+                return NotFound();
+
+            var formatDto = _mapper.Map<List<FormatDto>>(formats);
+            return Ok(formatDto);
+        }
+
+
+        [HttpGet("getContentWebsiteHall/{laguageCode}")]
+
+        public async Task<IActionResult> GetContentHall([FromRoute] string laguageCode)
+        {
+            if (string.IsNullOrEmpty(laguageCode))
+                return BadRequest();
+            var halls = await _hallService.GetAllHallAsync(laguageCode);
+            if (halls == null)
+                return NotFound();
+
+            var hallDto = _mapper.Map<List<HallDto>>(halls);
+            return Ok(hallDto);
+        }
+
+
+        [HttpGet("getContentWebsiteMovie/{laguageCode}")]
+
+        public async Task<IActionResult> GetContentMovie([FromRoute] string laguageCode)
+        {
+            if (string.IsNullOrEmpty(laguageCode))
+                return BadRequest();
+            var movies = await _movieService.GetAllMovieAsync(laguageCode);
+            if (movies == null)
+                return NotFound();
+
+            var movieDto = _mapper.Map<List<MovieDto>>(movies);
+            return Ok(movieDto);
+        }
+
+
+        [HttpGet("getContentWebsiteMovieDetail/{laguageCode}/{id}")]
+        public async Task<IActionResult> GetContentMovieDetail([FromRoute] string laguageCode, int id)
+        {
+            if (string.IsNullOrEmpty(laguageCode))
+                return BadRequest();
+            var movieDetail = await _movieDetailService.GetAllMovieDetailAsync(laguageCode, id);
+            if (movieDetail == null)
+                return NotFound();
+
+            var movieDetailDto = new MovieDetailDto
+            {
+                Id = movieDetail.Id,
+                Treyler = movieDetail.Treyler,
+                Country = movieDetail.Country,
+                Director = movieDetail.Director,
+                Actors = movieDetail.Actors,
+                Duration = movieDetail.Duration,
+                Genre = movieDetail.Genre,
+                About = movieDetail.About,
+                Name = movieDetail.Movie.Name,
+                Image = movieDetail.Movie.Image,
+                Age = movieDetail.Movie.Age,
+                StartTime = movieDetail.Movie.StartTime,
+                EndTime = movieDetail.Movie.EndTime,
+                
+            };
+
+
+            return Ok(movieDetailDto);
+        }
+
 
     }
 }

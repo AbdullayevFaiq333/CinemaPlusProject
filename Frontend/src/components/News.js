@@ -17,21 +17,20 @@ const News = () => {
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 3,
+    slidesToScroll: 4,
     initialSlide: 0,
   };
 
   return (
+    <div className="news-section">
+     <div class="tab_header">
+      <a href="#" class="active" id="news_film">CINEMAPLUS XƏBƏRLƏRİ</a>
+    </div>
     <div class="indexNews">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="newsSection">
-              <div class="col-md-12">
-                <div class="newsHeader">
-                  <p className="news-title"> CINEMAPLUS XƏBƏRLƏRİ</p>
-                </div>
-              </div>
               <div class="newsBody">
                 <div class="owl-carousel owl-theme">
                 <Slider {...settings}>
@@ -55,15 +54,13 @@ const News = () => {
                   })}
                   </Slider>
                 </div>
-
-                <a href="#" class="allNews">
-                  BÜTÜN XƏBƏRLƏR
-                </a>
+                <a href="#" class="allNews">BÜTÜN XƏBƏRLƏR</a>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
