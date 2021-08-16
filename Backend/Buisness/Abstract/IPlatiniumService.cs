@@ -1,6 +1,8 @@
-﻿using Entities.Models;
+﻿using Core.Entities;
+using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +15,11 @@ namespace Buisness.Abstract
         Task<List<Platinium>> GetAllPlatiniumAsync(string languageCode);
 
         Task<bool> AddPlatiniumAsync(Platinium platinium);
+
         Task<bool> UpdatePlatiniumAsync(Platinium platinium);
         Task<bool> DeletePlatiniumAsync(int id);
+        Task AddPlatiniumAsync();
+
+        Task<bool> PlatinumAnyAsync(Expression<Func<Platinium, bool>> expression);
     }
 }

@@ -1,0 +1,57 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="content text-center">
+    <div class="col-lg-6 ">
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Create Movie in new language</h5>
+
+
+
+
+            </div>
+            <div class="card-body">
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Movie">
+
+                    <select name="LanguageId" id="language" class="btn btn-light">
+
+                        @foreach (var item in ViewBag.Languages)
+                        {
+                            <option value="@item.Id"> @item.Code</option>
+
+                        }
+
+
+                    </select>
+                    <a asp-action="Index" class="btn btn-light">
+                        Go Back
+                    </a>
+
+                    <div class="form-group form-group-float">
+                        <input asp-for="Name" class="form-control" placeholder="First Title">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="Age" class="form-control" placeholder="First Title">
+                        <span class="text-danger" asp-validation-for="Age"></span>
+                    </div>
+
+                    <div class="form-group form-group-float">
+                        <input asp-for="Image" class="form-control" placeholder="Youtube Url">
+                        <span class="text-danger" asp-validation-for="Image"></span>
+                    </div>
+
+
+
+                    <button type="submit" class="btn bg-blue-800">Submit<i class="icon-ml-2"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

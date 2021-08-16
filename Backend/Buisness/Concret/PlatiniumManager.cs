@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,9 +27,9 @@ namespace Buisness.Concret
             return await _platiniumDal.GetAllAsync();
         }
 
-        public Task<bool> AddPlatiniumAsync(Platinium platinium)
+        public async Task<bool> AddPlatiniumAsync(Platinium platinium)
         {
-            throw new NotImplementedException();
+            return await _platiniumDal.AddAsync(platinium);
         }
 
         public Task<bool> DeletePlatiniumAsync(int id)
@@ -45,6 +46,16 @@ namespace Buisness.Concret
         {
             return await _platiniumDal.GetPlatiniumAsync(languageCode);
 
+        }
+
+        public Task AddPlatiniumAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> PlatinumAnyAsync(Expression<Func<Platinium, bool>> expression)
+        {
+            return await _platiniumDal.CheckPlatinumItem(expression);
         }
     }
 }

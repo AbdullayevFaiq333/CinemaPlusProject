@@ -129,14 +129,14 @@ namespace CinemaPlus
 
 
 
-            //var conectionString = Configuration.GetConnectionString("DefaultConnection");
-            //services.AddDbContext<AppDbContext>(options =>
-            //{
-            //    options.UseSqlServer(conectionString,builder=>
-            //    {
-            //        builder.MigrationsAssembly(nameof(CinemaPlus));
-            //    });
-            //});
+            var conectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(conectionString, builder =>
+                 {
+                     builder.MigrationsAssembly(nameof(CinemaPlus));
+                 });
+            });
 
             services.AddCors(options =>
             {

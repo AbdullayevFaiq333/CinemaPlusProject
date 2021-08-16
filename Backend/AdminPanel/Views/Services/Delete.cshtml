@@ -14,6 +14,18 @@
 
 
             <div class="table-responsive">
+                <form>
+                    <select name="LanguageId" id="language">
+
+                        @foreach (var item in ViewBag.Languages)
+                        {
+                            <option value="@item.Id"> @item.Code</option>
+
+                        }
+
+
+                    </select>
+                </form>
                 <table class="table table-dark mb-0">
                     <thead>
                         <tr>
