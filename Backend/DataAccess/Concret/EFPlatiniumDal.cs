@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,12 @@ namespace DataAccess.Concret
 {
     public class EFPlatiniumDal : EFRepositoryBase<Platinium, AppDbContext>, IPlatiniumDal
     {
+        public async Task<bool> CheckPlatinumItem(Expression<Func<Platinium, bool>> expression)
+        {
+            await using var context = new AppDbContext();
+            return await context.Platiniums.AnyAsync(expression);
+        }
+
         public async Task<List<Platinium>> GetPlatiniumAsync(string languageCode)
         {
             await using var context = new AppDbContext();

@@ -9,6 +9,16 @@
             <div class="card-body bg-dark font-weight-bold text-white">
                 <h4 class="card-title text-white">Update Platinum in new language</h4>
                 <form class="forms-sample" method="post" enctype="multipart/form-data">
+                        <select name="LanguageId" id="language">
+
+                            @foreach (var item in ViewBag.Languages)
+                            {
+                                <option value="@item.Id"> @item.Code</option>
+
+                            }
+
+
+                        </select>
                     <div class="form-group">
                         <label asp-for="Title">First Title</label>
                         <input asp-for="Title" class="form-control" placeholder="FirstTitle">
@@ -16,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Description">Description</label>
-                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                        <textarea asp-for="Description" class="form-control" rows="4" id="editor"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
 
@@ -28,3 +38,11 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
