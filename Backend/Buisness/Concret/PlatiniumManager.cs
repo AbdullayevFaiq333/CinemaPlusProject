@@ -32,14 +32,15 @@ namespace Buisness.Concret
             return await _platiniumDal.AddAsync(platinium);
         }
 
-        public Task<bool> DeletePlatiniumAsync(int id)
+        public async Task<bool> DeletePlatiniumAsync(Platinium platinium)
         {
-            throw new NotImplementedException();
+            return await _platiniumDal.DeleteAsync(platinium);
         }
 
-        public Task<bool> UpdatePlatiniumAsync(Platinium platinium)
+        public async Task<bool> UpdatePlatiniumAsync(Platinium platinium)
         {
-            throw new NotImplementedException();
+            return await _platiniumDal.UpdateAsync(platinium);
+
         }
 
         public async Task<List<Platinium>> GetAllPlatiniumAsync(string languageCode)
