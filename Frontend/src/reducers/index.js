@@ -11,8 +11,10 @@ import { FETCH_CONTENT_NAVBAR,FETCH_CONTENT_NAVBAR_SUCCESS,FETCH_CONTENT_NAVBAR_
          FETCH_CONTENT_CAMPAIGNS,FETCH_CONTENT_CAMPAIGNS_SUCCESS,FETCH_CONTENT_CAMPAIGNS_FAIL,
          FETCH_CONTENT_CAMPAIGNDETAIL,FETCH_CONTENT_CAMPAIGNDETAIL_SUCCESS,FETCH_CONTENT_CAMPAIGNDETAIL_FAIL,
          FETCH_CONTENT_CONTACT,FETCH_CONTENT_CONTACT_SUCCESS,FETCH_CONTENT_CONTACT_FAIL,
+         FETCH_CONTENT_TARIFF,FETCH_CONTENT_TARIFF_SUCCESS,FETCH_CONTENT_TARIFF_FAIL,
          FETCH_CONTENT_MOVIE,FETCH_CONTENT_MOVIE_SUCCESS,FETCH_CONTENT_MOVIE_FAIL,
          FETCH_CONTENT_MOVIEDETAIL,FETCH_CONTENT_MOVIEDETAIL_SUCCESS,FETCH_CONTENT_MOVIEDETAIL_FAIL,
+         FETCH_CONTENT_BRANCH,FETCH_CONTENT_BRANCH_SUCCESS,FETCH_CONTENT_BRANCH_FAIL,
          FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
 
 export const fetchLanguagesReducer = (state = {loading: true,languages: []},action) => {
@@ -366,6 +368,31 @@ export const fetchContentContactReducer = (state = {loading: true,content : []},
 }
 
 
+export const fetchContentTariffReducer = (state = {loading: true,content : []},action) => {
+    switch (action.type) {
+        case FETCH_CONTENT_TARIFF:
+            return {
+                ...state,
+                loading: true
+            }
+        case FETCH_CONTENT_TARIFF_SUCCESS:
+            return {
+                ...state,
+                content : action.payload,
+                loading: false
+            }
+        case FETCH_CONTENT_TARIFF_FAIL:
+            return {
+                ...state,
+                error : action.payload,
+                loading: false
+            }
+        default:
+            return state;
+    }
+}
+
+
 export const fetchContentMovieReducer = (state = {loading: true,content : []},action) => {
     switch (action.type) {
         case FETCH_CONTENT_MOVIE:
@@ -405,6 +432,31 @@ export const fetchContentMovieDetailReducer = (state = {loading: true,content : 
                 loading: false
             }
         case FETCH_CONTENT_MOVIEDETAIL_FAIL:
+            return {
+                ...state,
+                error : action.payload,
+                loading: false
+            }
+        default:
+            return state;
+    }
+}
+
+
+export const fetchContentBranchReducer = (state = {loading: true,content : []},action) => {
+    switch (action.type) {
+        case FETCH_CONTENT_BRANCH:
+            return {
+                ...state,
+                loading: true
+            }
+        case FETCH_CONTENT_BRANCH_SUCCESS:
+            return {
+                ...state,
+                content : action.payload,
+                loading: false
+            }
+        case FETCH_CONTENT_BRANCH_FAIL:
             return {
                 ...state,
                 error : action.payload,

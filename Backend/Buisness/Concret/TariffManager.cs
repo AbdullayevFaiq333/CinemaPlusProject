@@ -41,5 +41,10 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Tariff> GetAllTariffAsync(int id)
+        {
+            return await _tariffDal.GetTariffAsync( id);
+        }
     }
 }

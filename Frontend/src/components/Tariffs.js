@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchContentTariff } from "../actions";
+import { useParams } from "react-router";
 import Branch from "./Branch";
 import BranchInfo from "./BranchInfo";
 
 const Tariffs = () => {
+  const dispatch = useDispatch();
+
+  const { content } = useSelector((state) => state.tariff);
+  const {id} = useParams();
+
+  useEffect(() => {
+    dispatch(fetchContentTariff(id));
+  }, [dispatch]);
+
   return (
     <>
     <Branch/>
@@ -21,7 +33,7 @@ const Tariffs = () => {
               <div class="tabBody">
                 <div class="tabTariffs">
                   <img
-                    src="images/tariffs/tarif_tablica_28_4.jpg"
+                    src={`./images/${content.image}`}
                     alt="28 Mall"
                   />
                 </div>

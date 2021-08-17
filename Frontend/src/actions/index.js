@@ -14,6 +14,7 @@ import { FETCH_CONTENT_NAVBAR,FETCH_CONTENT_NAVBAR_SUCCESS,FETCH_CONTENT_NAVBAR_
          FETCH_CONTENT_TARIFF,FETCH_CONTENT_TARIFF_SUCCESS,FETCH_CONTENT_TARIFF_FAIL,
          FETCH_CONTENT_MOVIE,FETCH_CONTENT_MOVIE_SUCCESS,FETCH_CONTENT_MOVIE_FAIL,
          FETCH_CONTENT_MOVIEDETAIL,FETCH_CONTENT_MOVIEDETAIL_SUCCESS,FETCH_CONTENT_MOVIEDETAIL_FAIL,
+         FETCH_CONTENT_BRANCH,FETCH_CONTENT_BRANCH_SUCCESS,FETCH_CONTENT_BRANCH_FAIL,
          FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
 import api from "../api"
 
@@ -197,11 +198,11 @@ export const fetchContentContact = () => async (dispatch) => {
 }
 
 
-export const fetchContentTariff = () => async (dispatch) => {
+export const fetchContentTariff = (id) => async (dispatch) => {
     dispatch({type: FETCH_CONTENT_TARIFF});
 
     try {
-        const response = await api.get(`Contact`);
+        const response = await api.get(`Tariff/${id}`);
 
         dispatch({type: FETCH_CONTENT_TARIFF_SUCCESS,payload: response.data});
     } catch (e) {
@@ -232,5 +233,18 @@ export const fetchContentMovieDetail = (id,languageCode = "AZ") => async (dispat
         dispatch({type: FETCH_CONTENT_MOVIEDETAIL_SUCCESS,payload: response.data});
     } catch (e) {
         dispatch({type: FETCH_CONTENT_MOVIEDETAIL_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentBranch = (languageCode = "AZ") => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_BRANCH});
+
+    try {
+        const response = await api.get(`Content/getContentWebsiteBranch/${languageCode}`);
+
+        dispatch({type: FETCH_CONTENT_BRANCH_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_BRANCH_FAIL,payload: e.message ? e.message : e});
     }
 }
