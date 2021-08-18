@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,10 @@ namespace Buisness.Concret
         public async Task<Tariff> GetAllTariffAsync(int id)
         {
             return await _tariffDal.GetTariffAsync( id);
+        }
+        public async Task<bool> TariffAnyAsync(Expression<Func<Tariff, bool>> expression)
+        {
+            return await _tariffDal.CheckTariff(expression);
         }
     }
 }

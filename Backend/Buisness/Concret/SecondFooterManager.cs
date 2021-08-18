@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,10 @@ namespace Buisness.Concret
         {
             return await _secondFooterDal.GetSecondFooterAsync(languageCode);
 
+        }
+        public async Task<bool> SecondFooterAnyAsync(Expression<Func<SecondFooter, bool>> expression)
+        {
+            return await _secondFooterDal.CheckSecondFooter(expression);
         }
     }
 }

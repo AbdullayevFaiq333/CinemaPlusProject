@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,10 @@ namespace Buisness.Concret
         {
             return await _serviceDal.GetServiceAsync(languageCode);
 
+        }
+        public async Task<bool> ServiceAnyAsync(Expression<Func<Service, bool>> expression)
+        {
+            return await _serviceDal.CheckService(expression);
         }
     }
 }

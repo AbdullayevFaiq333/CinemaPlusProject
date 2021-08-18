@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,11 @@ namespace DataAccess.Concret
 {
     public class EFTariffDal : EFRepositoryBase<Tariff, AppDbContext>, ITariffDal
     {
+        public async Task<bool> CheckTariff(Expression<Func<Tariff, bool>> expression)
+        {
+            await using var context = new AppDbContext();
+            return await context.Tariffs.AnyAsync(expression);
+        }
         public async Task<Tariff> GetTariffAsync(int id)
         {
             await using var context = new AppDbContext();

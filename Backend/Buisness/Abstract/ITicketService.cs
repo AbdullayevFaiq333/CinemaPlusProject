@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +14,7 @@ namespace Buisness.Abstract
         Task<bool> AddTicketAsync(Ticket ticket);
         Task<bool> UpdateTicketAsync(Ticket ticket);
         Task<bool> DeleteTicketAsync(int id);
+        Task<bool> TicketAnyAsync(Expression<Func<Ticket, bool>> expression);
+
     }
 }

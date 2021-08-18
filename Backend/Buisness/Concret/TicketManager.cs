@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,10 @@ namespace Buisness.Concret
         public Task<bool> UpdateTicketAsync(Ticket ticket)
         {
             throw new NotImplementedException();
+        }
+        public async Task<bool> TicketAnyAsync(Expression<Func<Ticket, bool>> expression)
+        {
+            return await _ticketDal.CheckTicket(expression);
         }
     }
 }

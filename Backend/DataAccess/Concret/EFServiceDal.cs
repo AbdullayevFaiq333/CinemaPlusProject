@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,11 @@ namespace DataAccess.Concret
 {
     public class EFServiceDal : EFRepositoryBase<Service, AppDbContext>, IServiceDal
     {
+        public async Task<bool> CheckService(Expression<Func<Service, bool>> expression)
+        {
+            await using var context = new AppDbContext();
+            return await context.Services.AnyAsync(expression);
+        }
         public async Task<List<Service>> GetServiceAsync(string languageCode)
         {
             await using var context = new AppDbContext();

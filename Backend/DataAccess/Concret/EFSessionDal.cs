@@ -4,6 +4,7 @@ using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,11 @@ namespace DataAccess.Concret
 {
     public class EFSessionDal : EFRepositoryBase<Session, AppDbContext>, ISessionDal
     {
+        public async Task<bool> CheckSession(Expression<Func<Session, bool>> expression)
+        {
+            await using var context = new AppDbContext();
+            return await context.Sessions.AnyAsync(expression);
+        }
         public async Task<List<Session>> GetSessionAsync()
         {
             await using var context = new AppDbContext();

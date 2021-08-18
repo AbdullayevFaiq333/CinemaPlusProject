@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace Buisness.Abstract
         Task<bool> AddServiceAsync(Service service);
         Task<bool> UpdateServiceAsync(Service service);
         Task<bool> DeleteServiceAsync(int id);
+        Task<bool> ServiceAnyAsync(Expression<Func<Service, bool>> expression);
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +14,7 @@ namespace Buisness.Abstract
         Task<bool> AddSocialMediaAsync(SocialMedia socialMedia);
         Task<bool> UpdateSocialMediaAsync(SocialMedia socialMedia);
         Task<bool> DeleteSocialMediaAsync(int id);
+        Task<bool> SocialMediaAnyAsync(Expression<Func<SocialMedia, bool>> expression);
+
     }
 }

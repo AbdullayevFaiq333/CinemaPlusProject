@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace Buisness.Abstract
         Task<bool> AddSecondNavbarAsync(SecondNavbar secondNavbar);
         Task<bool> UpdateSecondNavbarAsync(SecondNavbar secondNavbar);
         Task<bool> DeleteSecondNavbarAsync(int id);
+        Task<bool> SecondNavbarAnyAsync(Expression<Func<SecondNavbar, bool>> expression);
+
     }
 }
