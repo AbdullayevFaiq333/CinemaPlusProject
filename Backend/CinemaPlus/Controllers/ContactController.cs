@@ -24,11 +24,11 @@ namespace CinemaPlus.Controllers
             _contactService = contactService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            var contacts = await _contactService.GetAllContactAsync();
-            var contactDto = _mapper.Map<List<ContactDto>>(contacts);
+            var contacts = await _contactService.GetAllContactAsync(id);
+            var contactDto = _mapper.Map<ContactDto>(contacts);
 
             return Ok(contactDto);
         }

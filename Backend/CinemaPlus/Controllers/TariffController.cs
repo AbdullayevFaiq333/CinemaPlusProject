@@ -27,6 +27,7 @@ namespace CinemaPlus.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
+            
             var tariffs = await _tariffService.GetAllTariffAsync(id);
             var tariffDto = _mapper.Map<TariffDto>(tariffs);
 

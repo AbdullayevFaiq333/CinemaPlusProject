@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchContentContact } from "../actions";
 import Branch from "./Branch";
 
-const Contacts = () => {
+const Contacts = ({ contact }) => {
+  const dispatch = useDispatch();
+
+  // const { content } = useSelector((state) => state.contact);
+
+  useEffect(() => {
+    // dispatch(fetchContentContact());
+    console.log(contact);
+  }, []);
   return (
     <>
-    <Branch/>
+    
     <div class="contact">
       <div class="container-fluid p-0">
         <div class="row">
@@ -23,23 +33,23 @@ const Contacts = () => {
                         <ul>
                           <li>
                             <span>Bizim ünvan:</span>
-                            <p>Azadlıq prospekti 45, 28 Mall TM</p>
+                            <p>{contact.ourAddress}</p>
                           </li>
                           <li>
                             <span>Telefon:</span>
-                            <p>+99412 499 89 88</p>
+                            <p>{contact.phone}</p>
                           </li>
                           <li>
                             <span>Elektron ünvan:</span>
-                            <p>info@cinemaplus.az</p>
+                            <p>{contact.email}</p>
                           </li>
                           <li>
                             <span>Marketinq şöbəsi:</span>
-                            <p>media@cinemaplus.az</p>
+                            <p>{contact.mediaSalesDepartment}</p>
                           </li>
                           <li>
                             <span>İş saatı:</span>
-                            <p>10:00-dan sonuncu seansa qədər</p>
+                            <p>{contact.workingHours}</p>
                           </li>
                           <li>
                             <a href="#" class="sendButton">
@@ -51,11 +61,7 @@ const Contacts = () => {
                     </div>
                     <div class="col-md-6">
                       <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.
-                                                     343327916081!2d49.844576914761!3d40.
-                                                     37908276585343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!
-                                                     1s0x40307da7a06b402f%3A0xd8897cf79ec36111!2s28%20Mall!5e0!3m2!
-                                                     1sen!2s!4v1628704322459!5m2!1sen!2s"
+                        src={contact.map}
                         class="map"
                         allowfullscreen=""
                         loading="lazy"

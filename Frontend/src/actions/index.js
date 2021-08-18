@@ -198,11 +198,11 @@ export const fetchContentContact = () => async (dispatch) => {
 }
 
 
-export const fetchContentTariff = (id) => async (dispatch) => {
+export const fetchContentTariff = () => async (dispatch) => {
     dispatch({type: FETCH_CONTENT_TARIFF});
 
     try {
-        const response = await api.get(`Tariff/${id}`);
+        const response = await api.get(`Tariff`);
 
         dispatch({type: FETCH_CONTENT_TARIFF_SUCCESS,payload: response.data});
     } catch (e) {

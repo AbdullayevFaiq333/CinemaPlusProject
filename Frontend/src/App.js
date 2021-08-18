@@ -21,6 +21,7 @@ import {Route,Switch} from "react-router-dom";
 import { Suspense } from "react";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import Branch from "./components/Branch";
 
 
 
@@ -44,7 +45,7 @@ function App() {
           <Route path="/rules" component={Rules} />
           <Route path="/vacancies" component={Vacancies} />
           <Route path="/contacts" component={Contacts} />
-          <Route path="/tariffs" component={Tariffs} />
+          <Route path="/tariffs" component={Branch} />
           <Route path="/aboutUs/branch" component={BranchInfo} />
           <Route path="/movie/:id" component={MovieDetail} />
         </Switch>

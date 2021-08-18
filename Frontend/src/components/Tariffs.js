@@ -1,48 +1,43 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContentTariff } from "../actions";
-import { useParams } from "react-router";
-import Branch from "./Branch";
-import BranchInfo from "./BranchInfo";
 
-const Tariffs = () => {
+import Branch from "./Branch";
+
+const Tariffs = ({ tariff }) => {
   const dispatch = useDispatch();
 
-  const { content } = useSelector((state) => state.tariff);
-  const {id} = useParams();
+  // const { content } = useSelector((state) => state.tariff);
 
   useEffect(() => {
-    dispatch(fetchContentTariff(id));
-  }, [dispatch]);
+    // dispatch(fetchContentTariff());
+    console.log(tariff);
+  }, []);
 
   return (
     <>
-    <Branch/>
-    <BranchInfo/>
-    <div class="tariffs">
-      <div class="container ">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="tabs">
-              <div className="head">
-                <a href="#" className="title">
-                  TARIFLƏR
-                </a>
-                
-              </div>
-              <div class="tabBody">
-                <div class="tabTariffs">
-                  <img
-                    src={`./images/${content.image}`}
-                    alt="28 Mall"
-                  />
+      {/* <Branch /> */}
+
+      <div class="tariffs">
+        <div class="container ">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="tabs">
+                <div className="head">
+                  <a href="#" className="title">
+                    TARIFLƏR
+                  </a>
+                </div>
+                <div class="tabBody">
+                  <div class="tabTariffs">
+                    <img src={`http://localhost:3000/images/${tariff.image}`} alt="28 Mall" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };

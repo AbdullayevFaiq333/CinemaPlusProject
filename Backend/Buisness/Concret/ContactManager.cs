@@ -42,5 +42,10 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Contact> GetAllContactAsync(int id)
+        {
+            return await _contactDal.GetContactAsync(id);
+        }
     }
 }

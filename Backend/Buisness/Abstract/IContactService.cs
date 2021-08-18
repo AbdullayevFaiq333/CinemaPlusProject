@@ -10,6 +10,7 @@ namespace Buisness.Abstract
     {
         Task<Contact> GetContactWithIdAsync(int id);
         Task<List<Contact>> GetAllContactAsync();
+        Task<Contact> GetAllContactAsync(int id);
         Task<bool> AddContactAsync(Contact contact);
         Task<bool> UpdateContactAsync(Contact contact);
         Task<bool> DeleteContactAsync(int id);
