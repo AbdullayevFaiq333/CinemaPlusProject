@@ -42,7 +42,7 @@ namespace Buisness.Concret
             throw new NotImplementedException();
         }
 
-        public async Task<List<Row>> GetAllPlatiniumAsync()
+        public async Task<List<Row>> GetAllRowsAsync()
         {
             return await _rowDal.GetRowAsync();
         }

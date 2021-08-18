@@ -11,7 +11,7 @@ namespace Buisness.Abstract
     {
         Task<Row> GetRowWithIdAsync(int id);
         Task<List<Row>> GetAllRowAsync();
-        Task<List<Row>> GetAllPlatiniumAsync();
+        Task<List<Row>> GetAllRowsAsync();
 
         Task<bool> AddRowAsync(Row row);
         Task<bool> UpdateRowAsync(Row row);
