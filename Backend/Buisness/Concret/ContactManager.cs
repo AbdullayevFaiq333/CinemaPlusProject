@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,6 +42,10 @@ namespace Buisness.Concret
         public Task<bool> UpdateContactAsync(Contact contact)
         {
             throw new NotImplementedException();
+        }
+        public async Task<bool> ContactAnyAsync(Expression<Func<Contact, bool>> expression)
+        {
+            return await _contactDal.CheckContact(expression);
         }
 
         public async Task<Contact> GetAllContactAsync(int id)

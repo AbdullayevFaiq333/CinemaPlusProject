@@ -11,10 +11,14 @@ namespace AdminPanel.Controllers
     {
 
         private readonly IAboutUsHeadPartService _AboutUsHeadPartService;
+        private readonly ILanguageService _languageService;
 
-        public AboutUsHeadPartController(IAboutUsHeadPartService aboutUsHeadPartService)
+
+        public AboutUsHeadPartController(IAboutUsHeadPartService aboutUsHeadPartService, ILanguageService languageService)
         {
             _AboutUsHeadPartService = aboutUsHeadPartService;
+            _languageService = languageService;
+
         }
         public async Task<IActionResult> Index()
         {

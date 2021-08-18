@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +14,8 @@ namespace Buisness.Abstract
         Task<bool> AddAdvertisementAsync(Advertisement advertisement);
         Task<bool> UpdateAdvertisementAsync(Advertisement advertisement);
         Task<bool> DeleteAdvertisementAsync(int id);
+        Task<bool> AdvertisementAnyAsync(Expression<Func<Advertisement, bool>> expression);
+
+        
     }
 }

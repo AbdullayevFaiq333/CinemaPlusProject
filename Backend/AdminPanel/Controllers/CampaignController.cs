@@ -10,10 +10,14 @@ namespace AdminPanel.Controllers
     public class CampaignController : Controller
     {
         private readonly ICampaignService _campaignService;
+        private readonly ILanguageService _languageService;
 
-        public CampaignController(ICampaignService campaignService)
+
+        public CampaignController(ICampaignService campaignService, ILanguageService languageService)
         {
             _campaignService = campaignService;
+            _languageService = languageService;
+
         }
         public async Task<IActionResult> Index()
         {
@@ -21,6 +25,13 @@ namespace AdminPanel.Controllers
             var campaign = await _campaignService.GetAllCampaignAsync();
 
             return View(campaign);
+        }
+        public async Task<IActionResult> Create()
+        {
+
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+            return View();
         }
     }
 }

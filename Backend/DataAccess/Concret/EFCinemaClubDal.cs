@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,11 @@ namespace DataAccess.Concret
 {
     public class EFCinemaClubDal : EFRepositoryBase<CinemaClub, AppDbContext>, ICinemaClubDal
     {
+        public async Task<bool> CheckCinemaClub(Expression<Func<CinemaClub, bool>> expression)
+        {
+            await using var context = new AppDbContext();
+            return await context.CinemaClubs.AnyAsync(expression);
+        }
         public async Task<List<CinemaClub>> GetCinemaClubAsync(string languageCode)
         {
             await using var context = new AppDbContext();

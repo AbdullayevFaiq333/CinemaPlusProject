@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,6 +47,10 @@ namespace Buisness.Concret
         public async Task<List<Branch>> GetAllBranchAsync(string languageCode)
         {
             return await _branchDal.GetBranchAsync(languageCode);
+        }
+        public async Task<bool> BranchAnyAsync(Expression<Func<Branch, bool>> expression)
+        {
+            return await _branchDal.CheckBranch(expression);
         }
     }
 }

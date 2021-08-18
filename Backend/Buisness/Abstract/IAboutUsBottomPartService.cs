@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,5 +15,7 @@ namespace Buisness.Abstract
         Task<bool> AddAboutUsBottomPartAsync(AboutUsBottomPart aboutUsBottomPart);
         Task<bool> UpdateAboutUsBottomPartAsync(AboutUsBottomPart aboutUsBottomPart);
         Task<bool> DeleteAboutUsBottomPartAsync(int id);
+        Task<bool> AboutUsBottomPartAnyAsync(Expression<Func<AboutUsBottomPart, bool>> expression);
+
     }
 }
