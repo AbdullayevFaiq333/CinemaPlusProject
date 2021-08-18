@@ -318,51 +318,7 @@ body {
     }
   }
 
-  .branch {
-    .tabs {
-      padding-top: 50px;
-      overflow-x: hidden;
-
-      .information {
-        .branchBgPhoto {
-          background: url("http://localhost:3000/images/branch/28mall.jpg");
-          width: 100%;
-          background-position: center center;
-          min-height: 200px;
-          position: relative;
-          background-repeat: no-repeat;
-          background-size: cover;
-          .backInfo {
-            width: 100%;
-            padding: 60px 0;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-
-            h1 {
-              font-weight: normal;
-              text-align: center;
-              font-family: "Gotham-Medium";
-              font-size: 24px;
-              line-height: 32px;
-              margin-bottom: 16px;
-            }
-            .description {
-              font-family: "Gotham-Medium";
-              font-size: 16px;
-              line-height: 19px;
-              margin-bottom: 10px;
-              text-align: center;
-              a {
-                text-decoration: none;
-                color: #fff;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  
   .branchs {
     img{
       display: block;
@@ -470,6 +426,7 @@ body {
     }
   }
   .navbar {
+    
     padding: 0 !important;
     margin: 0 !important;
     

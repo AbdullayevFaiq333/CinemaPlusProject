@@ -46,9 +46,9 @@ const AboutUs = () => {
               </div>
               <div class="cinemas">
                 <li class="dealers">
-                  <Link to="/aboutUs/branch" class="dealer">
+                  <a class="dealer">
                     28 Mall
-                  </Link>
+                  </a>
                 </li>
                 <li class="dealers">
                   <a href="#" class="dealer">

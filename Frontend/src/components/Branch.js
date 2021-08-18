@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContentBranch } from "../actions";
-import { SRLWrapper } from "simple-react-lightbox";
-import axios from "axios";
+
 import Tariffs from "./Tariffs";
 
 
-const Branch = () => {
+const Branch = ({getBrach}) => {
   const [tag, setTag] = useState("28 Mall");
   const [tariff, setTariff] = useState("");
   const [isClicked, setIsClicked] = useState(false);
+  // const [branchId,setBranchId] = useState(0);
   const dispatch = useDispatch();
   const { content } = useSelector((state) => state.contentBranch);
 
@@ -18,11 +18,9 @@ const Branch = () => {
   }, [dispatch]);
 
   const handleClickBranch = async (id) => {
-    await axios
-      .get(`https://localhost:44359/api/Tariff/${id}`)
-      .then((response) => setTariff(response.data));
-
-    setIsClicked(true);
+    // setBranchId(id);
+    getBrach(id);
+    // setIsClicked(true);
   };
 
   return (
@@ -52,16 +50,16 @@ const Branch = () => {
               }
             </ul>
 
-            {isClicked ? (
+            {/* {isClicked ? (
               <SRLWrapper>
                 <div>
-                  <Tariffs tariff={tariff} />
+                  <Tariffs branchId={branchId} />
                 </div>
               </SRLWrapper>
               
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
       </div>
