@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace Buisness.Abstract
         Task<bool> AddNewsAsync(News news);
         Task<bool> UpdateNewsAsync(News news);
         Task<bool> DeleteNewsAsync(int id);
+        Task<bool> NewsAnyAsync(Expression<Func<News, bool>> expression);
+
     }
 }

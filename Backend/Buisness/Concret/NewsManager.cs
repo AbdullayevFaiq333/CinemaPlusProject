@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,10 @@ namespace Buisness.Concret
         {
             return await _newsDal.GetNewsAsync(languageCode);
 
+        }
+        public async Task<bool> NewsAnyAsync(Expression<Func<News, bool>> expression)
+        {
+            return await _newsDal.CheckNews(expression);
         }
     }
 }

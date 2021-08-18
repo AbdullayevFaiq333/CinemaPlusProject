@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,6 +40,10 @@ namespace Buisness.Concret
         public Task<bool> UpdatePhotosAsync(Photos photos)
         {
             throw new NotImplementedException();
+        }
+        public async Task<bool> PhotosAnyAsync(Expression<Func<Photos, bool>> expression)
+        {
+            return await _photosDal.CheckPhotos(expression);
         }
     }
 }

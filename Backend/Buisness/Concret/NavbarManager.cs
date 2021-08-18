@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,10 @@ namespace Buisness.Concret
         {
             return await _navbarDal.GetNavbarAsync(languageCode);
 
+        }
+        public async Task<bool> NavbarAnyAsync(Expression<Func<Navbar, bool>> expression)
+        {
+            return await _navbarDal.CheckNavbar(expression);
         }
     }
 }

@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,5 +46,10 @@ namespace Buisness.Concret
         {
             return await _rowDal.GetRowAsync();
         }
+        public async Task<bool> RowAnyAsync(Expression<Func<Row, bool>> expression)
+        {
+            return await _rowDal.CheckRow(expression);
+        }
+
     }
 }

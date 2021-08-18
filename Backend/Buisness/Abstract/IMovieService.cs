@@ -15,8 +15,9 @@ namespace Buisness.Abstract
 
         Task<bool> AddMovieAsync(Movie movie);
         Task<bool> UpdateMovieAsync(Movie movie);
-        Task<bool> MovieAnyAsync(Expression<Func<Movie, bool>> expression);
         Task<bool> DeleteMovieAsync(int id);
+        Task<bool> MovieAnyAsync(Expression<Func<Movie, bool>> expression);
+
 
     }
 }

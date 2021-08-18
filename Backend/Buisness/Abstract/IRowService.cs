@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace Buisness.Abstract
         Task<bool> AddRowAsync(Row row);
         Task<bool> UpdateRowAsync(Row row);
         Task<bool> DeleteRowAsync(int id);
+        Task<bool> RowAnyAsync(Expression<Func<Row, bool>> expression);
+
     }
 }
