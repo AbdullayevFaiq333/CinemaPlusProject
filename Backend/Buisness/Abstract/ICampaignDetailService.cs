@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace Buisness.Abstract
         Task<bool> AddCampaignDetailAsync(CampaignDetail campaignDetail);
         Task<bool> UpdateCampaignDetailAsync(CampaignDetail campaignDetail);
         Task<bool> DeleteCampaignDetailAsync(int id);
+        Task<bool> CampaignDetailAnyAsync(Expression<Func<CampaignDetail, bool>> expression);
+
     }
 }

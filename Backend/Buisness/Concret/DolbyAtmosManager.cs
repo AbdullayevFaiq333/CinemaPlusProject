@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,10 @@ namespace Buisness.Concret
         public async Task<List<DolbyAtmos>> GetAllDolbyAtmosAsync(string languageCode)
         {
             return await _dolbyAtmosDal.GetDolbyAtmosAsync(languageCode);
+        }
+        public async Task<bool> DolbyAtmosAnyAsync(Expression<Func<DolbyAtmos, bool>> expression)
+        {
+            return await _dolbyAtmosDal.CheckDolbyAtmos(expression);
         }
     }
 }

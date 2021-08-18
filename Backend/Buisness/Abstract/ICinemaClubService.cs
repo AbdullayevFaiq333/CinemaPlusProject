@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,5 +15,7 @@ namespace Buisness.Abstract
         Task<bool> AddCinemaClubAsync(CinemaClub cinemaClub);
         Task<bool> UpdateCinemaClubAsync(CinemaClub cinemaClub);
         Task<bool> DeleteCinemaClubAsync(int id);
+        Task<bool> CinemaClubAnyAsync(Expression<Func<CinemaClub, bool>> expression);
+
     }
 }

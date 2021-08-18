@@ -11,7 +11,7 @@ using Buisness.Abstract;
 
 namespace AdminPanel.Controllers
 {
-    public class PlatinumController : Controller
+    public class PlatinumController : Controller 
     {
         private readonly IPlatiniumService _platiniumService;
         private readonly ILanguageService _languageService;

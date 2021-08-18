@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,5 +15,7 @@ namespace Buisness.Abstract
         Task<bool> AddDolbyAtmosAsync(DolbyAtmos dolbyAtmos);
         Task<bool> UpdateDolbyAtmosAsync(DolbyAtmos dolbyAtmos);
         Task<bool> DeleteDolbyAtmosAsync(int id);
+        Task<bool> DolbyAtmosAnyAsync(Expression<Func<DolbyAtmos, bool>> expression);
+
     }
 }

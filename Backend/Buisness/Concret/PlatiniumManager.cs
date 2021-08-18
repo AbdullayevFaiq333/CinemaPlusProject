@@ -27,7 +27,7 @@ namespace Buisness.Concret
             return await _platiniumDal.GetAllAsync();
         }
 
-        public async Task<bool> AddPlatiniumAsync(Platinium platinium)
+        public async Task<bool> AddPlatiniumAsync(Platinium platinium) 
         {
             return await _platiniumDal.AddAsync(platinium);
         }

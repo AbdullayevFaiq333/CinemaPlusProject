@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,10 @@ namespace Buisness.Concret
         public async Task<List<CinemaClub>> GetAllCinemaClubAsync(string languageCode)
         {
             return await _cinemaClubDal.GetCinemaClubAsync(languageCode);
+        }
+        public async Task<bool> CinemaClubAnyAsync(Expression<Func<CinemaClub, bool>> expression)
+        {
+            return await _cinemaClubDal.CheckCinemaClub(expression);
         }
     }
 }

@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,5 +47,10 @@ namespace Buisness.Concret
         {
             return await _aboutUsBottomPartDal.GetAboutUsBottomPartAsync(languageCode);
         }
+        public async Task<bool> AboutUsBottomPartAnyAsync(Expression<Func<AboutUsBottomPart, bool>> expression)
+        {
+            return await _aboutUsBottomPartDal.CheckAboutUsBottomPart(expression);
+        }
+
     }
 }
