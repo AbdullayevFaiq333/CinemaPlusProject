@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContentTariff } from "../actions";
 
-import Branch from "./Branch";
+
 
 const Tariffs = ({ tariff }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Tariffs = ({ tariff }) => {
 
   return (
     <>
-      {/* <Branch /> */}
+      
 
       <div class="tariffs">
         <div class="container ">

@@ -4,33 +4,13 @@ import { fetchContentBranch } from "../actions";
 import { SRLWrapper } from "simple-react-lightbox";
 import axios from "axios";
 import Tariffs from "./Tariffs";
-import Contacts from "./Contacts";
 
-const tariffs = [
-  { id: "1", imageName: "28Mall.jpg", tag: "28 Mall" },
-  { id: "2", imageName: "Ganja.jpg", tag: "Ganja Mall (Ganja)" },
-  { id: "3", imageName: "Amburan.jpg", tag: "Amburan Mall" },
-  { id: "4", imageName: "AzerbMall.jpg", tag: "Azerbaijan Cinema" },
-  { id: "5", imageName: "GanjDenMall.jpg", tag: "Deniz Mall" },
-  { id: "6", imageName: "Khamsa.jpg", tag: "Khamsa Park (Ganja)" },
-  { id: "7", imageName: "Naxcivan.jpg", tag: "Nakhchivan" },
-  { id: "8", imageName: "Samaxi.jpg", tag: "Shamakhy" },
-  { id: "9", imageName: "Sum.jpg", tag: "Sumqayıt" },
-  { id: "10", imageName: "GanjDenMall.jpg", tag: "Ganjlik Mall" },
-];
 
 const Branch = () => {
   const [tag, setTag] = useState("28 Mall");
-  const [filteredImages, setFilteredImages] = useState([]);
   const [tariff, setTariff] = useState("");
   const [isClicked, setIsClicked] = useState(false);
-
-  useEffect(() => {
-    setFilteredImages(tariffs.filter((filter) => filter.tag === tag));
-  }, [tag]);
-
   const dispatch = useDispatch();
-
   const { content } = useSelector((state) => state.contentBranch);
 
   useEffect(() => {

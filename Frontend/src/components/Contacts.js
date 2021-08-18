@@ -6,14 +6,15 @@ import Branch from "./Branch";
 const Contacts = ({ contact }) => {
   const dispatch = useDispatch();
 
-  // const { content } = useSelector((state) => state.contact);
+   const { content } = useSelector((state) => state.contact);
 
   useEffect(() => {
-    // dispatch(fetchContentContact());
+     dispatch(fetchContentContact());
     console.log(contact);
   }, []);
   return (
     <>
+    <Branch/>
     
     <div class="contact">
       <div class="container-fluid p-0">

@@ -43,7 +43,7 @@ namespace AdminPanel.Controllers
                 return View();
             }
 
-            var isExist = await _aboutUsBottomPartService.AboutUsBootomPartAnyAsync(x => x.Description.ToLower() == aboutUsBottomPart.Description);
+            var isExist = await _aboutUsBottomPartService.AboutUsBottomPartAnyAsync(x => x.Description.ToLower() == aboutUsBottomPart.Description);
             if (isExist)
             {
                 ModelState.AddModelError("FirstTitle", "Please change the context.Title is already exist !");
