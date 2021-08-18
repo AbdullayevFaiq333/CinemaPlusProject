@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +14,7 @@ namespace Buisness.Abstract
         Task<bool> AddMovieFormatAsync(MovieFormat movieFormat);
         Task<bool> UpdateMovieFormatAsync(MovieFormat movieFormat);
         Task<bool> DeleteMovieFormatAsync(int id);
+        Task<bool> MovieFormatAnyAsync(Expression<Func<MovieFormat, bool>> expression);
+
     }
 }

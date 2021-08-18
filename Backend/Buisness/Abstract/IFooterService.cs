@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace Buisness.Abstract
         Task<bool> AddFooterAsync(Footer footer);
         Task<bool> UpdateFooterAsync(Footer footer);
         Task<bool> DeleteFooterAsync(int id);
+        Task<bool> FooterAnyAsync(Expression<Func<Footer, bool>> expression);
+
     }
 }

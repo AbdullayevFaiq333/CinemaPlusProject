@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,6 +40,10 @@ namespace Buisness.Concret
         public Task<bool> UpdateMovieFormatAsync(MovieFormat movieFormat)
         {
             throw new NotImplementedException();
+        }
+        public async Task<bool> MovieFormatAnyAsync(Expression<Func<MovieFormat, bool>> expression)
+        {
+            return await _movieFormatDal.CheckMovieFormat(expression);
         }
     }
 }

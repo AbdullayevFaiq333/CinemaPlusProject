@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,10 @@ namespace Buisness.Concret
         public async Task<List<FAQ>> GetAllFAQAsync(string languageCode)
         {
             return await _fAQDal.GetFAQAsync(languageCode);
+        }
+        public async Task<bool> FAQAnyAsync(Expression<Func<FAQ, bool>> expression)
+        {
+            return await _fAQDal.CheckFAQ(expression);
         }
     }
 }

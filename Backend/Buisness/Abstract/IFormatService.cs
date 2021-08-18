@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace Buisness.Abstract
         Task<bool> AddFormatAsync(Format format);
         Task<bool> UpdateFormatAsync(Format format);
         Task<bool> DeleteFormatAsync(int id);
+        Task<bool> FormatAnyAsync(Expression<Func<Format, bool>> expression);
+
     }
 }

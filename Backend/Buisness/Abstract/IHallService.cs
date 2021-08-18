@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,7 @@ namespace Buisness.Abstract
         Task<bool> AddHallAsync(Hall hall);
         Task<bool> UpdateHallAsync(Hall hall);
         Task<bool> DeleteHallAsync(int id);
+        Task<bool> HallAnyAsync(Expression<Func<Hall, bool>> expression);
+
     }
 }
