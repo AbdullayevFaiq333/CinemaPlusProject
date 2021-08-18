@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,5 +15,7 @@ namespace Buisness.Abstract
         Task<bool> AddFAQAsync(FAQ fAQ);
         Task<bool> UpdateFAQAsync(FAQ fAQ);
         Task<bool> DeleteFAQAsync(int id);
+        Task<bool> FAQAnyAsync(Expression<Func<FAQ, bool>> expression);
+
     }
 }

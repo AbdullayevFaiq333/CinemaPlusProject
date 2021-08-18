@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -45,6 +46,10 @@ namespace Buisness.Concret
         {
             return await _formatDal.GetFormatAsync(languageCode);
 
+        }
+        public async Task<bool> FormatAnyAsync(Expression<Func<Format, bool>> expression)
+        {
+            return await _formatDal.CheckFormat(expression);
         }
     }
 }

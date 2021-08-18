@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,10 @@ namespace Buisness.Concret
         public async Task<List<Hall>> GetAllHallAsync(string languageCode)
         {
             return await _hallDal.GetHallAsync(languageCode);
+        }
+        public async Task<bool> HallAnyAsync(Expression<Func<Hall, bool>> expression)
+        {
+            return await _hallDal.CheckHall(expression);
         }
     }
 }
