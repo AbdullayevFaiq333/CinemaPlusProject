@@ -1,10 +1,46 @@
 ﻿
 @{
-
     ViewData["Title"] = "Index";
     List<Movie> movies = Model;
-
 }
 
-<h1>Index</h1>
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Movie</h4>
+                <a asp-action="Create" class="btn btn-primary">Create</a>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var mov in movies)
+                            {
+                                <tr>
+                                    <td>
+                                        @mov.Name
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="Detail" asp-route-id="@mov.Id" class="btn btn-info">Detail</a>
+                                        <a asp-action="Update" asp-route-id="@mov.Id" class="btn btn-success">Update</a>
+                                        <a asp-action="Delete" asp-route-id="@mov.Id" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 

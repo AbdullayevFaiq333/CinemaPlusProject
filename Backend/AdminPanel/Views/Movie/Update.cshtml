@@ -1,7 +1,7 @@
 ﻿@model Movie
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
 }
 
 <div class="content text-center">
@@ -19,21 +19,19 @@
                 <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Movie">
 
                     <select name="LanguageId" id="language" class="btn btn-light">
-
+                       
                         @foreach (var item in ViewBag.Languages)
                         {
                             <option value="@item.Id"> @item.Code</option>
 
                         }
-
-
                     </select>
                     <a asp-action="Index" class="btn btn-light">
                         Go Back
                     </a>
 
                     <div class="form-group form-group-float">
-                        <input asp-for="Name" class="form-control" placeholder="First Title">
+                        <input asp-for="Name" class="form-control" value="@Model.Name" placeholder="First Title">
                         <span class="text-danger" asp-validation-for="Name"></span>
                     </div>
                     <div class="form-group form-group-float">

@@ -24,7 +24,7 @@ namespace Buisness.Concret
 
         public async Task<List<Platinium>> GetAllPlatiniumAsync()
         {
-            return await _platiniumDal.GetAllAsync();
+            return await _platiniumDal.GetAllAsync(w=>w.IsDeleted == false);
         }
 
         public async Task<bool> AddPlatiniumAsync(Platinium platinium) 

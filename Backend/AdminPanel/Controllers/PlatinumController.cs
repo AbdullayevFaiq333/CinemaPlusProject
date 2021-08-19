@@ -52,6 +52,7 @@ namespace AdminPanel.Controllers
                 ModelState.AddModelError("FirstTitle", "Please change the context.Title is already exist !");
                 return View();
             }
+            platinium.IsDeleted = false;
             await _platiniumService.AddPlatiniumAsync(platinium);
 
             return RedirectToAction("Index");
@@ -107,7 +108,7 @@ namespace AdminPanel.Controllers
         //    if (id != platinium.Id)
         //        return BadRequest();
 
-        //    var dBplatinum =  await _platiniumService.PlatinumAnyAsync();
+        //    var dBplatinum = await _platiniumService.PlatinumAnyAsync();
         //    if (dBplatinum == null)
         //        return NotFound();
 

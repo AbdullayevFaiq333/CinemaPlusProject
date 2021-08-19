@@ -13,7 +13,7 @@
 
 
 
-            </div>
+            </div> 
             <div class="card-body">
                 <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Movie">
@@ -33,19 +33,29 @@
                     </a>
 
                     <div class="form-group form-group-float">
-                        <input asp-for="Name" class="form-control" placeholder="First Title">
+                        <input asp-for="Name" class="form-control" placeholder="Name">
                         <span class="text-danger" asp-validation-for="Name"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="Age" class="form-control" placeholder="First Title">
+                        <input asp-for="Age" class="form-control" placeholder="Age">
                         <span class="text-danger" asp-validation-for="Age"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input type="datetime" asp-for="StartTime" class="form-control" placeholder="Start Time">
+                        <span class="text-danger" asp-validation-for="StartTime"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input type="datetime" asp-for="EndTime" class="form-control" placeholder="End Time">
+                        <span class="text-danger" asp-validation-for="EndTime"></span>
                     </div>
 
                     <div class="form-group form-group-float">
-                        <input asp-for="Image" class="form-control" placeholder="Youtube Url">
-                        <span class="text-danger" asp-validation-for="Image"></span>
+                        <input type="file" asp-for="Photo" class="form-control" placeholder="Photo">
+                        <span class="text-danger" asp-validation-for="Photo"></span>
                     </div>
-                    
+
+
+
 
 
                     <button type="submit" class="btn bg-blue-800">Submit<i class="icon-ml-2"></i></button>

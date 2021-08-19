@@ -30,7 +30,7 @@
                                     <td>
                                         <a asp-action="Detail" asp-route-id="@platin.Id" class="btn btn-info">Detail</a>
                                         <a asp-action="Update" asp-route-id="@platin.Id" class="btn btn-success">Update</a>
-                                        <a asp-action="Delete" asp-route-id="@platin.Id" class="btn btn-danger">Delete</a>
+                                        <a asp-action="Delete" asp-route-id="@platin.Id" onclick="return confirm('Are you sure to delete ?')" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             }

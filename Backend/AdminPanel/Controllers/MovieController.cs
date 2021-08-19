@@ -13,11 +13,16 @@ namespace AdminPanel.Controllers
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;
+        private readonly ILanguageService _languageService;
 
-        public MovieController(IMovieService movieService)
+
+        public MovieController(IMovieService movieService, ILanguageService languageService) 
         {
             _movieService = movieService;
+            _languageService = languageService;
+
         }
+
         public async Task<IActionResult> Index()
         {
 
@@ -25,122 +30,124 @@ namespace AdminPanel.Controllers
 
             return View(movie);
         }
-        //public IActionResult Create()
-        //{
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
 
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(Movie movies)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View();
-        //    }
-
-        //    var isExist = await _dbContext.Movies.AnyAsync(x => x.Name.ToLower() == movies.Name.ToLower());
-        //    if (isExist)
-        //    {
-        //        ModelState.AddModelError("Name", "Please change the context.Name is already exist !");
-        //        return View();
-        //    }
+            return View();
+        }
 
 
-        //    await _dbContext.Movies.AddAsync(movies);
-        //    await _dbContext.SaveChangesAsync();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Movie movie)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
-        //    return RedirectToAction("Index");
-        //}
-        //public IActionResult Detail(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
+            var isExist = await _movieService.MovieAnyAsync(x => x.Name.ToLower() == movie.Name);
+            if (isExist)
+            {
+                ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
+                return View();
+            }
+            await _movieService.AddMovieAsync(movie);
 
-        //    var movie = _dbContext.Movies.Find(id);
+            return RedirectToAction("Index");
+        }
 
-        //    if (movie == null)
-        //        return NotFound();
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
 
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
-
-
-        //    return View(movie);
-        //}
-        //public IActionResult Update(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
-
-        //    var movie = _dbContext.Movies.Find(id);
-
-        //    if (movie == null)
-        //        return NotFound();
-
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
-
-        //    return View(movie);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-
-        //public async Task<IActionResult> Update(int? id, Movie movies)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View();
-        //    }
-
-        //    if (id == null)
-        //        return NotFound();
-
-        //    if (id != movies.Id)
-        //        return BadRequest();
-
-        //    var movie = await _dbContext.Movies.FindAsync(id);
-        //    if (movie == null)
-        //        return NotFound();
-
-        //    var isExist = await _dbContext.Movies.AnyAsync(x => x.Name.ToLower() == movie.Name.
-        //                                                                         ToLower() && x.Id != id);
-        //    if (isExist)
-        //    {
-        //        ModelState.AddModelError("Name", "Please change the text.Name is already exist !");
-        //        return View();
-        //    }
-
-        //    //dbMovie.Language = movie.Language;
-        //    //dbMovie.Name = movie.Name;
-        //    //dbMovie.FirstDescription = movie.Age;
-        //    //dbMovie.YoutubeURL = movie.Image;
-
-        //    await _dbContext.SaveChangesAsync();
-        //    return RedirectToAction("Index");
+            var movie = await _movieService.GetMovieWithIdAsync(id.Value);
 
 
-        //}
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
-        //[HttpGet]
-        //[ActionName("Delete")]
-        //public async Task<IActionResult> DeleteMovie(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
+            if (movie == null)
+                return NotFound();
 
-        //    var movie = await _dbContext.Movies.FindAsync(id);
+            return View(movie);
+        }
 
-        //    if (movie == null)
-        //        return NotFound();
 
-        //    //_dbContext.DolbyAtmos.Remove(movie);
-        //    await _dbContext.SaveChangesAsync();
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+                return NotFound();
 
-        //    return RedirectToAction("Index");
-        //}
+            var movie = await _movieService.GetMovieWithIdAsync(id.Value);
+
+
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+
+
+            if (movie == null)
+                return NotFound();
+
+            return View(movie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Update(int? id, Movie movie)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (id == null)
+                return NotFound();
+
+            if (id != movie.Id)
+                return BadRequest();
+
+        
+
+            var isExist = await _movieService.MovieAnyAsync(x => x.Name.ToLower() == movie.Name);
+
+            if (isExist)
+            {
+                ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
+                return View();
+            }
+
+
+            await _movieService.UpdateMovieAsync(movie);
+    
+
+            return RedirectToAction("Index");
+
+
+        }
+
+        [HttpGet]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeletePlatinum(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var movie = await _movieService.GetMovieWithIdAsync(id.Value);
+            if (movie == null)
+                return NotFound();
+
+
+            await _movieService.UpdateMovieAsync(movie);
+
+            //await _platiniumService.DeletePlatiniumAsync(platinum.Id);
+
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
