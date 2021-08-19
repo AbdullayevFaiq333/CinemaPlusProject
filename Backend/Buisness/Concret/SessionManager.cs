@@ -46,5 +46,7 @@ namespace Buisness.Concret
         {
             return await _sessionDal.CheckSession(expression);
         }
+
+        
     }
 }

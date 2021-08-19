@@ -12,7 +12,6 @@ import Rules from "./components/Rules";
 import Vacancies from "./components/Vacancies";
 import Contacts from "./components/Contacts";
 import Tariffs from "./components/Tariffs";
-import BranchInfo from "./components/BranchInfo";
 import AboutUs from "./components/AboutUs";
 import MovieDetail from "./components/MovieDetail";
 
@@ -45,8 +44,8 @@ function App() {
           <Route path="/rules" component={Rules} />
           <Route path="/vacancies" component={Vacancies} />
           <Route path="/contacts" component={Contacts} />
-          <Route path="/tariffs" component={Branch} />
-          <Route path="/aboutUs/branch" component={BranchInfo} />
+          <Route path="/tariffs" component={Tariffs} />
+          
           <Route path="/movie/:id" component={MovieDetail} />
         </Switch>
       </Suspense>

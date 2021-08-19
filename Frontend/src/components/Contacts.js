@@ -1,20 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContentContact } from "../actions";
+import axios from "axios";
 import Branch from "./Branch";
 
-const Contacts = ({ contact }) => {
-  const dispatch = useDispatch();
-
-   const { content } = useSelector((state) => state.contact);
-
+const Contacts = () => {
+  
+  const [contact,setContact] = useState({});
+  const [branchId,setBranchId] = useState(1);
   useEffect(() => {
-     dispatch(fetchContentContact());
-    console.log(contact);
-  }, []);
+    
+    const getContact = async () => {
+      await axios.get(`https://localhost:44359/api/Contact/${branchId}`)
+        .then((response) => setContact(response.data));
+    }
+
+    getContact();
+  }, [branchId]);
   return (
     <>
-    <Branch/>
+    <Branch getBrach={setBranchId}/>
     
     <div class="contact">
       <div class="container-fluid p-0">
