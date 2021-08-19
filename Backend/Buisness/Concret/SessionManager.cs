@@ -42,7 +42,7 @@ namespace Buisness.Concret
             throw new NotImplementedException();
         }
 
-        public async Task<bool> ServiceAnyAsync(Expression<Func<Session, bool>> expression)
+        public async Task<bool> SessionAnyAsync(Expression<Func<Session, bool>> expression)
         {
             return await _sessionDal.CheckSession(expression);
         }
