@@ -14,6 +14,7 @@ import Contacts from "./components/Contacts";
 import Tariffs from "./components/Tariffs";
 import AboutUs from "./components/AboutUs";
 import MovieDetail from "./components/MovieDetail";
+import Hall from "./components/Hall";
 
 
 import {Route,Switch} from "react-router-dom";
@@ -45,6 +46,7 @@ function App() {
           <Route path="/vacancies" component={Vacancies} />
           <Route path="/contacts" component={Contacts} />
           <Route path="/tariffs" component={Tariffs} />
+          <Route path="/hall" component={Hall} />
           
           <Route path="/movie/:id" component={MovieDetail} />
         </Switch>

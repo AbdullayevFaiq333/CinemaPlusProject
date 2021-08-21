@@ -350,6 +350,19 @@ namespace CinemaPlus.Controllers
             return Ok(movieDto);
         }
 
+        [HttpGet("getContentWebsiteMovieWidthId/{id}")]
+
+        public async Task<IActionResult> GetContentMovieWidthId(int id )
+        {
+            
+            var movie = await _movieService.GetMovieWithIdAsync(id);
+            if (movie == null)
+                return NotFound();
+
+            var movieDto = _mapper.Map<MovieDto>(movie);
+            return Ok(movieDto);
+        }
+
 
         [HttpGet("getContentWebsiteMovieDetail/{laguageCode}/{id}")]
         public async Task<IActionResult> GetContentMovieDetail([FromRoute] string laguageCode, int id)

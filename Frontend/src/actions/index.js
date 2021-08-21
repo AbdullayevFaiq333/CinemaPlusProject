@@ -15,6 +15,8 @@ import { FETCH_CONTENT_NAVBAR,FETCH_CONTENT_NAVBAR_SUCCESS,FETCH_CONTENT_NAVBAR_
          FETCH_CONTENT_MOVIE,FETCH_CONTENT_MOVIE_SUCCESS,FETCH_CONTENT_MOVIE_FAIL,
          FETCH_CONTENT_MOVIEDETAIL,FETCH_CONTENT_MOVIEDETAIL_SUCCESS,FETCH_CONTENT_MOVIEDETAIL_FAIL,
          FETCH_CONTENT_BRANCH,FETCH_CONTENT_BRANCH_SUCCESS,FETCH_CONTENT_BRANCH_FAIL,
+         FETCH_CONTENT_SESSION,FETCH_CONTENT_SESSION_SUCCESS,FETCH_CONTENT_SESSION_FAIL,
+         FETCH_CONTENT_ROW,FETCH_CONTENT_ROW_SUCCESS,FETCH_CONTENT_ROW_FAIL,
          FETCH_LANGUAGES,FETCH_LANGUAGES_SUCCESS,FETCH_LANGUAGES_FAIL } from "../constants";
 import api from "../api"
 
@@ -223,6 +225,18 @@ export const fetchContentMovie = (languageCode = "AZ") => async (dispatch) => {
     }
 }
 
+export const fetchContentMovieWidthId = (id) => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_MOVIE});
+
+    try {
+        const response = await api.get(`Content/getContentWebsiteMovieWidthId/${id}`);
+
+        dispatch({type: FETCH_CONTENT_MOVIE_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_MOVIE_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
 
 export const fetchContentMovieDetail = (id,languageCode = "AZ") => async (dispatch) => {
     dispatch({type: FETCH_CONTENT_MOVIEDETAIL});
@@ -248,3 +262,29 @@ export const fetchContentBranch = (languageCode = "AZ") => async (dispatch) => {
         dispatch({type: FETCH_CONTENT_BRANCH_FAIL,payload: e.message ? e.message : e});
     }
 }
+
+export const fetchContentSession = () => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_SESSION});
+
+    try {
+        const response = await api.get(`Session`);
+
+        dispatch({type: FETCH_CONTENT_SESSION_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_SESSION_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
+
+export const fetchContentRow = () => async (dispatch) => {
+    dispatch({type: FETCH_CONTENT_ROW});
+
+    try {
+        const response = await api.get(`Row`);
+
+        dispatch({type: FETCH_CONTENT_ROW_SUCCESS,payload: response.data});
+    } catch (e) {
+        dispatch({type: FETCH_CONTENT_ROW_FAIL,payload: e.message ? e.message : e});
+    }
+}
+
