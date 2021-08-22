@@ -10,7 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface ISessionDal : IRepository<Session>
     {
-        Task<List<Session>> GetSessionAsync();
+        Task<List<Session>> GetSessionAsync(int id);
         Task<bool> CheckSession(Expression<Func<Session, bool>> expression);
 
     }

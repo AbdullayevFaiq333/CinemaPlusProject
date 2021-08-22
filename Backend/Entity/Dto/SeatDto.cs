@@ -8,5 +8,6 @@ namespace Entity.Dto
     {
         public int Id { get; set; }
         public int SeatNumber { get; set; }
+        public int RowId { get; set; }
     }
 }

@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchContentMovie,
   fetchContentBranch,
-  fetchContentMovieWidthId,
-  fetchContentSession
+  
 } from "../actions";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -16,29 +15,30 @@ const BuyTicket = () => {
   const { movie } = useSelector((state) => state.contentMovie);
   const { movieWidthId } = useSelector((state) => state.movieWidthId);
   const { branch } = useSelector((state) => state.contentBranch);
-  const { session } = useSelector((state) => state.contentSession);
-  const [availableBranches, setAvailableBranches] = useState(branch);
-  const [startTime, setStartTime] = useState(0);
-  const [endTime, setEndTime] = useState(0);
+  
+  const [availableBranches, setAvailableBranches] = useState([]);
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+  
+  const [session, setSession] = useState([])
   const [selectedBranch, setSelectedBranch] = useState();
   const [selectedMovie, setSelectedMovie] = useState();
   const [selectedSession, setSelectedSession] = useState();
-  console.log(availableBranches);
+  
 
-  React.useEffect(() => {
-    if (!!branch) {
-      if (selectedMovie === '1') {
-        setAvailableBranches([]);
-      } else {
-        setAvailableBranches(branch);
-      }
-    }
-  }, [selectedMovie, branch]);
+  // React.useEffect(() => {
+  //   if (!!branch) {
+  //     if (selectedMovie === "1") {
+  //       setAvailableBranches([]);
+  //     } else {
+  //       setAvailableBranches(branch);
+  //     }
+  //   }
+  // }, [selectedMovie, branch]);
 
   useEffect(() => {
     dispatch(fetchContentMovie());
     dispatch(fetchContentBranch());
-    dispatch(fetchContentSession());
   }, [dispatch]);
 
   const handleChangeMovie = async ({ target: { value } }) => {
@@ -48,26 +48,43 @@ const BuyTicket = () => {
     await axios
       .get(
         `https://localhost:44359/api/Content/getContentWebsiteMovieWidthId/${value}`
-        
       )
       .then((response) => {
         setStartTime(response.data.startTime);
         setEndTime(response.data.endTime);
       });
+
+      await axios
+      .get(
+        `https://localhost:44359/api/Session/${value}`
+      )
+      .then((respons) => {
+        console.log(respons);
+        setSession(respons.data);
+        
+      });
+
+      
   };
 
   const handleBranchChange = ({ target: { value } }) => {
     setSelectedBranch(value);
-  }
+  };
 
   const handleSessionChange = ({ target: { value } }) => {
     setSelectedSession(value);
-  }
+
+    
+  };
 
   const handlePlacesClick = (e) => {
     e.preventDefault();
-    history.push('/hall', { session: selectedSession, branch: selectedBranch })
-  }
+    history.push("/hall", {
+      session: selectedSession,
+      branch: selectedBranch,
+      movie: selectedMovie,
+    });
+  };
 
   return (
     <div class="filter">
@@ -132,7 +149,9 @@ const BuyTicket = () => {
                       <>
                         {availableBranches.map((branchItem) => {
                           return (
-                            <option id="selectOpt" value={branchItem.id}>{branchItem.name}</option>
+                            <option id="selectOpt" value={branchItem.id}>
+                              {branchItem.name}
+                            </option>
                           );
                         })}
                       </>
@@ -154,17 +173,20 @@ const BuyTicket = () => {
                       <>
                         {session.map((sessionItem) => {
                           return (
-                            <option id="selectOpt" value={sessionItem.id}>
-                              {sessionItem.startTime}-{sessionItem.endTime}
-                            </option>
+                            <option value={sessionItem.id}>{sessionItem.startTime}-{sessionItem.endTime}</option>
                           );
                         })}
                       </>
                     }
+                   
                   </select>
                 </li>
                 <li class="filterSection">
-                  <button onClick={handlePlacesClick} class="places btn" data-cinema="0">
+                  <button
+                    onClick={handlePlacesClick}
+                    class="places btn"
+                    data-cinema="0"
+                  >
                     Yerlər
                   </button>
                 </li>

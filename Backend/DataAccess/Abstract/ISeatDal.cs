@@ -10,6 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface ISeatDal : IRepository<Seat>
     {
+        Task<List<Seat>> GetSeatAsync(int id);
         Task<bool> CheckSeat(Expression<Func<Seat, bool>> expression);
 
     }

@@ -11,7 +11,8 @@ namespace Buisness.Abstract
     {
         Task<Session> GetSessionWithIdAsync(int id);
         Task<List<Session>> GetAllSessionAsync();
-        
+        Task<List<Session>> GetAllSessionAsync(int id);
+
         Task<bool> AddSessionAsync(Session session);
         Task<bool> UpdateSessionAsync(Session session);
         Task<bool> DeleteSessionAsync(int id);

@@ -12,25 +12,25 @@ namespace CinemaPlus.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RowController : ControllerBase
+    public class SeatController : ControllerBase
     {
-        private readonly IRowService _rowService;
+        private readonly ISeatService _seatService;
         private readonly IMapper _mapper;
 
-        public RowController(IMapper mapper, IRowService rowService)
+        public SeatController(IMapper mapper, ISeatService seatService)
         {
 
             _mapper = mapper;
-            _rowService = rowService;
+            _seatService = seatService;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var rows = await _rowService.GetAllRowAsync(id);
-            var rowDto = _mapper.Map<List<RowDto>>(rows);
+            var seats = await _seatService.GetAllSeatAsync(id);
+            var seatDto = _mapper.Map<List<SeatDto>>(seats);
 
-            return Ok(rowDto);
+            return Ok(seatDto);
         }
     }
 }

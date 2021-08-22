@@ -4,6 +4,7 @@ using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,14 @@ namespace DataAccess.Concret
         {
             await using var context = new AppDbContext();
             return await context.Seats.AnyAsync(expression);
+        }
+
+        public async Task<List<Seat>> GetSeatAsync(int id)
+        {
+            await using var context = new AppDbContext();
+            return await context.Seats.Include(x => x.Row)
+                .Where(x => x.RowId == id)
+                .ToListAsync();
         }
     }
 }

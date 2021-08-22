@@ -10,7 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface IRowDal : IRepository<Row>
     {
-        Task<List<Row>> GetRowAsync();
+        Task<List<Row>> GetRowAsync(int id);
         Task<bool> CheckRow(Expression<Func<Row, bool>> expression);
 
 
