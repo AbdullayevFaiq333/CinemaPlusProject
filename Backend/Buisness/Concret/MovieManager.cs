@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,7 @@ namespace Buisness.Concret
     public class MovieManager : IMovieService
     {
         private readonly IMovieDal _movieDal;
+        private IHostEnvironment _environment;
 
         public MovieManager(IMovieDal movieDal)
         {
@@ -88,36 +90,33 @@ namespace Buisness.Concret
 
         }
 
-        public async Task<bool> UpdateMovieAsync(Movie movie)
+        public async Task<bool> UpdateMovieAsync(Movie movie, string oldPhoto)
         {
-
-            _movieDal.UpdateWithEntryAsync(movie, movie.EndTime, movie.StartTime);
-            _movieDal. .Entry(aboutEditPost.About).Property(p => p.CreatedDate).IsModified = false;
-            _movieDal.Entry(aboutEditPost.About).Property(p => p.IsActive).IsModified = false;
-            aboutEditPost.About.UpdatedDate = DateTime.Now;
-
 
             var newFileName = string.Empty;
 
-            if (aboutEditPost.Picture != null)
+            if (movie.Photo != null)
             {
-                if (aboutEditPost.Picture.Length > 0 &&
-                    (aboutEditPost.Picture.ContentType == "image/jpeg"
-                      || aboutEditPost.Picture.ContentType == "image/jpg"
-                    || aboutEditPost.Picture.ContentType == "image/png"
-                    || aboutEditPost.Picture.ContentType == "image/x-png"
-                    || aboutEditPost.Picture.ContentType == "image/pjpeg"))
+                if (movie.Photo.Length > 0 &&
+                    (movie.Photo.ContentType == "image/jpeg"
+                      || movie.Photo.ContentType == "image/jpg"
+                    || movie.Photo.ContentType == "image/png"
+                    || movie.Photo.ContentType == "image/x-png"
+                    || movie.Photo.ContentType == "image/pjpeg"))
 
                 {
-
-                    var oldFilePath = Path.Combine(
-          _environment.ContentRootPath, "wwwroot", "Uploads", "AboutPicture", aboutEditPost.OldPicture);
-                    if (System.IO.File.Exists(oldFilePath))
-                        System.IO.File.Delete(oldFilePath);
+                    if(oldPhoto!= null)
+                    {
+                        var oldFilePath = Path.Combine(
+         _environment.ContentRootPath, "wwwroot", "Uploads", "movies", oldPhoto);
+                        if (System.IO.File.Exists(oldFilePath))
+                            System.IO.File.Delete(oldFilePath);
+                    }
+                   
 
                     //Getting FileName
-                    var fileName = Path.GetFileName(aboutEditPost.Picture.FileName);
-                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(aboutEditPost.Picture.FileName);
+                    var fileName = Path.GetFileName(movie.Photo.FileName);
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(movie.Photo.FileName);
 
                     //Assigning Unique Filename (Guid)
                     var myUniqueFileName = Convert.ToString(Guid.NewGuid());
@@ -126,27 +125,25 @@ namespace Buisness.Concret
                     var fileExtension = Path.GetExtension(fileName);
 
                     // concatenating  FileName + FileExtension
-                    newFileName = String.Concat(myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+                    newFileName = String.Concat("movies/"+myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
 
                     // Combines two strings into a path.
                     var filepath =
-            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads", "AboutPicture"))
+            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
             .Root + $@"\{newFileName}";
 
                     using (FileStream fs = System.IO.File.Create(filepath))
                     {
-                        aboutEditPost.Picture.CopyTo(fs);
+                        movie.Photo.CopyTo(fs);
                         fs.Flush();
                     }
                 }
-                aboutEditPost.About.Picture = newFileName;
+                movie.Image = newFileName;
+
+                await _movieDal.UpdateAsync(movie);
+                return true;
             }
-            else
-                _movieDal.Entry(aboutEditPost.About).Property(p => p.Picture).IsModified = false;
-
-
-            await _movieDal.UpdateAsync(movie);
-            return true;
+            return false;
         }
 
         public async Task<List<Movie>> GetAllMovieAsync(string languageCode)

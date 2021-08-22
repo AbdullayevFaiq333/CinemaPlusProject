@@ -95,19 +95,21 @@ namespace Core.Repository.EFRepository
                 }
             }
         }
-        public async Task<bool> UpdateWithEntryAsync(TEntity entity, params string[] propertyNames)
+        public async Task<bool> UpdateWithEntryAsync(TEntity entity, params object[] propertyNames)
         {
             await using (var context = new IContext())
             {
                 await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
                 try
                 {
+                    context.Entry(entity).State = EntityState.Modified;
                     for (int i = 0; i < propertyNames.Count(); i++)
                     {
-                        context.Entry(entity).Property(propertyNames[i]).IsModified = false;
+                        context.Entry(entity).Property(propertyNames[i].ToString()).IsModified = false;
 
+                        foreach (var p in context.Entry(propertyNames[i].ToString()).Properties.Where(p => p.Metadata.Name != "Label"))
+                            p.IsModified = false;
                     }
-                    context.Set<TEntity>().Update(entity);
                     await context.SaveChangesAsync();
                     await dbContextTransaction.CommitAsync();
                     return true;

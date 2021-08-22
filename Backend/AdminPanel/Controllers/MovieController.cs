@@ -99,7 +99,7 @@ namespace AdminPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Update(Movie movie)
+        public async Task<IActionResult> Update(Movie movie,string oldPhoto)
         {
             if (!ModelState.IsValid)
             {
@@ -112,7 +112,12 @@ namespace AdminPanel.Controllers
                 ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
                 return View();
             }
-            await _movieService.AddMovieAsync(movie);
+          var isMovieUpdatedData = await _movieService.UpdateMovieAsync(movie,oldPhoto);
+
+            if(isMovieUpdatedData == false)
+            {
+                // shekilsiz yuklemek olmaz!!!!
+            }
 
             return RedirectToAction("Index");
 

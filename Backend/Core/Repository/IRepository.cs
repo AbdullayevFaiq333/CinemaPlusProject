@@ -14,6 +14,6 @@ namespace Core.Repository
         Task<bool> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);
         Task<bool> DeleteAsync(T entity);
-        Task<bool> UpdateWithEntryAsync(T entity, params string[] propertyNames);
+        Task<bool> UpdateWithEntryAsync(T entity, params object[] propertyNames);
     }
 }
