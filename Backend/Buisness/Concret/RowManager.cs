@@ -21,7 +21,6 @@ namespace Buisness.Concret
         {
             return await _rowDal.GetAsync(x => x.Id == id);
         }
-
         public async Task<List<Row>> GetAllRowAsync()
         {
             return await _rowDal.GetAllAsync();
@@ -42,14 +41,15 @@ namespace Buisness.Concret
             throw new NotImplementedException();
         }
 
-        public async Task<List<Row>> GetAllRowsAsync()
+        public async Task<List<Row>> GetAllRowAsync(int id)
         {
-            return await _rowDal.GetRowAsync();
+            return await _rowDal.GetRowAsync(id);
         }
         public async Task<bool> RowAnyAsync(Expression<Func<Row, bool>> expression)
         {
             return await _rowDal.CheckRow(expression);
         }
 
+        
     }
 }

@@ -24,10 +24,10 @@ namespace CinemaPlus.Controllers
             _sessionService = sessionService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            var sessions = await _sessionService.GetAllSessionAsync();
+            var sessions = await _sessionService.GetAllSessionAsync(id);
             var sessionDto = _mapper.Map<List<SessionDto>>(sessions);
 
             return Ok(sessionDto);

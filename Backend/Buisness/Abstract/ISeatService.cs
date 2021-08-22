@@ -11,6 +11,8 @@ namespace Buisness.Abstract
     {
         Task<Seat> GetSeatWithIdAsync(int id);
         Task<List<Seat>> GetAllSeatAsync();
+        Task<List<Seat>> GetAllSeatAsync(int id);
+
         Task<bool> AddSeatAsync(Seat seat);
         Task<bool> UpdateSeatAsync(Seat seat);
         Task<bool> DeleteSeatAsync(int id);

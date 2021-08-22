@@ -41,9 +41,15 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+        public async Task<List<Seat>> GetAllSeatAsync(int id)
+        {
+            return await _seatDal.GetSeatAsync(id);
+        }
         public async Task<bool> SeatAnyAsync(Expression<Func<Seat, bool>> expression)
         {
             return await _seatDal.CheckSeat(expression);
         }
+
+        
     }
 }
