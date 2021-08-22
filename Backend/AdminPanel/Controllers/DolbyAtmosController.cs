@@ -13,66 +13,66 @@ namespace AdminPanel.Controllers
     public class DolbyAtmosController : Controller
     {
         private readonly IDolbyAtmosService _dolbyAtmosService;
+        private readonly ILanguageService _languageService;
 
-        public DolbyAtmosController(IDolbyAtmosService hallService)
+        public DolbyAtmosController(IDolbyAtmosService dolbyAtmosService, ILanguageService languageService)
         {
-            _dolbyAtmosService = hallService;
+            _dolbyAtmosService = dolbyAtmosService;
+            _languageService = languageService;
+
         }
 
         public async Task<IActionResult> Index()
         {
             var dolbyAtmos = await _dolbyAtmosService.GetAllDolbyAtmosAsync();
 
+             
+            return View(dolbyAtmos);
+        }
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(DolbyAtmos dolbyAtmos)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var isExist = await _dolbyAtmosService.DolbyAtmosAnyAsync(x => x.FirstTitle.ToLower() == dolbyAtmos.FirstTitle);
+            if (isExist)
+            {
+                ModelState.AddModelError("FirstTitle", "Please change the context.Title is already exist !");
+                return View();
+            }
+            await _dolbyAtmosService.AddDolbyAtmosAsync(dolbyAtmos);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dolbyAtmos = await _dolbyAtmosService.GetDolbyAtmosWithIdAsync(id.Value);
+
+
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+            if (dolbyAtmos == null)
+                return NotFound();
 
             return View(dolbyAtmos);
         }
-        //public IActionResult Create()
-        //{
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
 
-
-        //    return View();
-        //}
-
-        //[HttpPost] 
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(DolbyAtmos dolbyAtmos)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View();
-        //    }
-
-        //    var isExist = await _dbContext.DolbyAtmos.AnyAsync(x => x.FirstTitle.ToLower() == dolbyAtmos.FirstTitle.ToLower());
-        //    if (isExist)
-        //    {
-        //        ModelState.AddModelError("FirstTitle", "Please change the context.Title is already exist !");
-        //        return View();
-        //    }
-
-
-        //    await _dbContext.DolbyAtmos.AddAsync(dolbyAtmos);
-        //    await _dbContext.SaveChangesAsync();
-
-        //    return RedirectToAction("Index");
-        //}
-
-
-        //public IActionResult Detail(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
-
-        //    var dolbyAtmos = _dbContext.DolbyAtmos.Find(id);
-
-        //    if (dolbyAtmos == null)
-        //        return NotFound();
-
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
-
-
-        //    return View(dolbyAtmos);
-        //}
 
         //public IActionResult Update(int? id)
         //{
@@ -131,23 +131,23 @@ namespace AdminPanel.Controllers
         //}
 
 
-        //[HttpGet]
-        //[ActionName("Delete")]
-        //public async Task<IActionResult> DeleteDolby (int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
+        [HttpGet]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteDolbyAtmos(int? id)
+        {
+            if (id == null)
+                return NotFound();
 
-        //    var dolbyAtmos = await _dbContext.DolbyAtmos.FindAsync(id);
+            var dolbyAtmos = await _dolbyAtmosService.GetDolbyAtmosWithIdAsync(id.Value);
+            if (dolbyAtmos == null)
+                return NotFound();
 
-        //    if (dolbyAtmos == null)
-        //        return NotFound();
 
-        //    _dbContext.DolbyAtmos.Remove(dolbyAtmos);
-        //    await _dbContext.SaveChangesAsync();
+            await _dolbyAtmosService.DeleteDolbyAtmosAsync(dolbyAtmos);
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
+
 
     }
 

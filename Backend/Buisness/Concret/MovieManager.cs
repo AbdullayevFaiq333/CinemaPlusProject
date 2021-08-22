@@ -1,6 +1,7 @@
 ﻿using Buisness.Abstract;
 using DataAccess.Abstract;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
@@ -81,14 +82,71 @@ namespace Buisness.Concret
 
         }
 
-        public Task<bool> DeleteMovieAsync(int id)
+        public async Task<bool> DeleteMovieAsync(Movie movie)
         {
-            throw new NotImplementedException();
+            return await _movieDal.DeleteAsync(movie);
+
         }
 
-        public Task<bool> UpdateMovieAsync(Movie movie)
+        public async Task<bool> UpdateMovieAsync(Movie movie)
         {
-            throw new NotImplementedException();
+
+            _movieDal.UpdateWithEntryAsync(movie, movie.EndTime, movie.StartTime);
+            _movieDal. .Entry(aboutEditPost.About).Property(p => p.CreatedDate).IsModified = false;
+            _movieDal.Entry(aboutEditPost.About).Property(p => p.IsActive).IsModified = false;
+            aboutEditPost.About.UpdatedDate = DateTime.Now;
+
+
+            var newFileName = string.Empty;
+
+            if (aboutEditPost.Picture != null)
+            {
+                if (aboutEditPost.Picture.Length > 0 &&
+                    (aboutEditPost.Picture.ContentType == "image/jpeg"
+                      || aboutEditPost.Picture.ContentType == "image/jpg"
+                    || aboutEditPost.Picture.ContentType == "image/png"
+                    || aboutEditPost.Picture.ContentType == "image/x-png"
+                    || aboutEditPost.Picture.ContentType == "image/pjpeg"))
+
+                {
+
+                    var oldFilePath = Path.Combine(
+          _environment.ContentRootPath, "wwwroot", "Uploads", "AboutPicture", aboutEditPost.OldPicture);
+                    if (System.IO.File.Exists(oldFilePath))
+                        System.IO.File.Delete(oldFilePath);
+
+                    //Getting FileName
+                    var fileName = Path.GetFileName(aboutEditPost.Picture.FileName);
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(aboutEditPost.Picture.FileName);
+
+                    //Assigning Unique Filename (Guid)
+                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+
+                    // concatenating  FileName + FileExtension
+                    newFileName = String.Concat(myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+
+                    // Combines two strings into a path.
+                    var filepath =
+            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads", "AboutPicture"))
+            .Root + $@"\{newFileName}";
+
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        aboutEditPost.Picture.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+                aboutEditPost.About.Picture = newFileName;
+            }
+            else
+                _movieDal.Entry(aboutEditPost.About).Property(p => p.Picture).IsModified = false;
+
+
+            await _movieDal.UpdateAsync(movie);
+            return true;
         }
 
         public async Task<List<Movie>> GetAllMovieAsync(string languageCode)
@@ -100,5 +158,11 @@ namespace Buisness.Concret
         {
             return await _movieDal.CheckMovie(expression);
         }
+
+        public async Task<MovieDetail> GetMovieDetail(int? movieId)
+        {
+            return await _movieDal.GetMovieDetail(movieId);
+        }
+     
     }
 }

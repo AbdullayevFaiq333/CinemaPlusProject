@@ -95,5 +95,29 @@ namespace Core.Repository.EFRepository
                 }
             }
         }
+        public async Task<bool> UpdateWithEntryAsync(TEntity entity, params string[] propertyNames)
+        {
+            await using (var context = new IContext())
+            {
+                await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
+                try
+                {
+                    for (int i = 0; i < propertyNames.Count(); i++)
+                    {
+                        context.Entry(entity).Property(propertyNames[i]).IsModified = false;
+
+                    }
+                    context.Set<TEntity>().Update(entity);
+                    await context.SaveChangesAsync();
+                    await dbContextTransaction.CommitAsync();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    await dbContextTransaction.RollbackAsync();
+                    throw;
+                }
+            }
+        }
     }
 }

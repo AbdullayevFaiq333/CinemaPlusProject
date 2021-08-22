@@ -14,7 +14,7 @@ namespace Buisness.Abstract
         Task<List<DolbyAtmos>> GetAllDolbyAtmosAsync(string languageCode);
         Task<bool> AddDolbyAtmosAsync(DolbyAtmos dolbyAtmos);
         Task<bool> UpdateDolbyAtmosAsync(DolbyAtmos dolbyAtmos);
-        Task<bool> DeleteDolbyAtmosAsync(int id);
+        Task<bool> DeleteDolbyAtmosAsync(DolbyAtmos dolbyAtmos); 
         Task<bool> DolbyAtmosAnyAsync(Expression<Func<DolbyAtmos, bool>> expression);
 
     }

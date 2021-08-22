@@ -1,7 +1,6 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Detail";
-    Movie movie = Model;
+    MovieDetail movieDetail = Model;
 }
 
 
@@ -43,16 +42,32 @@
                         <tr>
 
                             <td>
-                                    @movie.Name
+                                @movieDetail.Treyler
 
-                               
+
                             </td>
                             <td>
-                                @movie.Age
+                                @movieDetail.Country
                             </td>
 
                             <td>
-                                    @movie.Image
+                                @movieDetail.Director
+
+                            </td>
+                            <td>
+                                @movieDetail.Actors
+
+                            </td>
+                            <td>
+                                @movieDetail.Duration
+
+                            </td>
+                            <td>
+                                @movieDetail.Genre
+
+                            </td>
+                            <td>
+                                @movieDetail.About
 
                             </td>
                         </tr>

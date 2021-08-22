@@ -12,6 +12,8 @@ namespace DataAccess.Abstract
     {
         Task<List<Movie>> GetMovieAsync(string languageCode);
         Task<bool> CheckMovie(Expression<Func<Movie, bool>> expression);
+        Task<MovieDetail> GetMovieDetail(int? movieId);
+        
 
 
     }

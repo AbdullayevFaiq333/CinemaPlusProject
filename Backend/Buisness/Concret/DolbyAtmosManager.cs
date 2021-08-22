@@ -51,5 +51,10 @@ namespace Buisness.Concret
         {
             return await _dolbyAtmosDal.CheckDolbyAtmos(expression);
         }
+
+        public Task<bool> DeleteDolbyAtmosAsync(DolbyAtmos dolbyAtmos)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -25,12 +25,12 @@
                                 <tr>
                                     <td>
                                         @mov.Name
-                                    </td>
+                                    </td> 
 
                                     <td>
                                         <a asp-action="Detail" asp-route-id="@mov.Id" class="btn btn-info">Detail</a>
                                         <a asp-action="Update" asp-route-id="@mov.Id" class="btn btn-success">Update</a>
-                                        <a asp-action="Delete" asp-route-id="@mov.Id" class="btn btn-danger">Delete</a>
+                                        <a asp-action="Delete" asp-route-id="@mov.Id" class="btn btn-danger" onclick="return confirm('Are you sure to delete ?')">Delete</a>
                                     </td>
                                 </tr>
                             }

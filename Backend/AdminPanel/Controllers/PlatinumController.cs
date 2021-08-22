@@ -13,7 +13,7 @@ namespace AdminPanel.Controllers
 {
     public class PlatinumController : Controller 
     {
-        private readonly IPlatiniumService _platiniumService;
+        private readonly IPlatiniumService _platiniumService; 
         private readonly ILanguageService _languageService;
 
         public PlatinumController(IPlatiniumService platiniumService,ILanguageService languageService)
@@ -49,7 +49,7 @@ namespace AdminPanel.Controllers
             var isExist = await _platiniumService.PlatinumAnyAsync(x => x.Title.ToLower() == platinium.Title);
             if (isExist)
             {
-                ModelState.AddModelError("FirstTitle", "Please change the context.Title is already exist !");
+                ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
                 return View();
             }
             platinium.IsDeleted = false;
@@ -131,7 +131,7 @@ namespace AdminPanel.Controllers
 
 
 
-
+         
         [HttpGet]
         [ActionName("Delete")]
         public async Task<IActionResult> DeletePlatinum(int? id)

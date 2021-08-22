@@ -64,15 +64,16 @@ namespace AdminPanel.Controllers
             if (id == null)
                 return NotFound();
 
-            var movie = await _movieService.GetMovieWithIdAsync(id.Value);
+            var movieDetail = await _movieService.GetMovieDetail(id);
 
+            
 
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
-            if (movie == null)
+            if (movieDetail == null)
                 return NotFound();
 
-            return View(movie);
+            return View(movieDetail);
         }
 
 
@@ -88,6 +89,7 @@ namespace AdminPanel.Controllers
 
 
 
+
             if (movie == null)
                 return NotFound();
 
@@ -97,32 +99,20 @@ namespace AdminPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Update(int? id, Movie movie)
+        public async Task<IActionResult> Update(Movie movie)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            if (id == null)
-                return NotFound();
-
-            if (id != movie.Id)
-                return BadRequest();
-
-        
-
             var isExist = await _movieService.MovieAnyAsync(x => x.Name.ToLower() == movie.Name);
-
             if (isExist)
             {
                 ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
                 return View();
             }
-
-
-            await _movieService.UpdateMovieAsync(movie);
-    
+            await _movieService.AddMovieAsync(movie);
 
             return RedirectToAction("Index");
 
@@ -131,7 +121,7 @@ namespace AdminPanel.Controllers
 
         [HttpGet]
         [ActionName("Delete")]
-        public async Task<IActionResult> DeletePlatinum(int? id)
+        public async Task<IActionResult> DeleteMovie(int? id)
         {
             if (id == null)
                 return NotFound();
@@ -141,9 +131,7 @@ namespace AdminPanel.Controllers
                 return NotFound();
 
 
-            await _movieService.UpdateMovieAsync(movie);
-
-            //await _platiniumService.DeletePlatiniumAsync(platinum.Id);
+            await _movieService.DeleteMovieAsync(movie);
 
             return RedirectToAction("Index");
         }
