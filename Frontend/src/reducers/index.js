@@ -56,6 +56,9 @@ import {
   FETCH_CONTENT_ROW,
   FETCH_CONTENT_ROW_SUCCESS,
   FETCH_CONTENT_ROW_FAIL,
+  FETCH_CONTENT_HALL,
+  FETCH_CONTENT_HALL_SUCCESS,
+  FETCH_CONTENT_HALL_FAIL,
   FETCH_LANGUAGES,
   FETCH_LANGUAGES_SUCCESS,
   FETCH_LANGUAGES_FAIL,
@@ -618,6 +621,33 @@ export const fetchContentRowReducer = (
         loading: false,
       };
     case FETCH_CONTENT_ROW_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+export const fetchContentHallReducer = (
+  state = { loading: true, hall: [] },
+  action
+) => {
+  switch (action.type) {
+    case FETCH_CONTENT_HALL:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_CONTENT_HALL_SUCCESS:
+      return {
+        ...state,
+        hall: action.payload,
+        loading: false,
+      };
+    case FETCH_CONTENT_HALL_FAIL:
       return {
         ...state,
         error: action.payload,

@@ -21,6 +21,7 @@ import {
   fetchContentMovieWidthIdReducer,
   fetchContentSessionReducer,
   fetchContentRowReducer,
+  fetchContentHallReducer
 } from "./reducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -47,6 +48,7 @@ const reducers = combineReducers({
   movieWidthId: fetchContentMovieWidthIdReducer,
   contentSession: fetchContentSessionReducer,
   row: fetchContentRowReducer,
+  contentHall:fetchContentHallReducer,
 });
 
 const store = createStore(
