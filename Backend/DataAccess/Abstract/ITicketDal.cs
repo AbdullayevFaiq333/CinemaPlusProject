@@ -10,6 +10,8 @@ namespace DataAccess.Abstract
 {
     public interface ITicketDal : IRepository<Ticket>
     {
+        Task<List<Ticket>> GetTicketAsync(int id);
+
         Task<bool> CheckTicket(Expression<Func<Ticket, bool>> expression);
 
     }

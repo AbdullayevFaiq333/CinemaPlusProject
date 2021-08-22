@@ -42,9 +42,17 @@ namespace Buisness.Concret
         {
             throw new NotImplementedException();
         }
+
+        public async Task<List<Ticket>> GetAllTicketAsync(int id)
+        {
+            return await _ticketDal.GetTicketAsync(id);
+
+        }
         public async Task<bool> TicketAnyAsync(Expression<Func<Ticket, bool>> expression)
         {
             return await _ticketDal.CheckTicket(expression);
         }
+
+        
     }
 }

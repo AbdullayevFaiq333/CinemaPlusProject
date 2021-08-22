@@ -11,6 +11,8 @@ namespace Buisness.Abstract
     {
         Task<Ticket> GetTicketWithIdAsync(int id);
         Task<List<Ticket>> GetAllTicketAsync();
+        Task<List<Ticket>> GetAllTicketAsync(int id);
+
         Task<bool> AddTicketAsync(Ticket ticket);
         Task<bool> UpdateTicketAsync(Ticket ticket);
         Task<bool> DeleteTicketAsync(int id);
