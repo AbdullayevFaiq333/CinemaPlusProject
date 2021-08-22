@@ -15,6 +15,7 @@ const MovieDetail = () => {
 
   return (
     <div class="movieDetails">
+      
       <iframe
         width="560"
         height="315"

@@ -8,6 +8,7 @@ const CampaignDetail = () => {
 
   const { content } = useSelector((state) => state.contentCampaignDetail);
   const {id} = useParams();
+  
 
   useEffect(() => {
     dispatch(fetchContentCampaignDetail(id));

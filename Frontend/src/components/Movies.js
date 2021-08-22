@@ -7,7 +7,7 @@ const Movies = () => {
   const dispatch = useDispatch();
     
     
-    const { content } = useSelector((state) => state.contentMovie);
+    const { movie } = useSelector((state) => state.contentMovie);
 
     useEffect(() => {
         dispatch(fetchContentMovie());
@@ -22,7 +22,7 @@ const Movies = () => {
               <div className="row">
               {
             <>
-              {content.map((movieItem) => {
+              {movie.map((movieItem) => {
                 return (
                   <div key={movieItem.id} className="col-md-3 col-sm-6 col-xs-6">
                 <div className="movieBody">

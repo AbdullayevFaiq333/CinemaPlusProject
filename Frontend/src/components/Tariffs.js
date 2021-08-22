@@ -1,19 +1,15 @@
 import React, { useEffect,useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchContentTariff } from "../actions";
+
 import { SRLWrapper } from "simple-react-lightbox";
 import axios from "axios";
 
 import Branch from "./Branch";
 
 const Tariffs = () => {
-  //const dispatch = useDispatch();
   const [tariff,setTariff] = useState({});
-  // const { content } = useSelector((state) => state.tariff);
   const [branchId,setBranchId] = useState(1);
 
   useEffect(() => {
-    // dispatch(fetchContentTariff());
     const getTariff = async () => {
       await axios.get(`https://localhost:44359/api/Tariff/${branchId}`)
         .then((response) => setTariff(response.data));

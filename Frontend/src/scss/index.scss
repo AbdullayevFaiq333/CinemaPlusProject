@@ -229,6 +229,171 @@ body {
       }
     }
   }
+
+  .plane {
+    background: url("http://localhost:3000/images/platinum/platinum-background.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    .title{
+      font-size:50px;
+      color: aqua;
+      padding:5% 0 0 10%;
+    }
+    .prc{
+      font-size:30px;
+      color: aqua;
+      padding:5% 0 0 10%;
+    }
+    .buy{
+      padding:0 0 100px 70%;
+    }
+    ul {
+      list-style :none;
+      
+      
+    }
+    .rowName{
+      color: aqua;
+      font-weight: 700;
+      padding-left: 25%;
+      
+      
+    }
+    .seats {
+      display: flex;
+      flex-direction: row;
+      padding-left: 30%;
+      
+    }
+    .seat {
+      padding:15px;
+      
+      input[type=checkbox] {
+        position: absolute;
+        opacity: 0;
+      }
+      input[type=checkbox]:checked {
+        + label {
+          background: rgb(114, 29, 3);      
+          
+        }
+      }
+      
+      label {  
+        font-weight: 700;
+        background: aqua;
+        border-radius: 10px;
+        padding-bottom: 40px;
+        padding-right: 15px;
+        
+        &:hover {
+          cursor: pointer;
+          box-shadow: 0 0 0px 2px #828494;
+        }
+        
+      }
+    }
+  }
+
+  .filter {
+    height: 98px;
+    background: #1d2730;
+    text-align: center;
+    .filters {
+      height: 98px;
+      padding: 10px 0 0 21%;
+      margin: 0 auto;
+      
+      .filterList {
+        list-style: none;
+        font-weight: bold;
+
+        .filterSection {
+          width: 120px;
+          height: 48px;
+          float: left;
+          margin: 0 0 0 1px;
+
+          &:first-child {
+            width: 200px;
+          }
+          + li + li {
+            width: 140px;
+          }
+          + li + li + li {
+            width: 130px;
+          }
+          + li + li + li + li {
+            width: 130px;
+          }
+          &:nth-of-type(1) select {
+            border-radius: 5px 0 0 5px;
+          }
+          .box {
+            background: #fff no-repeat 94% 50%;
+            appearance: none;
+            font-weight: bold;
+            background-size: 28px;
+          }
+          
+
+          .places {
+            display: block;
+            width: 100%;
+            height: 48px;
+            padding: 0 30px 0 15px;
+            font-size: 14px;
+            line-height: 48px;
+            text-align: left;
+            color: #000000;
+            text-decoration: none;
+            background: #fff url() no-repeat 90% 50%;
+            
+          }
+          .selectFilter {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 48px;
+            padding: 0 30px 0 15px;
+            border: none;
+            font-size: 14px;
+            font-family: "Gotham-Medium";
+            cursor: pointer;
+            transition: 0.5s;
+            #selectOpt {
+              background-color: whitesmoke;
+              color: rgb(20, 46, 80);
+              font-weight: bold;
+              font-size: 17px;
+              font-family: "Gotham-Medium";
+              padding-bottom: 5px;
+              cursor: pointer;
+              border-radius: 5px 0 0 5px;
+            }
+          }
+          button {
+            border: none;
+            font-family: "Gotham-Medium";
+            font-size: 14px;
+            color: #ffffff;
+            padding: 13px 0;
+            background: #334e9e;
+            width: 104px;
+            border-radius: 0px 5px 5px 0px;
+            display: block;
+          }
+          .disabled {
+            background: #666 !important;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
   .accordion {
     max-width: 90%;
     margin: 10px auto 10px;
@@ -291,7 +456,7 @@ body {
     font-family: "Gotham-Medium";
     .tabs {
       .head {
-        margin-top: 20px;
+        margin-top: 10px;
         text-align: center;
         height: 46px;
         .title {
@@ -307,7 +472,7 @@ body {
       }
       .tabBody {
         border-top: 5px solid #334e9e;
-        padding-top: 2px;
+
         .tabTariffs {
           display: block;
           img {
@@ -318,14 +483,12 @@ body {
     }
   }
 
-  
   .branchs {
-    img{
+    img {
       display: block;
       margin-left: auto;
       margin-right: auto;
       width: 80%;
-      
     }
     .branchNames {
       width: 100%;
@@ -340,10 +503,10 @@ body {
         line-height: 21px;
         margin-right: 20px;
         border-radius: 15px;
-        
+
         padding: 10px 10px;
         cursor: pointer;
-        
+
         .cinemaBranch {
           color: #fff;
           text-decoration: none;
@@ -353,7 +516,6 @@ body {
           a {
             color: #314ca0;
           }
-          
         }
       }
     }
@@ -426,10 +588,8 @@ body {
     }
   }
   .navbar {
-    
     padding: 0 !important;
     margin: 0 !important;
-    
 
     .nav-logo {
       background-color: #334e9e;
@@ -493,21 +653,21 @@ body {
           padding-right: 20px;
           color: #000000;
         }
-        img{
-          
+        img {
           padding: 3px 5% 0 0;
         }
       }
     }
-    .phone{
+    .phone {
       color: white;
       padding: 15px 0 0 5%;
-      
     }
   }
   .platinum-section {
     background-image: url("http://localhost:3000/images/platinum/platinum-background.png");
-
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
 
     .title {
@@ -548,6 +708,9 @@ body {
   .aboutTab {
     background: url("http://localhost:3000/images/about/about.jpg") no-repeat
       center;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
     position: relative;
     .container {
@@ -637,7 +800,11 @@ body {
   }
   .service-section {
     background: url("http://localhost:3000/images/about/about.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
+
     position: relative;
     .overlay {
       position: absolute;
@@ -765,8 +932,8 @@ body {
       .campgImg {
         margin-bottom: 20px;
         display: block;
-
         width: 45%;
+        padding-left: 35px;
       }
     }
     .campgDesc {
