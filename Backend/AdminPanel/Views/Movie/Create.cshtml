@@ -1,32 +1,26 @@
 ﻿@model Movie
 
+
 @{
     ViewData["Title"] = "Create";
 }
 
 <div class="content text-center">
-    <div class="col-lg-6 ">
+    <div class="col-lg-5" style="display: inline-block">
         <div class="card">
             <div class="card-header header-elements-inline">
-                <h5 class="card-title">Create Movie in new language</h5>
+                <h5 class="card-title">Create Movie</h5>
+            </div>
 
-
-
-
-            </div> 
             <div class="card-body">
-                <div class="text-danger" asp-validation-summary="ModelOnly"></div> 
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Movie">
-
                     <select name="LanguageId" id="language" class="btn btn-light">
-
                         @foreach (var item in ViewBag.Languages)
                         {
                             <option value="@item.Id"> @item.Code</option>
 
                         }
-
-
                     </select>
                     <a asp-action="Index" class="btn btn-light">
                         Go Back
@@ -41,11 +35,11 @@
                         <span class="text-danger" asp-validation-for="Age"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input type="datetime" asp-for="StartTime" class="form-control" placeholder="Start Time">
+                        <input type="datetime-local" asp-for="StartTime" class="form-control" placeholder="Start Time">
                         <span class="text-danger" asp-validation-for="StartTime"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input type="datetime" asp-for="EndTime" class="form-control" placeholder="End Time">
+                        <input type="datetime-local" asp-for="EndTime" class="form-control" placeholder="End Time">
                         <span class="text-danger" asp-validation-for="EndTime"></span>
                     </div>
 
@@ -53,15 +47,49 @@
                         <input type="file" asp-for="Photo" class="form-control" placeholder="Photo">
                         <span class="text-danger" asp-validation-for="Photo"></span>
                     </div>
-
-
-
-
-
                     <button type="submit" class="btn bg-blue-800">Submit<i class="icon-ml-2"></i></button>
                 </form>
             </div>
         </div>
     </div>
+    <div class="col-lg-5" style="display:inline-block">
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Movie Details</h5>
+            </div>
+
+            <div class="card-body">
+
+
+                <div class="form-group form-group-float">
+                    <input asp-for="MovieDetail.About" class="form-control" placeholder="About">
+                    <span class="text-danger" asp-validation-for="MovieDetail.About"></span>
+                </div>
+                <div class="form-group form-group-float">
+                    <input asp-for="MovieDetail.Actors" class="form-control" placeholder="Actors">
+                    <span class="text-danger" asp-validation-for="MovieDetail.Actors"></span>
+                </div>
+                <div class="form-group form-group-float">
+                    <input asp-for="MovieDetail.Country" class="form-control" placeholder="Countr">
+                    <span class="text-danger" asp-validation-for="MovieDetail.Country"></span>
+                </div>
+                <div class="form-group form-group-float">
+                    <input asp-for="MovieDetail.Director" class="form-control" placeholder="Director">
+                    <span class="text-danger" asp-validation-for="MovieDetail.Director"></span>
+                </div>
+                <div class="form-group form-group-float">
+                    <input asp-for="MovieDetail.Genre" class="form-control" placeholder="Genre">
+                    <span class="text-danger" asp-validation-for="MovieDetail.Genre"></span>
+                </div>
+                <div class="form-group form-group-float">
+                    <input asp-for="MovieDetail.Treyler" class="form-control" placeholder="Trailer">
+                    <span class="text-danger" asp-validation-for="MovieDetail.Treyler"></span>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
 </div>
 

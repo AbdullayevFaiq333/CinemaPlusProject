@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 
 namespace AdminPanel.Controllers
 {
-    public class ServicesController : Controller
+    public class ServicesController : Controller 
     {
         private readonly IServiceService _serviceService;
+        private readonly ILanguageService _languageService;
 
-        public ServicesController(IServiceService serviceService)
+
+        public ServicesController(IServiceService serviceService, ILanguageService languageService)
         {
             _serviceService = serviceService;
+            _languageService = languageService;
+
         }
         public async Task<IActionResult> Index()
         {
@@ -25,47 +29,50 @@ namespace AdminPanel.Controllers
 
             return View(services);
         }
-        //public IActionResult Create()
-        //{
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
-
-        //    return View();
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(Service service)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View();
-        //    }
-
-        //    var isExist = await _dbContext.Services.AnyAsync(x => x.Title.ToLower() == service.Title.ToLower());
-        //    if (isExist)
-        //    {
-        //        ModelState.AddModelError("FirstTitle", "Please change the context.Title is already exist !");
-        //        return View();
-        //    }
-        //    await _dbContext.Services.AddAsync(service);
-        //    await _dbContext.SaveChangesAsync();
-
-        //    return RedirectToAction("Index");
-        //}
-
-        //public IActionResult Detail(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
-
-        //    var service = _dbContext.Services.Find(id);
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
+        public async Task <IActionResult> Create()
+        {
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
 
-        //    if (service == null)
-        //        return NotFound();
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Service service)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
-        //    return View(service);
-        //}
+            var isExist = await _serviceService.ServiceAnyAsync(x => x.Title.ToLower() == service.Title);
+            if (isExist)
+            {
+                ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
+                return View();
+            }
+            await _serviceService.AddServiceAsync(service);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var service = await _serviceService.GetAllServiceAsync();
+
+
+
+
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+            if (service == null)
+                return NotFound();
+
+            return View(service);
+        }
         //public IActionResult Update(int? id)
         //{
         //    if (id == null)

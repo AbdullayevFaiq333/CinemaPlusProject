@@ -1,4 +1,4 @@
-﻿
+﻿ 
 @{
     ViewData["Title"] = "Detail";
     Service service = Model;
@@ -14,19 +14,20 @@
 
 
             <div class="table-responsive">
+                <form>
+                    <select name="LanguageId" id="language">
+
+                        @foreach (var item in ViewBag.Languages)
+                        {
+                            <option value="@item.Id"> @item.Code</option>
+
+                        }
+
+
+                    </select>
+                </form>
                 <table class="table table-dark mb-0">
-                    <form>
-                        <select name="LanguageId" id="language">
 
-                            @foreach (var item in ViewBag.Languages)
-                            {
-                                <option value="@item.Id"> @item.Code</option>
-
-                            }
-
-
-                        </select>
-                    </form>
                     <thead>
                         <tr>
                             <th>Title & Description </th>
@@ -40,6 +41,7 @@
                             <td>
                                 <div data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer">
                                     @service.Title
+                                   
 
                                 </div>
                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

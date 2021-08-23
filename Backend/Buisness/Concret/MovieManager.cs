@@ -16,21 +16,22 @@ namespace Buisness.Concret
     public class MovieManager : IMovieService
     {
         private readonly IMovieDal _movieDal;
-        private IHostEnvironment _environment;
+        private readonly IHostEnvironment _environment;
 
-        public MovieManager(IMovieDal movieDal)
+        public MovieManager(IMovieDal movieDal,IHostEnvironment environment) 
         {
             _movieDal = movieDal;
+            _environment = environment;
         }
         public async Task<Movie> GetMovieWithIdAsync(int id)
         {
             return await _movieDal.GetAsync(x => x.Id == id);
-        }
+        } 
 
         public async Task<List<Movie>> GetAllMovieAsync()
         {
             return await _movieDal.GetAllAsync();
-        }
+        } 
 
         public async Task<bool> AddMovieAsync(Movie movie)
         {

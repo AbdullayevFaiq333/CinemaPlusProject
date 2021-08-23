@@ -13,7 +13,7 @@ namespace AdminPanel.Controllers
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;
-        private readonly ILanguageService _languageService;
+        private readonly ILanguageService _languageService; 
 
 
         public MovieController(IMovieService movieService, ILanguageService languageService) 

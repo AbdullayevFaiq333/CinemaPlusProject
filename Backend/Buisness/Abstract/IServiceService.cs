@@ -14,8 +14,8 @@ namespace Buisness.Abstract
         Task<List<Service>> GetAllServiceAsync(string languageCode);
 
         Task<bool> AddServiceAsync(Service service);
-        Task<bool> UpdateServiceAsync(Service service);
-        Task<bool> DeleteServiceAsync(int id);
+        Task<bool> UpdateServiceAsync(Service service); 
+        Task<bool> DeleteServiceAsync(Service service);
         Task<bool> ServiceAnyAsync(Expression<Func<Service, bool>> expression);
 
     }

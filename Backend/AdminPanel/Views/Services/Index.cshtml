@@ -20,19 +20,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var service in services)
+                            @foreach (var serv in services)
                             {
-                            <tr>
-                                <td>
-                                    @service.Title
-                                </td>
+                                <tr>
+                                    <td class="col-md-8">
+                                        @serv.Title
+                                    </td>
 
-                                <td>
-                                    <a asp-action="Detail" asp-route-id="@service.Id" class="btn btn-info">Detail</a>
-                                    <a asp-action="Update" asp-route-id="@service.Id" class="btn btn-success">Update</a>
-                                    <a asp-action="Delete" asp-route-id="@service.Id" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
+                                    <td class="col-md-4">
+                                        <a asp-action="Detail" asp-route-id="@serv.Id" class="btn btn-info">Detail</a>
+                                        <a asp-action="Update" asp-route-id="@serv.Id" class="btn btn-success">Update</a>
+                                        <a asp-action="Delete" asp-route-id="@serv.Id" class="btn btn-danger" onclick="return confirm('Are you sure to delete ?')">Delete</a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

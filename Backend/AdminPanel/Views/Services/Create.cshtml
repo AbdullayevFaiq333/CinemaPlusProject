@@ -1,48 +1,47 @@
 ﻿@model Service
+
+
 @{
     ViewData["Title"] = "Create";
 }
 
-<div class="row">
-    <div class="col-12 grid-margin stretch-card">
+<div class="content text-center">
+    <div class="col-lg-5" style="display: inline-block">
         <div class="card">
-            <div class="card-body bg-dark font-weight-bold text-white">
-                <h4 class="card-title text-white">Create Service</h4>
-                <form class="forms-sample" method="post" enctype="multipart/form-data">
-                        <select name="LanguageId" id="language">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Create Service</h5>
+            </div>
 
-                            @foreach (var item in ViewBag.Languages)
-                            {
-                                <option value="@item.Id"> @item.Code</option>
+            <div class="card-body">
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Service">
+                    <select name="LanguageId" id="language" class="btn btn-light">
+                        @foreach (var item in ViewBag.Languages)
+                        {
+                            <option value="@item.Id"> @item.Code</option>
 
-                            }
+                        }
+                    </select>
+                    <a asp-action="Index" class="btn btn-light">
+                        Go Back
+                    </a>
 
-
-                        </select>
-                    <div class="form-group">
-                        <label asp-for="Title">First Title</label>
-                        <input asp-for="Title" class="form-control" placeholder="FirstTitle">
-                        <span asp-validation-for="Title" class="text-danger"></span>
+                    <div class="form-group form-group-float">
+                        <input asp-for="Title" class="form-control" placeholder="Title">
+                        <span class="text-danger" asp-validation-for="Title"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Description">Description</label>
-                        <textarea asp-for="Description" class="form-control" rows="4" id="editor"></textarea>
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="Description" class="form-control" placeholder="Description">
+                        <span class="text-danger" asp-validation-for="Description"></span>
+                    </div>            
 
-                    <button type="submit" class="btn btn-primary mr-2">Create</button>
-                    <a asp-action="Index" class="btn btn-secondary">Go back</a>
+                    <div class="form-group form-group-float">
+                        <input type="file" asp-for="Icon" class="form-control" placeholder="Photo">
+                        <span class="text-danger" asp-validation-for="Icon"></span>
+                    </div>
+                    <button type="submit" class="btn bg-blue-800">Submit<i class="icon-ml-2"></i></button>
                 </form>
-
             </div>
         </div>
     </div>
-</div>
-<script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .catch(error => {
-            console.error(error);
-        });
-</script>
+    </div>
