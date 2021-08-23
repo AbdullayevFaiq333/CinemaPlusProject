@@ -321,13 +321,13 @@ namespace CinemaPlus.Controllers
         }
 
 
-        [HttpGet("getContentWebsiteHall/{laguageCode}")]
+        [HttpGet("getContentWebsiteHall/{laguageCode}/{id}")]
 
-        public async Task<IActionResult> GetContentHall([FromRoute] string laguageCode)
+        public async Task<IActionResult> GetContentHall([FromRoute] string laguageCode,int id)
         {
             if (string.IsNullOrEmpty(laguageCode))
                 return BadRequest();
-            var halls = await _hallService.GetAllHallAsync(laguageCode);
+            var halls = await _hallService.GetAllHallAsync(laguageCode,id);
             if (halls == null)
                 return NotFound();
 

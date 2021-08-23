@@ -18,20 +18,23 @@ import Hall from "./components/Hall";
 
 
 import {Route,Switch} from "react-router-dom";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import Branch from "./components/Branch";
+import * as ReactBootstrap from "react-bootstrap"
+
 
 
 
 function App() {
-  
+  const [lyricsItem,setLyricsItem]=useState(null);
+  const [loading,setLoading]=useState(false);
+
   return (
     <div>
       
       <Header/>
-      <Suspense fallback={<div>Loading</div>}>
+      <Suspense >
         <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/platinum" component={Platinum} />

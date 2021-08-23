@@ -10,7 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface IHallDal:IRepository<Hall>
     {
-        Task<List<Hall>> GetHallAsync(string languageCode);
+        Task<List<Hall>> GetHallAsync(string languageCode,int id);
         Task<bool> CheckHall(Expression<Func<Hall, bool>> expression);
 
     }

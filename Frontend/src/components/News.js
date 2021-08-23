@@ -2,12 +2,13 @@ import React, { useEffect, Component } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContentNews } from "../actions";
 import Slider from "react-slick";
+import Moment from 'moment';
 
 const News = () => {
   const dispatch = useDispatch();
 
   const { content } = useSelector((state) => state.contentNews);
-
+  
   useEffect(() => {
     dispatch(fetchContentNews());
   }, [dispatch]);
@@ -43,7 +44,8 @@ const News = () => {
                               <img src={`./images/${newsItem.image}`} />
                             </a>
                           </div>
-                          <div class="newsDate">{newsItem.dateTime}</div>
+                          
+                          <div class="newsDate">{Moment(newsItem.dateTime).format('YYYY-MM-DD')}</div>
                           <h3>
                             <a href="#">{newsItem.title}</a>
                           </h3>

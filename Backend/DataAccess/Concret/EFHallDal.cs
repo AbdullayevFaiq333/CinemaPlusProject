@@ -18,11 +18,11 @@ namespace DataAccess.Concret
             await using var context = new AppDbContext();
             return await context.Halls.AnyAsync(expression);
         }
-        public async Task<List<Hall>> GetHallAsync(string languageCode)
+        public async Task<List<Hall>> GetHallAsync(string languageCode,int id)
         {
             await using var context = new AppDbContext();
             return await context.Halls.Include(x => x.Language).Include(x=>x.Rows)
-                .Where(x => x.Language.Code == languageCode)
+                .Where(x => x.Language.Code == languageCode).Include(x=>x.Sessions).Where(x=>x.Sessions.Any(x => x.HallId==id))
                 .ToListAsync();
         }
     }

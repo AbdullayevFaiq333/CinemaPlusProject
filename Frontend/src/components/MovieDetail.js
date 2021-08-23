@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContentMovieDetail } from "../actions";
 import { useParams } from "react-router";
+import Moment from 'moment';
 
 const MovieDetail = () => {
   const dispatch = useDispatch();
@@ -72,7 +73,7 @@ const MovieDetail = () => {
                     </li>
                     <li class="allLines">
                       <span class="descTitles">Kinoteatrda</span>
-                      <div class="secondPart">{content.startTime} - {content.endTime}</div>
+                      <div class="secondPart">{Moment(content.startTime).format('MMMM Do, YYYY')} - {Moment(content.endTime).format('MMMM Do, YYYY')}</div>
                     </li>
                     <li class="allLines">
                       <span class="descTitles">Ölkə</span>

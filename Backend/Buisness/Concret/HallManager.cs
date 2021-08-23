@@ -42,9 +42,9 @@ namespace Buisness.Concret
             throw new NotImplementedException();
         }
 
-        public async Task<List<Hall>> GetAllHallAsync(string languageCode)
+        public async Task<List<Hall>> GetAllHallAsync(string languageCode,int id)
         {
-            return await _hallDal.GetHallAsync(languageCode);
+            return await _hallDal.GetHallAsync(languageCode,id);
         }
         public async Task<bool> HallAnyAsync(Expression<Func<Hall, bool>> expression)
         {

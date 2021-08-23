@@ -7,6 +7,7 @@ import {
 } from "../actions";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import Moment from 'moment';
 
 const BuyTicket = () => {
   const dispatch = useDispatch();
@@ -26,15 +27,15 @@ const BuyTicket = () => {
   const [selectedSession, setSelectedSession] = useState();
   
 
-  // React.useEffect(() => {
-  //   if (!!branch) {
-  //     if (selectedMovie === "1") {
-  //       setAvailableBranches([]);
-  //     } else {
-  //       setAvailableBranches(branch);
-  //     }
-  //   }
-  // }, [selectedMovie, branch]);
+  React.useEffect(() => {
+    if (!!branch) {
+      if (selectedMovie === "1") {
+        setAvailableBranches([]);
+      } else {
+        setAvailableBranches(branch);
+      }
+    }
+  }, [selectedMovie, branch]);
 
   useEffect(() => {
     dispatch(fetchContentMovie());
@@ -128,8 +129,8 @@ const BuyTicket = () => {
                     </option>
                     {
                       <>
-                        <option value={movieWidthId.id}>{startTime}</option>
-                        <option value={movieWidthId.id}>{endTime}</option>
+                        <option value={movieWidthId.id}>{Moment(startTime).format('YYYY-MM-DD')}</option>
+                        <option value={movieWidthId.id}>{Moment(endTime).format('YYYY-MM-DD')}</option>
                       </>
                     }
                   </select>
@@ -173,7 +174,9 @@ const BuyTicket = () => {
                       <>
                         {session.map((sessionItem) => {
                           return (
-                            <option value={sessionItem.id}>{sessionItem.startTime}-{sessionItem.endTime}</option>
+                            <option value={sessionItem.id}>{Moment(sessionItem.startTime).format('h:mm A')}-{Moment(sessionItem.endTime).format('h:mm A')}</option>
+                            
+                            
                           );
                         })}
                       </>

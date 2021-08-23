@@ -458,13 +458,13 @@ export const fetchContentRow = (id) => async (dispatch) => {
 };
 
 export const fetchContentHall =
-  (languageCode = "AZ") =>
+  (id,languageCode = "AZ") =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_HALL });
 
     try {
       const response = await api.get(
-        `Content/getContentWebsiteHall/${languageCode}`
+        `Content/getContentWebsiteHall/${languageCode}/${id}`
       );
 
       dispatch({ type: FETCH_CONTENT_HALL_SUCCESS, payload: response.data });
