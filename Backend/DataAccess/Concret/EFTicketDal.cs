@@ -19,12 +19,12 @@ namespace DataAccess.Concret
             return await context.Tickets.AnyAsync(expression);
         }
 
-        public async Task<List<Ticket>> GetTicketAsync(int id)
+        public async Task<Ticket> GetTicketAsync(int id)
         {
             await using var context = new AppDbContext();
             return await context.Tickets.Include(x => x.Session)
                 .Where(x => x.SessionId == id)
-                .ToListAsync();
+                .FirstOrDefaultAsync();
         }
     }
 }
