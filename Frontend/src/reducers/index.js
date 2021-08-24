@@ -59,6 +59,9 @@ import {
   FETCH_CONTENT_HALL,
   FETCH_CONTENT_HALL_SUCCESS,
   FETCH_CONTENT_HALL_FAIL,
+  FETCH_CONTENT_SEAT,
+  FETCH_CONTENT_SEAT_SUCCESS,
+  FETCH_CONTENT_SEAT_FAIL,
   FETCH_LANGUAGES,
   FETCH_LANGUAGES_SUCCESS,
   FETCH_LANGUAGES_FAIL,
@@ -648,6 +651,34 @@ export const fetchContentHallReducer = (
         loading: false,
       };
     case FETCH_CONTENT_HALL_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
+
+export const fetchContentSeatReducer = (
+  state = { loading: true, seat: [] },
+  action
+) => {
+  switch (action.type) {
+    case FETCH_CONTENT_SEAT:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_CONTENT_SEAT_SUCCESS:
+      return {
+        ...state,
+        seat: action.payload,
+        loading: false,
+      };
+    case FETCH_CONTENT_SEAT_FAIL:
       return {
         ...state,
         error: action.payload,

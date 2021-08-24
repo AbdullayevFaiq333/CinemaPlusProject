@@ -43,7 +43,7 @@ namespace Buisness.Concret
             throw new NotImplementedException();
         }
 
-        public async Task<List<Ticket>> GetAllTicketAsync(int id)
+        public async Task<Ticket> GetAllTicketAsync(int id)
         {
             return await _ticketDal.GetTicketAsync(id);
 

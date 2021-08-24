@@ -59,6 +59,9 @@ import {
   FETCH_CONTENT_HALL,
   FETCH_CONTENT_HALL_SUCCESS,
   FETCH_CONTENT_HALL_FAIL,
+  FETCH_CONTENT_SEAT,
+  FETCH_CONTENT_SEAT_SUCCESS,
+  FETCH_CONTENT_SEAT_FAIL,
   FETCH_LANGUAGES,
   FETCH_LANGUAGES_SUCCESS,
   FETCH_LANGUAGES_FAIL,
@@ -458,7 +461,7 @@ export const fetchContentRow = (id) => async (dispatch) => {
 };
 
 export const fetchContentHall =
-  (id,languageCode = "AZ") =>
+  (id, languageCode = "AZ") =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_HALL });
 
@@ -475,3 +478,18 @@ export const fetchContentHall =
       });
     }
   };
+
+  export const fetchContentSeat = (id) => async (dispatch) => {
+    dispatch({ type: FETCH_CONTENT_SEAT });
+  
+    try {
+      const response = await api.get(`Seat/${id}`);
+  
+      dispatch({ type: FETCH_CONTENT_SEAT_SUCCESS, payload: response.data });
+    } catch (e) {
+      dispatch({
+        type: FETCH_CONTENT_SEAT_FAIL,
+        payload: e.message ? e.message : e,
+      });
+    }
+  };  

@@ -29,7 +29,7 @@ namespace CinemaPlus.Controllers
         {
 
             var tickets = await _ticketService.GetAllTicketAsync(id);
-            var ticketDto = _mapper.Map<List<TicketDto>>(tickets);
+            var ticketDto = _mapper.Map<TicketDto>(tickets);
 
             return Ok(ticketDto);
         }

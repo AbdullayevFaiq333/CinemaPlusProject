@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchContentRow, fetchContentHall } from "../actions";
+import {
+  fetchContentRow,
+  fetchContentHall,
+  fetchContentSeat,
+} from "../actions";
 import { useHistory } from "react-router-dom";
 
 const Hall = () => {
@@ -10,13 +14,21 @@ const Hall = () => {
   const dispatch = useDispatch();
 
   const { row } = useSelector((state) => state.row);
+  const { seat } = useSelector((state) => state.seat);
   const { hall } = useSelector((state) => state.contentHall);
 
-  useEffect(() => { 
+  useEffect(() => {
     dispatch(fetchContentHall(history.location.state.session));
-    if(hall[0] !== undefined){
+    if (hall[0] !== undefined) {
       dispatch(fetchContentRow(hall[0].id));
     }
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchContentRow());
+    
+    dispatch(fetchContentSeat());
+
   }, [dispatch]);
 
   React.useEffect(() => {
@@ -33,17 +45,19 @@ const Hall = () => {
         </ul>
       </div>
       {
-          <>
-            {hall.map((hallItem) => {
-              return (
-                <div>
-                  <div key={hallItem.id}  className="title">{hallItem.name}</div>
-                  </div>
-              );
-            })}
-          </>
-        }
-      
+        <>
+          {hall.map((hallItem) => {
+            return (
+              <div>
+                <div key={hallItem.id} className="title">
+                  {hallItem.name}
+                </div>
+              </div>
+            );
+          })}
+        </>
+      }
+
       <ul className="rows">
         {
           <>
@@ -53,38 +67,27 @@ const Hall = () => {
                   <li key={rowItem.id} className="rowName">
                     SIRA {rowItem.numberRow}
                   </li>
-                  <ul class="seats" >
-                    <li class="seat">
-                      <input type="checkbox" id="A" />
-                      <label for="A">1A</label>
-                    </li>
-                    <li class="seat">
-                      <input type="checkbox" id="1B" />
-                      <label for="1B">1B</label>
-                    </li>
-                    <li class="seat">
-                      <input type="checkbox" id="1C" />
-                      <label for="1C">1C</label>
-                    </li>
-                    <li class="seat">
-                      <input type="checkbox" id="1D" />
-                      <label for="1D">1D</label>
-                    </li>
-                    <li class="seat">
-                      <input type="checkbox" id="1E" />
-                      <label for="1E">1E</label>
-                    </li>
-                    <li class="seat">
-                      <input type="checkbox" id="1F" />
-                      <label for="1F">1F</label>
-                    </li>
-                  </ul>
+                  <ul class="seats">
+                    {
+                      <>
+                        {seat.map((seatItem) => {
+                          return (
+                            <li key={seatItem.id} class="seat">
+                              <input type="checkbox" id={seatItem.seatNumber} />
+                              <label for={seatItem.seatNumber}>{seatItem.seatNumber}</label>
+                            </li>
+                          );
+                        })}
+                      </>
+                    }
+
+                    </ul>
                 </div>
               );
             })}
           </>
         }
-        </ul>
+      </ul>
       <div className="prc">
         <div>TICKET PRICE:</div>
         <div>TOTAL PRICE:</div>
