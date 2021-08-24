@@ -22,25 +22,27 @@ namespace Buisness.Concret
             return await _dolbyAtmosDal.GetAsync(x => x.Id == id);
         }
 
-        public async Task<List<DolbyAtmos>> GetAllDolbyAtmosAsync()
+        public async Task<List<DolbyAtmos>> GetAllDolbyAtmosAsync() 
         {
             return await _dolbyAtmosDal.GetAllAsync();
         }
 
 
-        public Task<bool> AddDolbyAtmosAsync(DolbyAtmos dolbyAtmos)
+        public async Task<bool> AddDolbyAtmosAsync(DolbyAtmos dolbyAtmos)
         {
-            throw new NotImplementedException();
+            return await _dolbyAtmosDal.AddAsync(dolbyAtmos);
+
         }
 
-        public Task<bool> DeleteDolbyAtmosAsync(int id)
+        public async Task<bool> DeleteDolbyAtmosAsync(DolbyAtmos dolbyAtmos)
         {
-            throw new NotImplementedException();
+            return await _dolbyAtmosDal.DeleteAsync(dolbyAtmos);
         }
 
-        public Task<bool> UpdateDolbyAtmosAsync(DolbyAtmos dolbyAtmos)
+        public async Task<bool> UpdateDolbyAtmosAsync(DolbyAtmos dolbyAtmos)
         {
-            throw new NotImplementedException();
+            return await _dolbyAtmosDal.UpdateAsync(dolbyAtmos);
+
         }
 
         public async Task<List<DolbyAtmos>> GetAllDolbyAtmosAsync(string languageCode)
@@ -51,10 +53,6 @@ namespace Buisness.Concret
         {
             return await _dolbyAtmosDal.CheckDolbyAtmos(expression);
         }
-
-        public Task<bool> DeleteDolbyAtmosAsync(DolbyAtmos dolbyAtmos)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

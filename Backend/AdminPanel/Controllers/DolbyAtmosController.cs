@@ -142,7 +142,6 @@ namespace AdminPanel.Controllers
             if (dolbyAtmos == null)
                 return NotFound();
 
-
             await _dolbyAtmosService.DeleteDolbyAtmosAsync(dolbyAtmos);
 
             return RedirectToAction("Index");

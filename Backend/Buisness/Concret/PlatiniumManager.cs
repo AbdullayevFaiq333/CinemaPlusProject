@@ -52,7 +52,7 @@ namespace Buisness.Concret
         public Task AddPlatiniumAsync()
         {
             throw new NotImplementedException();
-        }
+        } 
 
         public async Task<bool> PlatinumAnyAsync(Expression<Func<Platinium, bool>> expression)
         {

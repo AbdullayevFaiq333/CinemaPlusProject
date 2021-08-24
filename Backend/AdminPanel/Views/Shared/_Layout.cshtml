@@ -54,7 +54,7 @@
     <!-- Main navbar -->
     <div class="navbar navbar-expand-md navbar-dark" style="background: #00ACEC">  
         <div class="navbar-brand">
-            <a asp-area="Dashboard" asp-controller="Home" class="d-inline-block">
+            <a asp-area="Dashboard" asp-controller="Index" class="d-inline-block">
                <img src="/img/cpluslogo.svg" alt="Cinema Plus" style="height:50px">
             </a>
         </div>
@@ -232,6 +232,12 @@
                             <a asp-controller="Services" asp-action="Index" class="nav-link"><i class="icon-file-stats"></i> <span style="color: white">Services</span></a>
                         </li>
                         <li class="nav-item">
+                            <a asp-controller="Platinum" asp-action="Index" class="nav-link"><i class="icon-stairs"></i> <span style="color: white">Platinum</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="DolbyAtmos" asp-action="Index" class="nav-link"><i class="icon-address-book"></i> <span style="color: white">Dolby Atmos</span></a>
+                        </li>
+                        <li class="nav-item">
                             <a asp-controller="AboutUsBottomPart" asp-action="Index" class="nav-link"><i class="icon-sphere"></i> <span style="color: white">About Us Bottom Part</span></a>
                         </li>
                         <li class="nav-item">
@@ -254,9 +260,6 @@
                         </li>
                         <li class="nav-item">
                             <a asp-controller="Contact" asp-action="Index" class="nav-link"><i class="icon-add-to-list"></i> <span style="color: white">Contact</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="DolbyAtmos" asp-action="Index" class="nav-link"><i class="icon-address-book"></i> <span style="color: white">Dolby Atmos</span></a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="FAQ" asp-action="Index" class="nav-link"><i class="icon-address-book2"></i> <span style="color: white">FAQ</span></a>
@@ -287,9 +290,6 @@
                         </li>
                         <li class="nav-item">
                             <a asp-controller="Photos" asp-action="Index" class="nav-link"><i class="icon-bag"></i> <span style="color: white">Photos</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Platinum" asp-action="Index" class="nav-link"><i class="icon-stairs"></i> <span style="color: white">Platinum</span></a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="Row" asp-action="Index" class="nav-link"><i class="icon-redo"></i> <span style="color: white">Row</span></a>

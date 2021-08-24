@@ -61,9 +61,7 @@ namespace AdminPanel.Controllers
             if (id == null)
                 return NotFound();
 
-            var service = await _serviceService.GetAllServiceAsync();
-
-
+            var service = await _serviceService.GetServiceWithIdAsync(id.Value);
 
 
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();

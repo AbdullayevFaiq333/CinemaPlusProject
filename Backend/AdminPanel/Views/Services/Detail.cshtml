@@ -10,23 +10,25 @@
     <div class="card">
         <div class="card-body">
 
-            <h2 class="mt-0 header-title">Services Details</h2>
+            <h2 class="mt-0 header-title">Service Details</h2>
 
 
             <div class="table-responsive">
                 <form>
-                    <select name="LanguageId" id="language">
+                    <select name="LanguageId" id="language" class="btn btn-secondary" style="margin-bottom: 5px">
 
                         @foreach (var item in ViewBag.Languages)
                         {
-                            <option value="@item.Id"> @item.Code</option>
+
+                            <!option value="@item.Id" @(item.Id == Model.LanguageId ? "selected" : "")> @item.Code</!option>
 
                         }
 
 
                     </select>
+
                 </form>
-                <table class="table table-dark mb-0">
+                <table class="table table-bordered mb-0">
 
                     <thead>
                         <tr>
@@ -41,7 +43,7 @@
                             <td>
                                 <div data-toggle="modal" data-target="#exampleModalLong" style="cursor: pointer">
                                     @service.Title
-                                   
+
 
                                 </div>
                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -53,7 +55,7 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body" style="background-color: midnightblue">
+                                            <div class="modal-body" style="background-color: midnightblue; color: white">
 
                                                 @service.Description
 
@@ -67,10 +69,11 @@
 
                     </tbody>
                 </table>
+                <a asp-action="Index" class="btn btn-secondary" style="margin-top: 5px">
+                    Go Back
+                </a>
             </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <a asp-action="Index" class="btn btn-primary" style="margin-left: 20px">Go Back</a>
-</div>
+
