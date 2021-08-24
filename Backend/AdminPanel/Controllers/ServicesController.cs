@@ -124,37 +124,24 @@ namespace AdminPanel.Controllers
 
 
         //}
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
-
-        //    var service = await _dbContext.Services.FindAsync(id);
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
 
 
-        //    if (service == null)
-        //        return NotFound();
+        [HttpGet]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteService(int? id)
+        {
+            if (id == null)
+                return NotFound();
 
-        //    return View(service);
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[ActionName("Delete")]
-        //public async Task<IActionResult> DeleteService(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
+            var movie = await _serviceService.GetServiceWithIdAsync(id.Value);
+            if (movie == null)
+                return NotFound();
 
-        //    var service = await _dbContext.Services.FindAsync(id);
 
-        //    if (service == null)
-        //        return NotFound();
+            await _serviceService.DeleteServiceAsync(movie);
 
-        //    _dbContext.Services.Remove(service);
-        //    await _dbContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
 
-        //    return RedirectToAction("Index");
-        //}
     }
 }

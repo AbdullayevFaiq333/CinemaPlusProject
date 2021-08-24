@@ -81,9 +81,10 @@ namespace Buisness.Concret
 
         }
 
-        public Task<bool> DeleteServiceAsync(Service service)
+        public async Task<bool> DeleteServiceAsync(Service service)
         {
-            throw new NotImplementedException();
+            return await _serviceDal.DeleteAsync(service);
+
         }
 
         public Task<bool> UpdateServiceAsync(Service service)
