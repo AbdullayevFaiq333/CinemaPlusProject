@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Detail";
+    Branch branches = Model;
+}
+
+
+
+
+
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+
+            <h2 class="mt-0 header-title">Branch Details</h2>
+
+
+            <div class="table-responsive">
+                <form>
+                    <select name="LanguageId" id="language" class="btn btn-secondary" style="margin-bottom: 5px">
+
+                        @foreach (var item in ViewBag.Languages)
+                        {
+
+                            <!option value="@item.Id" @(item.Id == Model.LanguageId ? "selected" : "")> @item.Code</!option>
+
+                        }
+
+
+                    </select>
+
+                </form>
+                <table class="table table-bordered mb-0">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Trailer</th>
+                            <td>
+                                @branches.Name
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Country</th>
+                            <td>
+                                @branches.Description
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Director</th>
+                            <td>
+                                @branches.Photos.Image
+                            </td>
+                        </tr>                     
+
+                    </tbody>
+
+                </table>
+                <a asp-action="Index" class="btn btn-secondary" style="margin-top: 5px">
+                    Go Back
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

@@ -34,5 +34,37 @@ namespace AdminPanel.Controllers
 
             return View();
         }
+
+        public async Task<IActionResult> Update()
+        {
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+            return View();
+        }
+        public async Task<IActionResult> Detail()
+        {
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+            return View();
+        }
+
+        [HttpGet]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteBranch(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var branch = await _branchService.GetBranchWithIdAsync(id.Value);
+            if (branch == null)
+                return NotFound();
+
+
+
+            await _branchService.DeleteBranchAsync(branch.Id);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

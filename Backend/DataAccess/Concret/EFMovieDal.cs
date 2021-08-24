@@ -17,7 +17,7 @@ namespace DataAccess.Concret
         {
             await using var context = new AppDbContext();
             return await context.Movies.AnyAsync(expression);
-        }
+        } 
 
         public async Task<MovieDetail> GetMovieDetail(int? movieId)
         {

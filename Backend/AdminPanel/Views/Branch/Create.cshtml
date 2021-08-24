@@ -1,0 +1,45 @@
+﻿@model Branch
+
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="content text-center">
+    <div class="col-lg-5" style="display: inline-block">
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">Create Branch</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Branch">
+                    <select name="LanguageId" id="language" class="btn btn-light">
+                        @foreach (var item in ViewBag.Languages)
+                        {
+                            <option value="@item.Id"> @item.Code</option>
+
+                        }
+                    </select>
+                    <a asp-action="Index" class="btn btn-light">
+                        Go Back
+                    </a>
+
+                    <div class="form-group form-group-float">
+                        <input asp-for="Name" class="form-control" placeholder="Name">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="Description" class="form-control" placeholder="Description">
+                        <span class="text-danger" asp-validation-for="Description"></span>
+                    </div>               
+
+                    <button type="submit" class="btn bg-blue-800">Submit<i class="icon-ml-2"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+

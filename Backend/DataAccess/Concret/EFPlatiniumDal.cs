@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concret
 {
-    public class EFPlatiniumDal : EFRepositoryBase<Platinium, AppDbContext>, IPlatiniumDal
+    public class EFPlatiniumDal : EFRepositoryBase<Platinium, AppDbContext>, IPlatiniumDal 
     {
         public async Task<bool> CheckPlatinumItem(Expression<Func<Platinium, bool>> expression)
         {

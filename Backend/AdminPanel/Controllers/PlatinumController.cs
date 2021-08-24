@@ -60,7 +60,7 @@ namespace AdminPanel.Controllers
 
         public async Task<IActionResult> Detail(int? id)
         {
-            if (id == null)
+            if (id == null) 
                 return NotFound();
 
             var platinum = await _platiniumService.GetPlatiniumWithIdAsync(id.Value);
