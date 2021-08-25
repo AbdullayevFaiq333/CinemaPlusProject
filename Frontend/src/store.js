@@ -22,7 +22,8 @@ import {
   fetchContentSessionReducer,
   fetchContentRowReducer,
   fetchContentHallReducer,
-  fetchContentSeatReducer
+  fetchContentSeatReducer,
+  fetchContentTicketReducer,
 } from "./reducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -51,6 +52,7 @@ const reducers = combineReducers({
   row: fetchContentRowReducer,
   contentHall:fetchContentHallReducer,
   seat:fetchContentSeatReducer,
+  ticket:fetchContentTicketReducer,
 });
 
 const store = createStore(

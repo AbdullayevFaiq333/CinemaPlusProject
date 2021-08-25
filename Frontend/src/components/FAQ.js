@@ -34,7 +34,9 @@ export default function Accordion() {
   };
 
   console.log(toggle);
-  return (<>{content.map((FAQItem) => {
+  return (
+    <div className="faq">
+      <>{content.map((FAQItem) => {
     return (
       <div key={FAQItem.id} className="accordion ">
       <button onClick={() => toggleState(FAQItem.id)} className={`accordion-visible ${FAQItem.id}`} ref={refButton}>
@@ -57,5 +59,6 @@ export default function Accordion() {
   })}
     
     </>
+    </div>
   );
 }

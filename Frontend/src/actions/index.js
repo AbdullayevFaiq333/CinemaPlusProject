@@ -62,6 +62,9 @@ import {
   FETCH_CONTENT_SEAT,
   FETCH_CONTENT_SEAT_SUCCESS,
   FETCH_CONTENT_SEAT_FAIL,
+  FETCH_CONTENT_TICKET,
+  FETCH_CONTENT_TICKET_SUCCESS,
+  FETCH_CONTENT_TICKET_FAIL,
   FETCH_LANGUAGES,
   FETCH_LANGUAGES_SUCCESS,
   FETCH_LANGUAGES_FAIL,
@@ -492,4 +495,20 @@ export const fetchContentHall =
         payload: e.message ? e.message : e,
       });
     }
-  };  
+  }; 
+  
+  
+  export const fetchContentTicket = (id) => async (dispatch) => {
+    dispatch({ type: FETCH_CONTENT_TICKET });
+  
+    try {
+      const response = await api.get(`Ticket/${id}`);
+  
+      dispatch({ type: FETCH_CONTENT_TICKET_SUCCESS, payload: response.data });
+    } catch (e) {
+      dispatch({
+        type: FETCH_CONTENT_TICKET_FAIL,
+        payload: e.message ? e.message : e,
+      });
+    }
+  };
