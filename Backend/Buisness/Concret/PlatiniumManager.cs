@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Buisness.Concret
 {
     public class PlatiniumManager : IPlatiniumService
-    {
+    { 
         private readonly IPlatiniumDal _platiniumDal;
 
         public PlatiniumManager(IPlatiniumDal platiniumDal)

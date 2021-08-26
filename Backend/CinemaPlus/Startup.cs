@@ -3,9 +3,13 @@ using Buisness.Concret;
 using CinemaPlus.AutoMapper;
 using DataAccess.Abstract;
 using DataAccess.Concret;
+using DataAccess.Identity;
+using Entity.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +37,21 @@ namespace CinemaPlus
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<UserDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["Connectionstrings: DefaulConnection"]);
+            });
+
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.User.RequireUniqueEmail = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
+                options.Lockout.AllowedForNewUsers = true;
+
+            }).AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
+
 
             services.AddScoped<IAboutUsBottomPartService, AboutUsBottomPartManager>();
             services.AddScoped<IAboutUsBottomPartDal, EFAboutUsBottomPartDal>();
@@ -129,14 +148,7 @@ namespace CinemaPlus
 
 
 
-            //var conectionString = Configuration.GetConnectionString("DefaultConnection");
-            //services.AddDbContext<AppDbContext>(options =>
-            //{
-            //    options.UseSqlServer(conectionString, builder =>
-            //     {
-            //         builder.MigrationsAssembly(nameof(CinemaPlus));
-            //     });
-            //});
+
 
             services.AddCors(options =>
             {
@@ -149,10 +161,12 @@ namespace CinemaPlus
                     });
             });
 
+        
+
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
 
-            services.AddControllers().AddNewtonsoftJson(x=>x.SerializerSettings.ReferenceLoopHandling=ReferenceLoopHandling.Ignore);
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CinemaPlus", Version = "v1" });

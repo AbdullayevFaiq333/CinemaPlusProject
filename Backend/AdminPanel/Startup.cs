@@ -2,9 +2,13 @@ using Buisness.Abstract;
 using Buisness.Concret;
 using DataAccess.Abstract;
 using DataAccess.Concret;
+using DataAccess.Identity;
+using Entity.Entities;
+//using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,12 +34,22 @@ namespace AdminPanel
         {
             services.AddControllersWithViews();
 
-            //var conectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            //services.AddDbContext<AppDbContext>(options =>
-            //{
-            //    options.UseSqlServer(conectionString);
-            //});
+            services.AddDbContext<UserDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["Connectionstrings: DefaulConnection"]);
+            });
+
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.User.RequireUniqueEmail = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
+                options.Lockout.AllowedForNewUsers = true;
+
+            }).AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
+
 
             services.AddScoped<IAboutUsBottomPartService, AboutUsBottomPartManager>();
             services.AddScoped<IAboutUsBottomPartDal, EFAboutUsBottomPartDal>();
