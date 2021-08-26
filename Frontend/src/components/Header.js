@@ -37,9 +37,9 @@ const Header = () => {
     return (
         <div className="navbar">
             {loading ? <h1>loading</h1> : (
-                <div className="container-fluid d-block">
+                <div className="container-fluid">
                 <div className="row">
-                    <div className="col-md-5 px-0">
+                    <div className="col-md-5 p-0">
                         <div className="nav-logo">
                             <img src="http://localhost:3000/images/navbar/logo.svg" className="mr-auto" alt="" />
                         </div>

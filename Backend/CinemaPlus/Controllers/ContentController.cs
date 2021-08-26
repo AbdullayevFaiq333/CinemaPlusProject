@@ -331,7 +331,7 @@ namespace CinemaPlus.Controllers
             if (halls == null)
                 return NotFound();
 
-            var hallDto = _mapper.Map<List<HallDto>>(halls);
+            var hallDto = _mapper.Map<HallDto>(halls);
             return Ok(hallDto);
         }
 

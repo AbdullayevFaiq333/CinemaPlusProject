@@ -11,7 +11,7 @@ namespace Buisness.Abstract
     {
         Task<Hall> GetHallWithIdAsync(int id);
         Task<List<Hall>> GetAllHallAsync();
-        Task<List<Hall>> GetAllHallAsync(string languageCode,int id);
+        Task<Hall> GetAllHallAsync(string languageCode,int id);
 
         Task<bool> AddHallAsync(Hall hall);
         Task<bool> UpdateHallAsync(Hall hall);

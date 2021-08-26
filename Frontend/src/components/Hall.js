@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchContentRow,
   fetchContentHall,
   fetchContentSeat,
+  fetchContentTicket,
+  fetchContentMovieWidthId,
 } from "../actions";
 import { useHistory } from "react-router-dom";
+import BuyTicket from "./BuyTicket";
 
 const Hall = () => {
   const history = useHistory();
@@ -16,19 +19,17 @@ const Hall = () => {
   const { row } = useSelector((state) => state.row);
   const { seat } = useSelector((state) => state.seat);
   const { hall } = useSelector((state) => state.contentHall);
+  const { ticket } = useSelector((state) => state.ticket);
+  const { movieWidthId } = useSelector((state) => state.movieWidthId);
+
+  
 
   useEffect(() => {
     dispatch(fetchContentHall(history.location.state.session));
-    if (hall[0] !== undefined) {
-      dispatch(fetchContentRow(hall[0].id));
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchContentRow());
-    
-    dispatch(fetchContentSeat());
-
+    dispatch(fetchContentMovieWidthId(history.location.state.movie));
+    dispatch(fetchContentRow(history.location.state.session));
+    dispatch(fetchContentSeat(3));
+    dispatch(fetchContentTicket(history.location.state.session));
   }, [dispatch]);
 
   React.useEffect(() => {
@@ -37,26 +38,12 @@ const Hall = () => {
 
   return (
     <div class="plane">
-      <div>
-        <ul className="info d-flex">
-          <li>Movie:{history.location.state.movie}</li>
-          <li>Cinema:{history.location.state.branch}</li>
-          <li>Session:{history.location.state.session}</li>
-        </ul>
-      </div>
-      {
-        <>
-          {hall.map((hallItem) => {
-            return (
-              <div>
-                <div key={hallItem.id} className="title">
-                  {hallItem.name}
-                </div>
-              </div>
-            );
-          })}
-        </>
-      }
+      <ul className="title ">
+        <li>Movie : {movieWidthId.name}</li>
+        <li key={hall.id} >
+          {hall.name}
+        </li>
+      </ul>
 
       <ul className="rows">
         {
@@ -74,14 +61,15 @@ const Hall = () => {
                           return (
                             <li key={seatItem.id} class="seat">
                               <input type="checkbox" id={seatItem.seatNumber} />
-                              <label for={seatItem.seatNumber}>{seatItem.seatNumber}</label>
+                              <label for={seatItem.seatNumber}>
+                                {seatItem.seatNumber}
+                              </label>
                             </li>
                           );
                         })}
                       </>
                     }
-
-                    </ul>
+                  </ul>
                 </div>
               );
             })}
@@ -89,8 +77,8 @@ const Hall = () => {
         }
       </ul>
       <div className="prc">
-        <div>TICKET PRICE:</div>
-        <div>TOTAL PRICE:</div>
+        <div>TICKET PRICE: {ticket.price}$</div>
+        <div>TOTAL PRICE: {ticket.price * 2}$</div>
       </div>
       <div className="buy">
         <button type="button" className="btn btn-outline-primary">
