@@ -21,7 +21,7 @@ namespace AdminPanel.Controllers
             _movieService = movieService;
             _languageService = languageService;
 
-        }
+        } 
 
         public async Task<IActionResult> Index()
         {
@@ -54,6 +54,7 @@ namespace AdminPanel.Controllers
                 ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
                 return View();
             }
+
             await _movieService.AddMovieAsync(movie);
 
             return RedirectToAction("Index");

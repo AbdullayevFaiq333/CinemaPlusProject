@@ -51,6 +51,8 @@ namespace AdminPanel.Controllers
                 ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
                 return View();
             }
+
+            service.IsDeleted = false;
             await _serviceService.AddServiceAsync(service);
 
             return RedirectToAction("Index");
@@ -71,57 +73,52 @@ namespace AdminPanel.Controllers
 
             return View(service);
         }
-        //public IActionResult Update(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+                return NotFound();
 
-        //    var service = _dbContext.Services.Find(id);
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
+            var service = await _serviceService.GetServiceWithIdAsync(id.Value);
 
-
-        //    if (service == null)
-        //        return NotFound();
-
-        //    return View(service);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-
-        //public async Task<IActionResult> Update(int? id, Service service)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View();
-        //    }
-
-        //    if (id == null)
-        //        return NotFound();
-
-        //    if (id != service.Id )
-        //        return BadRequest();
-
-        //    var dBservice = await _dbContext.Services.FindAsync(id);
-        //    if (dBservice == null)
-        //        return NotFound();
-
-        //    var isExist = await _dbContext.Services.AnyAsync(x => x.Title.ToLower() == service.Title.
-        //                                                                         ToLower() && x.Id != id);
-        //    if (isExist)
-        //    {
-        //        ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
-        //        return View();
-        //    }
-
-        //    dBservice.Title = service.Title;
-        //    dBservice.Description = service.Description;
-
-        //    await _dbContext.SaveChangesAsync();
-        //    return RedirectToAction("Index");
+            service.IsDeleted = false;
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
 
-        //}
+
+
+            if (service == null)
+                return NotFound();
+
+            return View(service);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Update(Service service, string oldPhoto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var isExist = await _serviceService.ServiceAnyAsync(x => x.Title.ToLower() == service.Title);
+            if (isExist)
+            {
+                ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
+                return View();
+            }
+            var isServiceUpdatedData = await _serviceService.UpdateServiceAsync(service, oldPhoto);
+
+            if (isServiceUpdatedData == false)
+            {
+                // shekilsiz yuklemek olmaz!!!!
+            }
+
+            return RedirectToAction("Index");
+
+
+        }
 
 
         [HttpGet]

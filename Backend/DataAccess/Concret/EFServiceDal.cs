@@ -18,6 +18,7 @@ namespace DataAccess.Concret
             await using var context = new AppDbContext();
             return await context.Services.AnyAsync(expression);
         }
+
         public async Task<List<Service>> GetServiceAsync(string languageCode)
         {
             await using var context = new AppDbContext();

@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using Entities.Models;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,10 +15,12 @@ namespace Buisness.Concret
     public class ServiceManager : IServiceService
     {
         private readonly IServiceDal _serviceDal;
+        private readonly IHostEnvironment _environment;
 
-        public ServiceManager(IServiceDal serviceDal)
+        public ServiceManager(IServiceDal serviceDal, IHostEnvironment environment)
         {
             _serviceDal = serviceDal;
+            _environment = environment;
         }
         public async Task<Service> GetServiceWithIdAsync(int id)
         {
@@ -40,7 +43,7 @@ namespace Buisness.Concret
             if (service.Photo != null)
             {
                 if (service.Photo.Length > 0 &&
-                    (service.Photo.ContentType == "image/jpeg"
+                    (service.Photo.ContentType == "image/jpeg" 
                       || service.Photo.ContentType == "image/jpg"
                     || service.Photo.ContentType == "image/png"
                     || service.Photo.ContentType == "image/x-png"
@@ -87,9 +90,61 @@ namespace Buisness.Concret
 
         }
 
-        public Task<bool> UpdateServiceAsync(Service service)
+        public async Task<bool> UpdateServiceAsync(Service service, string oldPhoto)
         {
-            throw new NotImplementedException();
+            
+
+
+            var newFileName = string.Empty;
+
+            if (service.Photo != null)
+            {
+                if (service.Photo.Length > 0 &&
+                    (service.Photo.ContentType == "image/jpeg"
+                      || service.Photo.ContentType == "image/jpg"
+                    || service.Photo.ContentType == "image/png"
+                    || service.Photo.ContentType == "image/x-png"
+                    || service.Photo.ContentType == "image/pjpeg"))
+
+                {
+                    if (oldPhoto != null)
+                    {
+                        var oldFilePath = Path.Combine(
+        _environment.ContentRootPath, "wwwroot", "Uploads", "service", oldPhoto);
+                        if (System.IO.File.Exists(oldFilePath))
+                            System.IO.File.Delete(oldFilePath);
+                    }
+                    //Getting FileName
+                    var fileName = Path.GetFileName(service.Photo.FileName);
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(service.Photo.FileName);
+
+                    //Assigning Unique Filename (Guid)
+                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+
+                    // concatenating  FileName + FileExtension
+                    newFileName = String.Concat("services/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+
+                    // Combines two strings into a path.
+                    var filepath =
+            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
+            .Root + $@"\{newFileName}";
+
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        service.Photo.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+                service.Icon = newFileName;
+
+                await _serviceDal.UpdateAsync(service);
+                return true;
+            }
+            return false;
+
         }
 
         public async Task<List<Service>> GetAllServiceAsync(string languageCode)
