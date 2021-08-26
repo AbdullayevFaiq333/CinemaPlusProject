@@ -1,4 +1,6 @@
 ﻿using Entities.Models;
+using Entity.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace DataAccess.Concret
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext: IdentityDbContext<User>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

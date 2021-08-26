@@ -1,4 +1,5 @@
 ﻿using Buisness.Abstract;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,26 @@ namespace AdminPanel.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Branch branch)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var isExist = await _branchService.BranchAnyAsync(x => x.Name.ToLower() == branch.Name);
+            if (isExist)
+            {
+                ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
+                return View();
+            }
+            await _branchService.AddBranchAsync(branch);
+
+            return RedirectToAction("Index");
+        }
+
         public async Task<IActionResult> Update()
         {
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
@@ -61,7 +82,7 @@ namespace AdminPanel.Controllers
 
 
 
-            await _branchService.DeleteBranchAsync(branch.Id);
+            await _branchService.DeleteBranchAsync(branch);
 
             return RedirectToAction("Index");
         }

@@ -12,7 +12,7 @@ namespace Buisness.Concret
     public class BranchManager : IBranchService
     {
         private readonly IBranchDal _branchDal;
-
+         
         public BranchManager(IBranchDal branchDal)
         {
             _branchDal = branchDal;
@@ -28,20 +28,21 @@ namespace Buisness.Concret
             return await _branchDal.GetAllAsync();
         }
 
-        public Task<bool> AddBranchAsync(Branch branch)
+        public async Task<bool> AddBranchAsync(Branch branch)
         {
-            throw new NotImplementedException();
+            return await _branchDal.AddAsync(branch);
         }
 
-        public Task<bool> DeleteBranchAsync(int id)
+        public async Task<bool> DeleteBranchAsync(Branch branch)
         {
-            throw new NotImplementedException();
+            return await _branchDal.DeleteAsync(branch);
         }
 
 
-        public Task<bool> UpdateBranchAsync(Branch branch)
+        public async Task<bool> UpdateBranchAsync(Branch branch)
         {
-            throw new NotImplementedException();
+            return await _branchDal.UpdateAsync(branch);
+
         }
 
         public async Task<List<Branch>> GetAllBranchAsync(string languageCode)

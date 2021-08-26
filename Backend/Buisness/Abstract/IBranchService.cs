@@ -14,7 +14,7 @@ namespace Buisness.Abstract
         Task<List<Branch>> GetAllBranchAsync(string languageCode);
         Task<bool> AddBranchAsync(Branch branch);
         Task<bool> UpdateBranchAsync(Branch branch);
-        Task<bool> DeleteBranchAsync(int id);
+        Task<bool> DeleteBranchAsync(Branch branch);
         Task<bool> BranchAnyAsync(Expression<Func<Branch, bool>> expression);
 
     }
