@@ -13,7 +13,7 @@ namespace DataAccess.Concret
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-896NS6C\SQLEXPRESS;Database=CinemaPlusDB;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Server=HASANOV;Database=CinemaPlusDB;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         public DbSet<DolbyAtmos> DolbyAtmos { get; set; }
