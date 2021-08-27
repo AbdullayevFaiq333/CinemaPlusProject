@@ -1,0 +1,76 @@
+﻿@model RegisterViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Account</title>
+
+    <link rel="icon" type="img/png" href="~/img/images/android-chrome-192x1924cab.png">
+    Font Icon
+    <link rel="stylesheet" href="~/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    Main css
+    <link rel="stylesheet" href="~/css/styleRegister.css">
+</head>
+<body>
+
+    <div class="main">
+
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                    <form method="post" id="signup-form" class="signup-form">
+                        <h2 class="form-title">Create account</h2>
+
+                        <div class="form-group">
+                            <input asp-for="Fullname" class="form-input" placeholder="Full Name"/>
+                            <span asp-validation-for="Fullname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Username" class="form-input" placeholder="User Name"/>
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Email" class="form-input" placeholder="Email"/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Passsword"  class="form-input" placeholder="Password"/>
+                            <span asp-validation-for="Passsword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input asp-for="@Model.ConfirmPassword"  class="form-input" placeholder="Confirm Password"/>
+                            <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up" />
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Have already an account ? <a asp-action="Login" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    JS
+    <script src="~/vendor/jqueryReg/jquery.min.js"></script>
+    <script src="~/js/mainRegister.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

@@ -44,7 +44,10 @@ namespace CinemaPlus
             var conectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<UserDbContext>(options =>
             {
-                options.UseSqlServer(conectionString);
+                options.UseSqlServer(conectionString, builder =>
+                {
+                    builder.MigrationsAssembly(nameof(CinemaPlus));
+                });
             });
 
             services.AddIdentity<User, IdentityRole>(options =>
@@ -179,7 +182,7 @@ namespace CinemaPlus
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext dbContext, UserManager<User> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -200,6 +203,8 @@ namespace CinemaPlus
             {
                 endpoints.MapControllers();
             });
+            var dataInitializer = new DataInitializer(dbContext, userManager);
+             dataInitializer.SeedData();
         }
     }
 }

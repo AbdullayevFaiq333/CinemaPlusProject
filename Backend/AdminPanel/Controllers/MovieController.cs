@@ -42,7 +42,7 @@ namespace AdminPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Movie movie)
-        {
+        { 
             if (!ModelState.IsValid)
             {
                 return View();

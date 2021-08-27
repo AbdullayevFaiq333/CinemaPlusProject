@@ -37,7 +37,10 @@ namespace AdminPanel
             var conectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<UserDbContext>(options =>
             {
-                options.UseSqlServer(conectionString);
+                options.UseSqlServer(conectionString, builder =>
+                {
+                    builder.MigrationsAssembly(nameof(AdminPanel));
+                });
             });
 
             services.AddIdentity<User, IdentityRole>(options =>
@@ -160,9 +163,9 @@ namespace AdminPanel
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
