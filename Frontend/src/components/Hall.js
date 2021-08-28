@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchContentRow,
@@ -27,39 +27,40 @@ const Hall = () => {
   const { ticket } = useSelector((state) => state.ticket);
   const { movieWidthId } = useSelector((state) => state.movieWidthId);
 
-  const [active, setActive] = useState(false)
-  const [count, setCount] = useState(0)
+  console.log(seat)
+  const [active, setActive] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     dispatch(fetchContentHall(history.location.state.session));
     dispatch(fetchContentMovieWidthId(history.location.state.movie));
     dispatch(fetchContentRow(history.location.state.session));
-    dispatch(fetchContentSeat(15));
+    //dispatch(fetchContentSeat());
 
     dispatch(fetchContentTicket(history.location.state.session));
   }, [dispatch]);
-  
+
   const handleSeatClick = () => {
     setActive(!active);
     if (!active) {
-      setCount(count+1);
+      setCount(count + 1);
     }
-    
   };
 
-  async function handleToken(token,addresses){
-     const response= await axios.post("https://localhost:44359/api/Pay",{
-       token,
-       movieWidthId
-     });
-     const{status}=response.data
-     if (status==='success') {
-       toast('Success! Check emails for details',
-       {type:'success'})
-     }else{
-      toast('Something went wrong',
-      {type:'error'})
-     }
+  async function handleToken(token) {
+    const response = await axios.post("https://localhost:44359/api/Pay", {
+      CartNumber: token.CartNumber,
+      Month: token.Month,
+      Year: token.Year,
+      Cvc: token.Cvc,
+      Value: token.Value,
+    });
+    const { status } = response.data;
+    if (status === "success") {
+      toast("Success! Check emails for details", { type: "success" });
+    } else {
+      toast("Something went wrong", { type: "error" });
+    }
   }
 
   React.useEffect(() => {
@@ -68,12 +69,9 @@ const Hall = () => {
 
   return (
     <div class="plane">
-      
       <ul className="title ">
         <li>Movie: {movieWidthId.name}</li>
-        <li key={hall.id} >
-          {hall.name}
-        </li>
+        <li key={hall.id}>{hall.name}</li>
       </ul>
 
       <ul className="rows">
@@ -88,13 +86,16 @@ const Hall = () => {
                   <ul class="seats">
                     {
                       <>
-                        {seat.map((seatItem) => {
-                          return (
-                            <li key={seatItem.id} className={` ${active ? "active" :"seat" }`} onClick={() => handleSeatClick(seatItem.rowId)}>
-                              
+                        {rowItem.seats.map((seatItem )=> {
+                           return (
+                            <li
+                              key={seatItem.id}
+                              className={` ${active ? "active" : "seat"}`}
+                              onClick={handleSeatClick}
+                            >
                               <input type="checkbox" id={seatItem.id} />
                               <label for={seatItem.id}>
-                              {seatItem.seatNumber}
+                                {seatItem.seatNumber}
                               </label>
                             </li>
                           );
@@ -112,18 +113,17 @@ const Hall = () => {
         <div>TICKET PRICE: {ticket.price}₼</div>
         <div>TOTAL PRICE: {ticket.price * count}₼</div>
       </div>
-      
+
       <div className="buy">
-      <StripeCheckout
-           stripeKey="pk_test_51JSg7WEzYHUBwYrgcFnpvcxgAPfIAVmT8faLPz7qwaQ80VnLMPUwGcPgQfsjucfJHGCgInrtmh29UJMhUEXgIVHE00CdEE63Gx"
-           token={handleToken}
-           billingAddress
-           shippingAddress
-           amount={ticket.price * count}
-           name={movieWidthId.name}
-      />
+        <StripeCheckout
+          stripeKey="pk_test_51JSg7WEzYHUBwYrgcFnpvcxgAPfIAVmT8faLPz7qwaQ80VnLMPUwGcPgQfsjucfJHGCgInrtmh29UJMhUEXgIVHE00CdEE63Gx"
+          token={handleToken}
+          billingAddress
+          shippingAddress
+          amount={ticket.price * count * 100}
+          name={movieWidthId.name}
+        />
       </div>
-      
     </div>
   );
 };

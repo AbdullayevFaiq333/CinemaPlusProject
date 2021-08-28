@@ -28,9 +28,34 @@ namespace CinemaPlus.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var rows = await _rowService.GetAllRowAsync(id);
-            var rowDto = _mapper.Map<List<RowDto>>(rows);
+            var seatsDto = new List<SeatDto>();
+            var rowsDto = new List<RowDto>();
+            foreach (var row in rows)
+            {
+                var seatDto = new SeatDto();
+                foreach (var seat in row.Seats)
+                {
+                    seatDto = new SeatDto
+                    {
 
-            return Ok(rowDto);
+                        Id = seat.Id,
+                        SeatNumber = seat.SeatNumber,
+                        RowId = seat.RowId
+                    };
+
+                }
+                seatsDto.Add(seatDto);
+                
+                var rowDto = new RowDto
+                {
+                    Id = row.Id,
+                    HallId = row.HallId,
+                    NumberRow = row.NumberRow,
+                    Seats = seatsDto
+                };
+                rowsDto.Add(rowDto);
+            }
+            return Ok(rowsDto);
         }
     }
 }
