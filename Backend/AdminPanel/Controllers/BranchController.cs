@@ -21,6 +21,8 @@ namespace AdminPanel.Controllers
             _languageService = languageService;
 
         }
+
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -28,6 +30,10 @@ namespace AdminPanel.Controllers
 
             return View(branch);
         }
+
+        #endregion
+
+        #region Create
         public async Task<IActionResult> Create()
         {
 
@@ -55,13 +61,18 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region Update
         public async Task<IActionResult> Update()
         {
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
             return View();
         }
+        #endregion
+
+        #region Detail
         public async Task<IActionResult> Detail()
         {
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
@@ -71,6 +82,10 @@ namespace AdminPanel.Controllers
 
         [HttpGet]
         [ActionName("Delete")]
+
+        #endregion
+
+        #region Delete
         public async Task<IActionResult> DeleteBranch(int? id)
         {
             if (id == null)
@@ -86,6 +101,6 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
-
+        #endregion
     }
 }

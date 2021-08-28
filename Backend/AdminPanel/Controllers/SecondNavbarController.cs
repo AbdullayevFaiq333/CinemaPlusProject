@@ -15,6 +15,8 @@ namespace AdminPanel.Controllers
         {
             _secondNavbarService = secondNavbarService;
         }
+
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -22,6 +24,7 @@ namespace AdminPanel.Controllers
 
             return View(secondNavbar);
         }
+        #endregion
     }
 }
 

@@ -10,9 +10,11 @@ namespace AdminPanel.Controllers
     public class DashboardController : Controller
     {
         [Authorize]
+        #region Index
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
     }
 }

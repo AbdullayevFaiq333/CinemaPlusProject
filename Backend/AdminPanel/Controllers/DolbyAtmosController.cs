@@ -22,6 +22,7 @@ namespace AdminPanel.Controllers
 
         }
 
+        #region index
         public async Task<IActionResult> Index()
         {
             var dolbyAtmos = await _dolbyAtmosService.GetAllDolbyAtmosAsync();
@@ -29,6 +30,9 @@ namespace AdminPanel.Controllers
              
             return View(dolbyAtmos);
         }
+        #endregion
+
+        #region Create
         public async Task<IActionResult> Create()
         {
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
@@ -56,24 +60,9 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
-        public async Task<IActionResult> Detail(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var dolbyAtmos = await _dolbyAtmosService.GetDolbyAtmosWithIdAsync(id.Value);
-
-
-            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
-
-            if (dolbyAtmos == null)
-                return NotFound();
-
-            return View(dolbyAtmos);
-        }
-
-
+        #region Update
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null)
@@ -114,8 +103,27 @@ namespace AdminPanel.Controllers
 
 
         }
+        #endregion
+
+        #region Detail
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var dolbyAtmos = await _dolbyAtmosService.GetDolbyAtmosWithIdAsync(id.Value);
 
 
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+            if (dolbyAtmos == null)
+                return NotFound();
+
+            return View(dolbyAtmos);
+        }
+        #endregion
+
+        #region Delete
         [HttpGet]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteDolbyAtmos(int? id)
@@ -131,7 +139,7 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
-
+        #endregion
 
     }
 

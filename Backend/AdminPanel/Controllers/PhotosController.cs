@@ -15,6 +15,7 @@ namespace AdminPanel.Controllers
         {
             _photosService = photosService;
         }
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -22,5 +23,7 @@ namespace AdminPanel.Controllers
 
             return View(photos);
         }
+        #endregion
+
     }
 }

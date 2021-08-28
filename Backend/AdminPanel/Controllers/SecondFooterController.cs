@@ -15,6 +15,8 @@ namespace AdminPanel.Controllers
         {
             _secondFooterService = secondFooterService;
         }
+
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -22,5 +24,6 @@ namespace AdminPanel.Controllers
 
             return View(secondFooter);
         }
+        #endregion
     }
 }

@@ -20,6 +20,8 @@ namespace AdminPanel.Controllers
             _languageService = languageService;
 
         }
+
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -27,5 +29,6 @@ namespace AdminPanel.Controllers
 
             return View(AboutUsHeadPart);
         }
+        #endregion
     }
 }

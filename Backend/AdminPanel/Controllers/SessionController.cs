@@ -17,6 +17,8 @@ namespace AdminPanel.Controllers
             _sessionService = sessionService;
             _languageService = languageService;
         }
+
+        #region Index
         public async Task<IActionResult> Index()
         {
             
@@ -25,7 +27,8 @@ namespace AdminPanel.Controllers
 
             return View(session);
         }
-      
+        #endregion
+
 
     }
 }

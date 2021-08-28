@@ -19,6 +19,7 @@ namespace AdminPanel.Controllers
             _languageService = languageService;
 
         }
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -26,6 +27,9 @@ namespace AdminPanel.Controllers
 
             return View(campaign);
         }
+        #endregion
+
+        #region Create
         public async Task<IActionResult> Create()
         {
 
@@ -33,5 +37,6 @@ namespace AdminPanel.Controllers
 
             return View();
         }
+        #endregion
     }
 }

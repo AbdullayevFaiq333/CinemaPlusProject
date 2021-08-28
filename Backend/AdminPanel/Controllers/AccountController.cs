@@ -24,16 +24,16 @@ namespace AdminPanel.Controllers
             _signInManager = signInManager;
         }
 
+        #region Login
 
-
-        public  IActionResult Login()
+        public IActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
             {
                 return NotFound();
             }
             return View();
-        }
+        }        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,7 +69,9 @@ namespace AdminPanel.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+        #endregion
 
+        #region Register
         public IActionResult Register()
         {
             return View();
@@ -116,11 +118,18 @@ namespace AdminPanel.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        #endregion
+
+        #region Logout
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
+
+        #endregion
+
+        #region ForgotPassword
         public IActionResult ForgotPassword(string id)
         {
             return View();
@@ -169,6 +178,10 @@ namespace AdminPanel.Controllers
             }
             return View();
         }
+
+        #endregion
+
+        #region ResetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(string userEmail, string token, ResetPasswordViewModel resetPassword)
@@ -199,6 +212,6 @@ namespace AdminPanel.Controllers
             return RedirectToAction("Login");
         }
 
-
+        #endregion
     }
 }

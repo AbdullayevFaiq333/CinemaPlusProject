@@ -21,6 +21,9 @@ namespace AdminPanel.Controllers
             _platiniumService = platiniumService;
             _languageService = languageService;
         }
+
+
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -29,6 +32,9 @@ namespace AdminPanel.Controllers
             return View(platinum);
 
         }
+        #endregion
+
+        #region Create
         public async Task<IActionResult> Create()
         {
 
@@ -57,7 +63,9 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region Detail
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null) 
@@ -73,7 +81,9 @@ namespace AdminPanel.Controllers
 
             return View(platinum);
         }
+        #endregion
 
+        #region Update
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null)
@@ -115,10 +125,9 @@ namespace AdminPanel.Controllers
             return RedirectToAction("Index");
 
         }
+        #endregion
 
-
-
-         
+        #region Delete
         [HttpGet]
         [ActionName("Delete")]
         public async Task<IActionResult> DeletePlatinum(int? id)
@@ -137,6 +146,7 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
     }
 }

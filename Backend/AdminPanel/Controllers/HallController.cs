@@ -15,6 +15,7 @@ namespace AdminPanel.Controllers
         {
             _hallService = hallService;
         }
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -22,5 +23,6 @@ namespace AdminPanel.Controllers
 
             return View(hall);
         }
+        #endregion
     }
 }

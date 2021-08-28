@@ -22,6 +22,8 @@ namespace AdminPanel.Controllers
             _languageService = languageService;
 
         }
+
+        #region Index
         public async Task<IActionResult> Index()
         {
 
@@ -29,6 +31,9 @@ namespace AdminPanel.Controllers
 
             return View(services);
         }
+        #endregion
+
+        #region Create
         public async Task <IActionResult> Create()
         {
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
@@ -57,7 +62,9 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
+        #region Detail
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null)
@@ -73,6 +80,9 @@ namespace AdminPanel.Controllers
 
             return View(service);
         }
+        #endregion
+
+        #region Update
         public async Task<IActionResult> Update(int? id)
         {
             if (id == null)
@@ -91,6 +101,7 @@ namespace AdminPanel.Controllers
 
             return View(service);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,8 +130,9 @@ namespace AdminPanel.Controllers
 
 
         }
+        #endregion
 
-
+        #region Delete
         [HttpGet]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteService(int? id)
@@ -137,6 +149,7 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
     }
 }
