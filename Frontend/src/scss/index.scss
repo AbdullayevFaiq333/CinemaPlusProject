@@ -255,24 +255,19 @@ body {
     .buy{
       padding:0 0 100px 70%;
     }
-    ul {
-      list-style :none;
-      
-      
-    }
     
     .rowName{
-      color: aqua;
+      color: rgb(221, 224, 207);
       font-weight: 700;
       padding-left: 25%;
-      
-      
     }
+    .rowName2{
+      padding-left: 58%;
+    }
+    
     .seats {
       display: flex;
-      flex-direction: row;
-      padding-left: 30%;
-      
+      justify-content:center;
     }
     .seat {
       padding:15px;

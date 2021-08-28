@@ -3,12 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchContentRow,
   fetchContentHall,
-  fetchContentSeat,
   fetchContentTicket,
   fetchContentMovieWidthId,
 } from "../actions";
 import { useHistory } from "react-router-dom";
-import BuyTicket from "./BuyTicket";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -27,7 +25,7 @@ const Hall = () => {
   const { ticket } = useSelector((state) => state.ticket);
   const { movieWidthId } = useSelector((state) => state.movieWidthId);
 
-  console.log(seat)
+  
   const [active, setActive] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -35,8 +33,6 @@ const Hall = () => {
     dispatch(fetchContentHall(history.location.state.session));
     dispatch(fetchContentMovieWidthId(history.location.state.movie));
     dispatch(fetchContentRow(history.location.state.session));
-    //dispatch(fetchContentSeat());
-
     dispatch(fetchContentTicket(history.location.state.session));
   }, [dispatch]);
 
@@ -64,31 +60,35 @@ const Hall = () => {
   }
 
   React.useEffect(() => {
-    // api call to seats with history.location.state.sessionId
+    
   }, [history]);
 
   return (
     <div class="plane">
-      <ul className="title ">
-        <li>Movie: {movieWidthId.name}</li>
-        <li key={hall.id}>{hall.name}</li>
-      </ul>
+      <div className="title ">
+        <div>Movie: {movieWidthId.name}</div>
+        <div key={hall.id}>{hall.name}</div>
+      </div>
 
-      <ul className="rows">
+      <div className="rows ">
         {
           <>
             {row.map((rowItem) => {
               return (
                 <div>
-                  <li key={rowItem.id} className="rowName">
-                    SIRA {rowItem.numberRow}
-                  </li>
-                  <ul class="seats">
+                  <div key={rowItem.id} className="rowName">
+                    
+                  <span>SIRA {rowItem.numberRow}</span> 
+                  <span className="rowName2">SIRA {rowItem.numberRow}</span>
+                  </div>
+                  
+                  <div>
+                  <div class="seats">
                     {
                       <>
                         {rowItem.seats.map((seatItem )=> {
                            return (
-                            <li
+                            <div
                               key={seatItem.id}
                               className={` ${active ? "active" : "seat"}`}
                               onClick={handleSeatClick}
@@ -97,18 +97,21 @@ const Hall = () => {
                               <label for={seatItem.id}>
                                 {seatItem.seatNumber}
                               </label>
-                            </li>
+                            </div>
                           );
                         })}
                       </>
                     }
-                  </ul>
+                  </div>
+                  
+                  </div>
+                  
                 </div>
               );
             })}
           </>
         }
-      </ul>
+      </div>
       <div className="prc">
         <div>TICKET PRICE: {ticket.price}₼</div>
         <div>TOTAL PRICE: {ticket.price * count}₼</div>
