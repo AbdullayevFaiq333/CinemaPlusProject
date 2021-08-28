@@ -61,7 +61,7 @@ namespace Buisness.Concret
                     //Getting file Extension
                     var fileExtension = Path.GetExtension(fileName);
 
-                    // concatenating  FileName + FileExtension
+                    // concatenating  FileName + FileExtension 
                     newFileName = String.Concat("services/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
 
                     // Combines two strings into a path.
@@ -91,8 +91,7 @@ namespace Buisness.Concret
         }
 
         public async Task<bool> UpdateServiceAsync(Service service, string oldPhoto)
-        {
-            
+        {          
 
 
             var newFileName = string.Empty;

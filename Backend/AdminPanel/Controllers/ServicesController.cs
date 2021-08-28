@@ -15,7 +15,7 @@ namespace AdminPanel.Controllers
         private readonly IServiceService _serviceService;
         private readonly ILanguageService _languageService;
 
-
+         
         public ServicesController(IServiceService serviceService, ILanguageService languageService)
         {
             _serviceService = serviceService;
@@ -35,12 +35,13 @@ namespace AdminPanel.Controllers
 
         #region Create
         public async Task <IActionResult> Create()
-        {
+        { 
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
 
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Service service)

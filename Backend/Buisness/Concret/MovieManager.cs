@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using System;
+using System; 
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
@@ -33,7 +33,7 @@ namespace Buisness.Concret
         public async Task<List<Movie>> GetAllMovieAsync()
         {
             return await _movieDal.GetAllAsync();
-        } 
+        }  
 
         public async Task<bool> AddMovieAsync(MovieParams movieParams)
         {

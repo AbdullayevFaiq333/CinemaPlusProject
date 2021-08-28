@@ -49,7 +49,7 @@ namespace AdminPanel.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(); 
             }
 
             var isExist = await _platiniumService.PlatinumAnyAsync(x => x.Title.ToLower() == platinium.Title);
@@ -58,7 +58,8 @@ namespace AdminPanel.Controllers
                 ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
                 return View();
             }
-            platinium.IsDeleted = false;
+
+            platinium.IsDeleted = false; 
             await _platiniumService.AddPlatiniumAsync(platinium);
 
             return RedirectToAction("Index");
@@ -105,7 +106,7 @@ namespace AdminPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Update(int? id, Platinium platinium)
+        public async Task<IActionResult> Update(Platinium platinium, string oldPhoto)
         {
 
             if (!ModelState.IsValid)

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
  
 namespace Buisness.Abstract
 {
-    public interface IPlatiniumService
+    public interface IPlatiniumService 
     {
         Task<Platinium> GetPlatiniumWithIdAsync(int id);
         Task<List<Platinium>> GetAllPlatiniumAsync();
@@ -18,7 +18,6 @@ namespace Buisness.Abstract
 
         Task<bool> UpdatePlatiniumAsync(Platinium platinium);
         Task<bool> DeletePlatiniumAsync(Platinium platinium);
-        Task AddPlatiniumAsync();
 
         Task<bool> PlatinumAnyAsync(Expression<Func<Platinium, bool>> expression);
     }

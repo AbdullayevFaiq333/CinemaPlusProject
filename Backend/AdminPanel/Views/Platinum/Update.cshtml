@@ -7,7 +7,7 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title text-white">Create Platinum</h4>
+                <h4 class="card-title text-white">Update Platinum</h4>
                 <form class="forms-sample" method="post" enctype="multipart/form-data">
                     <select name="LanguageId" id="language" class="btn btn-light">
 
@@ -28,6 +28,10 @@
                         <label asp-for="Description">Description</label>
                         <textarea asp-for="Description" class="form-control" rows="4" id="editor"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input type="file" asp-for="Icon" class="form-control" placeholder="Icon">
+                        <span class="text-danger" asp-validation-for="Icon"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Update</button>

@@ -38,17 +38,17 @@
                     </span>
 
                     <span class="login100-form-title p-b-34 p-t-27">
-                        Log in
+                        Create Account
                     </span>
-                    <div class="wrap-input100 validate-input" >
+                    <div class="wrap-input100 validate-input">
                         <input asp-for="Fullname" class="input100" placeholder="Fullname">
                         <span asp-validation-for="Fullname" class="focus-input100" data-placeholder="&#xf207;"></span>
                     </div>
-                    <div class="wrap-input100 validate-input" >
+                    <div class="wrap-input100 validate-input">
                         <input asp-for="Username" class="input100" placeholder="Username">
                         <span asp-validation-for="Email" class="focus-input100" data-placeholder="&#xf207;"></span>
                     </div>
-                    <div class="wrap-input100 validate-input" >
+                    <div class="wrap-input100 validate-input">
                         <input asp-for="Email" class="input100" placeholder="Email">
                         <span asp-validation-for="Email" class="focus-input100" data-placeholder="&#xf207;"></span>
                     </div>
@@ -56,20 +56,25 @@
                         <input asp-for="@Model.Passsword" class="input100" placeholder="Password">
                         <span asp-validation-for="@Model.Passsword" class="focus-input100" data-placeholder="&#xf207;"></span>
                     </div>
-                    <div class="wrap-input100 validate-input" >
+                    <div class="wrap-input100 validate-input">
                         <input asp-for="@Model.ConfirmPassword" class="input100" placeholder="Confirm Password">
                         <span asp-validation-for="@Model.ConfirmPassword" class="focus-input100" data-placeholder="&#xf207;"></span>
                     </div>
                     <div class="text-danger" asp-validation-summary="ModelOnly"></div>
 
-                   
+
                     <div class="container-login100-form-btn">
                         <button type="submit" class="login100-form-btn" style="display: block; margin-bottom: 5px">
                             Create Account
                         </button>
 
                     </div>
-                    
+                    <div>
+                        <a class="btn btn-info" style="display: block; text-align: center; text-decoration: none;" asp-action="Login">
+                            I have an account
+                        </a>
+                    </div>
+
 
                 </form>
             </div>

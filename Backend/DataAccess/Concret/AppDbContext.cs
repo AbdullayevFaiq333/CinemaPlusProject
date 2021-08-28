@@ -10,10 +10,7 @@ namespace DataAccess.Concret
 {
     public class AppDbContext: IdentityDbContext<User>
     {
-        //vse ikiside run olurr, yalniz bu ctor silmek lazmdi
-        //birde butun Dal-larda yeni instance yox ctor-dan gelmelidir butun contextler tamam?
-        //cox sagolun muellim
-        //Menede xeber edersen alinir ya yox
+        
         public AppDbContext()
         {
 
@@ -27,7 +24,7 @@ namespace DataAccess.Concret
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-896NS6C\SQLEXPRESS;Database=CinemaPlusDB;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Server=HASANOV;Database=CinemaPlusDB;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
         public DbSet<DolbyAtmos> DolbyAtmos { get; set; }
