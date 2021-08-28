@@ -35,7 +35,7 @@ namespace AdminPanel
 
             services.AddControllersWithViews();
             var conectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<UserDbContext>(options =>
+            services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(conectionString, builder =>
                 {
@@ -51,7 +51,7 @@ namespace AdminPanel
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
                 options.Lockout.AllowedForNewUsers = true;
 
-            }).AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
             services.AddScoped<IAboutUsBottomPartService, AboutUsBottomPartManager>();
@@ -164,7 +164,6 @@ namespace AdminPanel
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthorization();
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -174,6 +173,7 @@ namespace AdminPanel
                     name: "default",
                     pattern: "{controller=Dashboard}/{action=Index}/{id?}");
             });
+            
         }
     }
 }

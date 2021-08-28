@@ -13,6 +13,11 @@ namespace DataAccess.Concret
 {
     public class EFAboutUsBottomPartDal : EFRepositoryBase<AboutUsBottomPart, AppDbContext>, IAboutUsBottomPartDal
     {
+        //burda niye her defe instance alinir dbContexden?        
+        //Bu dbcontext dependency injectionan ctor-dan gelmelidir
+        //onlari duzeldin chunki indi build kechmir heleki men commente atiram-ok
+        //yadaki helelik parametrless ctor yaradiram
+
         public async Task<bool> CheckAboutUsBottomPart(Expression<Func<AboutUsBottomPart, bool>> expression)
         {
             await using var context = new AppDbContext();

@@ -15,14 +15,16 @@ namespace DataAccess.Identity
     {
         private readonly AppDbContext _dbContext;
         private readonly UserManager<User> _userManager;
-    public DataInitializer (AppDbContext dbContext, UserManager<User> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+    public DataInitializer (AppDbContext dbContext, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
     {
             _dbContext = dbContext;
             _userManager = userManager;
+            _roleManager = roleManager;
     }
-        public void SeedData()
+        public async Task SeedDataAsync()
         {
-              _dbContext.Database.Migrate();
+             await _dbContext.Database.MigrateAsync();
 
             var roles = new List<string>
              {
@@ -31,11 +33,10 @@ namespace DataAccess.Identity
              };
             foreach (var role in roles)
             {
-                if (_dbContext.Roles.Any(x => x.Name.ToLower() == role.ToLower()))
+                if (await _roleManager.RoleExistsAsync(role))
                     continue;
 
-                _dbContext.Roles.Add(new IdentityRole(role));
-                _dbContext.SaveChanges();
+                await _roleManager.CreateAsync(new IdentityRole(role));          
             }
             var user = new User
             {
@@ -43,11 +44,14 @@ namespace DataAccess.Identity
                 UserName = "Admin",
                 FullName = "Admin Admin",
                 
-
             };
-            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, "Admin@123");
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            if (await _userManager.FindByEmailAsync(user.Email) == null)
+            {
+                await _userManager.CreateAsync(user, "Admin@123");
+                await _userManager.AddToRoleAsync(user, RoleConstants.AdminRole);
+
+            }
+            
         }
     }
 }

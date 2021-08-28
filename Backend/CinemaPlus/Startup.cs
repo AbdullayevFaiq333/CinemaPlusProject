@@ -42,13 +42,15 @@ namespace CinemaPlus
          
             services.AddControllersWithViews();
             var conectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<UserDbContext>(options =>
+
+            services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(conectionString, builder =>
                 {
                     builder.MigrationsAssembly(nameof(CinemaPlus));
                 });
             });
+
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -58,7 +60,7 @@ namespace CinemaPlus
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
                 options.Lockout.AllowedForNewUsers = true;
 
-            }).AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
             services.AddScoped<IAboutUsBottomPartService, AboutUsBottomPartManager>();
@@ -182,7 +184,7 @@ namespace CinemaPlus
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext dbContext, UserManager<User> userManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -203,8 +205,7 @@ namespace CinemaPlus
             {
                 endpoints.MapControllers();
             });
-            var dataInitializer = new DataInitializer(dbContext, userManager);
-             dataInitializer.SeedData();
+            
         }
     }
 }

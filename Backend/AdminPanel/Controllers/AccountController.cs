@@ -109,6 +109,7 @@ namespace AdminPanel.Controllers
             }
 
             await _userManager.AddToRoleAsync(newUser, RoleConstants.ModeratorRole);
+
             await _signInManager.SignInAsync(newUser, true);
 
             return RedirectToAction("Index", "Home");
