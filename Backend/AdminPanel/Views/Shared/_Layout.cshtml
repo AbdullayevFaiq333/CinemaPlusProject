@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="/img/favicon-32x324cab.png" rel="shortcut icon" type="image/png">
+    <link href="~/img/favicon-32x324cab.png" rel="shortcut icon" type="image/png">
     <title>Cinema Plus – Admin</title>
 
     <!-- Global stylesheets -->
@@ -54,7 +54,7 @@
     <!-- Main navbar -->
     <div class="navbar navbar-expand-md navbar-dark" style="background: #00ACEC">  
         <div class="navbar-brand">
-            <a asp-area="Dashboard" asp-controller="Index" class="d-inline-block">
+            <a asp-controller="Dashboard" asp-action="Index" class="d-inline-block">
                <img src="/img/cpluslogo.svg" alt="Cinema Plus" style="height:50px">
             </a>
         </div>
@@ -159,7 +159,8 @@
                 </li>
                 <li class="nav-item dropdown dropdown-user">
                     <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-                        <img src="~/global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">
+                        @*<img src="~/global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">*@
+                        <i class="icon-user"></i>
                         <span>@User.Identity.Name</span>
                     </a>
 
@@ -170,7 +171,7 @@
                             <a href="#" class="dropdown-item"><i class="icon-coins"></i> My balance</a>
                             <a href="#" class="dropdown-item"><i class="icon-comment-discussion"></i> Messages <span class="badge badge-pill bg-blue ml-auto">58</span></a>
                             <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
+                            <a asp-controller="Account" asp-action="ResetPassword" class="dropdown-item"><i class="icon-cog5"></i>Reset Password</a>
                             <a  asp-controller="Account" asp-action="Logout" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
                         }
                         else
@@ -213,7 +214,7 @@
                     <div class="card-body">
                         <div class="media">
                             <div class="mr-3">
-                                <a href="#"><img src="~/global_assets/images/placeholders/placeholder.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+                                <a href="#"><img src="~/img/favicon-32x324cab.png" width="38" height="38" class="rounded-circle" alt=""></a>
                             </div>
 
                             <div class="media-body">
@@ -250,6 +251,9 @@
                         </li>
                         <li class="nav-item">
                             <a asp-controller="Branch" asp-action="Index" class="nav-link"><i class="icon-movie"></i> <span style="color: white">Branch</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Session" asp-action="Index" class="nav-link"><i class="icon-next"></i> <span style="color: white">Session</span></a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="AboutUsBottomPart" asp-action="Index" class="nav-link"><i class="icon-sphere"></i> <span style="color: white">About Us Bottom Part</span></a>
@@ -316,9 +320,6 @@
                         </li>
                         <li class="nav-item">
                             <a asp-controller="SecondNavbar" asp-action="Index" class="nav-link"><i class="icon-pencil"></i> <span style="color: white">Second Navbar</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Session" asp-action="Index" class="nav-link"><i class="icon-next"></i> <span style="color: white">Session</span></a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="SocialMedia" asp-action="Index" class="nav-link"><i class="icon-umbrella"></i> <span style="color: white">Social Media</span></a>

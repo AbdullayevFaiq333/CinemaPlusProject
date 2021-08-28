@@ -33,10 +33,10 @@ namespace AdminPanel.Controllers
         {
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
-
-
             return View();
         }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DolbyAtmos dolbyAtmos)
@@ -74,61 +74,46 @@ namespace AdminPanel.Controllers
         }
 
 
-        //public IActionResult Update(int? id)
-        //{
-        //    if (id == null)
-        //        return NotFound();
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id == null)
+                return NotFound();
 
-        //    var dolbyAtmos = _dbContext.DolbyAtmos.Find(id);
-
-        //    if (dolbyAtmos == null)
-        //        return NotFound();
-
-        //    ViewBag.Languages = _dbContext.Languages.ToList();
-
-        //    return View(dolbyAtmos);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-
-        //public async Task<IActionResult> Update(int? id, DolbyAtmos dolbyAtmos)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(); 
-        //    }
-
-        //    if (id == null)
-        //        return NotFound();
-
-        //    if (id != dolbyAtmos.Id)
-        //        return BadRequest();
-
-        //    var dbDolbyAtmos = await _dbContext.DolbyAtmos.FindAsync(id);
-        //    if (dbDolbyAtmos == null)
-        //        return NotFound();
-
-        //    var isExist = await _dbContext.DolbyAtmos.AnyAsync(x => x.FirstTitle.ToLower() == dolbyAtmos.FirstTitle.
-        //                                                                         ToLower() && x.Id != id);
-        //    if (isExist)
-        //    {
-        //        ModelState.AddModelError("FirstTitle", "Please change the context.Title is already exist !");
-        //        return View();
-        //    }
-
-        //    dbDolbyAtmos.Language = dolbyAtmos.Language;
-        //    dbDolbyAtmos.FirstTitle = dolbyAtmos.FirstTitle;
-        //    dbDolbyAtmos.FirstDescription = dolbyAtmos.FirstDescription;
-        //    dbDolbyAtmos.YoutubeURL = dolbyAtmos.YoutubeURL;
-        //    dbDolbyAtmos.SecondTitle = dolbyAtmos.SecondTitle;
-        //    dbDolbyAtmos.FirstDescription= dolbyAtmos.FirstDescription;
-
-        //    await _dbContext.SaveChangesAsync();
-        //    return RedirectToAction("Index");
+            var dolbyAtmos = await _dolbyAtmosService.GetDolbyAtmosWithIdAsync(id.Value);
 
 
-        //}
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+
+
+            if (dolbyAtmos == null)
+                return NotFound();
+
+            return View(dolbyAtmos);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Update(DolbyAtmos dolbyAtmos)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var isExist = await _dolbyAtmosService.DolbyAtmosAnyAsync(x => x.FirstTitle.ToLower() == dolbyAtmos.FirstTitle);
+            if (isExist)
+            {
+                ModelState.AddModelError("FirstTitle", "Please change the context.Title is already exist !");
+                return View();
+            }
+            await _dolbyAtmosService.UpdateDolbyAtmosAsync(dolbyAtmos);
+
+            return RedirectToAction("Index");
+
+
+        }
 
 
         [HttpGet]

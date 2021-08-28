@@ -92,42 +92,29 @@ namespace AdminPanel.Controllers
             return View(platinum);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
 
-        //public async Task<IActionResult> Update(int? id, Platinium platinium)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View();
-        //    }
+        public async Task<IActionResult> Update(int? id, Platinium platinium)
+        {
 
-        //    if (id == null)
-        //        return NotFound();
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
-        //    if (id != platinium.Id)
-        //        return BadRequest();
+            var isExist = await _platiniumService.PlatinumAnyAsync(x => x.Title.ToLower() == platinium.Title);
+            if (isExist)
+            {
+                ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
+                return View();
+            }
+            platinium.IsDeleted = false;
+            await _platiniumService.UpdatePlatiniumAsync(platinium);
 
-        //    var dBplatinum = await _platiniumService.PlatinumAnyAsync();
-        //    if (dBplatinum == null)
-        //        return NotFound();
+            return RedirectToAction("Index");
 
-        //    var isExist = await _platiniumService.PlatinumAnyAsync(x => x.Title.ToLower() == platinium.Title);
-
-        //    if (isExist)
-        //    {
-        //        ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
-        //        return View();
-        //    }
-
-        //    dBplatinum.Language = platinium.Language;
-        //    dBplatinum.Title = platinium.Title;
-        //    dBplatinum.Description = platinium.Description;
-
-        //    return RedirectToAction("Index");
-
-
-        //}
+        }
 
 
 
@@ -147,7 +134,6 @@ namespace AdminPanel.Controllers
 
             await _platiniumService.UpdatePlatiniumAsync(platinum);
 
-            //await _platiniumService.DeletePlatiniumAsync(platinum.Id);
 
             return RedirectToAction("Index");
         }

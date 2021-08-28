@@ -1,4 +1,5 @@
-﻿using DataAccess.Identity;
+﻿using AdminPanel.Utils;
+using DataAccess.Identity;
 using Entity.Entities;
 using Entity.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -27,10 +28,10 @@ namespace AdminPanel.Controllers
 
         public  IActionResult Login()
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return NotFound();
-            //}
+            if (User.Identity.IsAuthenticated)
+            {
+                return NotFound();
+            }
             return View();
         }
 
@@ -118,8 +119,86 @@ namespace AdminPanel.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
+        public IActionResult ForgotPassword(string id)
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgotPassword)
+        {
+            if (string.IsNullOrEmpty(forgotPassword.Email))
+            {
+                ModelState.AddModelError("Email", " Email does not empty");
+                return View();
+            }
+
+            if (forgotPassword == null)
+            {
+                return NotFound();
+            }
+            var user = await _userManager.FindByEmailAsync(forgotPassword.Email);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "This account does not exist");
+                return View();
+            }
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            string href = Url.Action("ResetPassword", new { userEmail = forgotPassword.Email, token });
+
+            string url = "https://localhost:44302/" + href;
+            string subject = "ResetPassword";
+            string msgBody = $"<a href={url}>Click for Reset Password</a> ";
+            string mail = forgotPassword.Email;
+
+            await Helper.SendMessage(subject, msgBody, mail);
+            TempData["Email"] = forgotPassword.Email;
+            TempData["Token"] = token;
+
+            return RedirectToAction("Login");
+        }
+        public IActionResult ResetPassword(string userEmail, string token)
+        {
+            if ((string)TempData["Email"] != userEmail || (string)TempData["Token"] != token)
+            {
+                return BadRequest();
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(string userEmail, string token, ResetPasswordViewModel resetPassword)
+        {
+            if (string.IsNullOrEmpty(userEmail))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var dbUser = await _userManager.FindByEmailAsync(userEmail);
+            if (dbUser == null)
+            {
+                return BadRequest();
+            }
+
+            var result = await _userManager.ResetPasswordAsync(dbUser, token, resetPassword.NewPassword);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View();
+            }
+            return RedirectToAction("Login");
+        }
+
 
     }
 }
