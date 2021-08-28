@@ -29,11 +29,9 @@ const BuyTicket = () => {
 
   React.useEffect(() => {
     if (!!branch) {
-      if (selectedMovie === "1") {
-        setAvailableBranches([]);
-      } else {
+      
         setAvailableBranches(branch);
-      }
+     
     }
   }, [selectedMovie, branch]);
 
