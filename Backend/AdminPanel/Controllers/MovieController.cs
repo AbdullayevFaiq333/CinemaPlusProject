@@ -1,6 +1,7 @@
 ﻿using Buisness.Abstract;
 using DataAccess.Concret;
 using Entities.Models;
+using Entity.Params;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -39,27 +40,28 @@ namespace AdminPanel.Controllers
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
 
+
             return View();
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Movie movie)
+        public async Task<IActionResult> Create(MovieParams movieParams)
         { 
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            var isExist = await _movieService.MovieAnyAsync(x => x.Name.ToLower() == movie.Name);
+            var isExist = await _movieService.MovieAnyAsync(x => x.Name.ToLower() == movieParams.Name);
             if (isExist)
             {
                 ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
                 return View();
             }
 
-            await _movieService.AddMovieAsync(movie);
+            await _movieService.AddMovieAsync(movieParams);
 
             return RedirectToAction("Index");
         }

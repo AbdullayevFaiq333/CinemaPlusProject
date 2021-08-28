@@ -1,9 +1,11 @@
 ﻿using Buisness.Abstract;
 using DataAccess.Abstract;
 using Entities.Models;
+using Entity.Params;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,28 +35,28 @@ namespace Buisness.Concret
             return await _movieDal.GetAllAsync();
         } 
 
-        public async Task<bool> AddMovieAsync(Movie movie)
+        public async Task<bool> AddMovieAsync(MovieParams movieParams)
         {
-            if (movie == null)
+            if (movieParams == null)
                 return false;
                 
 
             var newFileName = string.Empty;
 
-            if (movie.Photo != null)
+            if (movieParams.Photo != null)
             {
-                if (movie.Photo.Length > 0 &&
-                    (movie.Photo.ContentType == "image/jpeg"
-                      || movie.Photo.ContentType == "image/jpg"
-                    || movie.Photo.ContentType == "image/png"
-                    || movie.Photo.ContentType == "image/x-png"
-                    || movie.Photo.ContentType == "image/pjpeg"))
+                if (movieParams.Photo.Length > 0 &&
+                    (movieParams.Photo.ContentType == "image/jpeg"
+                      || movieParams.Photo.ContentType == "image/jpg"
+                    || movieParams.Photo.ContentType == "image/png"
+                    || movieParams.Photo.ContentType == "image/x-png"
+                    || movieParams.Photo.ContentType == "image/pjpeg"))
 
                 {
 
                     //Getting FileName
-                    var fileName = Path.GetFileName(movie.Photo.FileName);
-                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(movie.Photo.FileName);
+                    var fileName = Path.GetFileName(movieParams.Photo.FileName);
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(movieParams.Photo.FileName);
 
                     //Assigning Unique Filename (Guid)
                     var myUniqueFileName = Convert.ToString(Guid.NewGuid());
@@ -72,15 +74,28 @@ namespace Buisness.Concret
 
                     using (FileStream fs = System.IO.File.Create(filepath))
                     {
-                        movie.Photo.CopyTo(fs);
+                        movieParams.Photo.CopyTo(fs);
                         fs.Flush();
                     }
                 }
             }
 
-            movie.Image = newFileName;
+            movieParams.Image = newFileName;
 
-          await  _movieDal.AddAsync(movie);
+            Movie movie = new Movie {
+            
+            Age = movieParams.Age,
+            Name = movieParams.Name,
+                Image = movieParams.Image,
+                StartTime = movieParams.StartTime,
+                EndTime = movieParams.EndTime,
+                LanguageId = movieParams.LanguageId
+
+            };
+           var mov =   await  _movieDal.AddReturnEntityAsync(movie);
+
+            //var test = mov.ToString();
+            //Dictionary<int, int> response = JsonConvert.DeserializeObject<Dictionary<int, int>>(test);
             return true;
 
         }

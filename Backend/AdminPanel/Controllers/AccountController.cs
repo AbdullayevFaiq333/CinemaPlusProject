@@ -2,6 +2,7 @@
 using DataAccess.Identity;
 using Entity.Entities;
 using Entity.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
@@ -157,11 +158,12 @@ namespace AdminPanel.Controllers
             }
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            string href = Url.Action("ResetPassword", new { userEmail = forgotPassword.Email, token });
+            //string href = Url.Action("ResetPassword", new { userEmail = forgotPassword.Email, token });
+            var confirmationLink = Url.Action("ResetPassword", "Account", new { token, userEmail = forgotPassword.Email }, Request.Scheme);
 
-            string url = "https://localhost:44302/" + href;
+            //string url = "https://localhost:44302" + href;
             string subject = "ResetPassword";
-            string msgBody = $"<a href={url}>Click for Reset Password</a> ";
+            string msgBody = $"<a href={confirmationLink}>Click for Reset Password</a> ";
             string mail = forgotPassword.Email;
 
             await Helper.SendMessage(subject, msgBody, mail);
@@ -170,6 +172,10 @@ namespace AdminPanel.Controllers
 
             return RedirectToAction("Login");
         }
+
+        #endregion
+
+        #region ResetPassword
         public IActionResult ResetPassword(string userEmail, string token)
         {
             if ((string)TempData["Email"] != userEmail || (string)TempData["Token"] != token)
@@ -179,9 +185,6 @@ namespace AdminPanel.Controllers
             return View();
         }
 
-        #endregion
-
-        #region ResetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(string userEmail, string token, ResetPasswordViewModel resetPassword)

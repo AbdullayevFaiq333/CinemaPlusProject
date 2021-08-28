@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entity.Params;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -13,7 +14,7 @@ namespace Buisness.Abstract
         Task<List<Movie>> GetAllMovieAsync(); 
         Task<List<Movie>> GetAllMovieAsync(string languageCode);
 
-        Task<bool> AddMovieAsync(Movie movie);
+        Task<bool> AddMovieAsync(MovieParams movieParams);
         Task<bool> UpdateMovieAsync(Movie movie, string oldPhoto); 
         Task<bool> DeleteMovieAsync(Movie movie);
         Task<bool> MovieAnyAsync(Expression<Func<Movie, bool>> expression);

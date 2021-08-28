@@ -55,6 +55,26 @@ namespace Core.Repository.EFRepository
             }
                
         }
+        public async Task<object> AddReturnEntityAsync(TEntity entity)
+        {
+            await using (var context = new IContext())
+            {
+                await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
+                try
+                {
+                  var returnEntity=  await context.Set<TEntity>().AddAsync(entity);
+                    await context.SaveChangesAsync();
+                    await dbContextTransaction.CommitAsync();
+                    return  returnEntity;
+                }
+                catch (Exception)
+                {
+                    await dbContextTransaction.RollbackAsync();
+                    throw;
+                }
+            }
+
+        }
 
         public async Task<bool> DeleteAsync(TEntity entity)
         {
