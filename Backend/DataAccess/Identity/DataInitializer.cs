@@ -13,10 +13,10 @@ namespace DataAccess.Identity
 {
     public class DataInitializer
     {
-        private readonly UserDbContext _dbContext;
+        private readonly AppDbContext _dbContext;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-    public DataInitializer (UserDbContext dbContext, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+    public DataInitializer (AppDbContext dbContext, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
     {
             _dbContext = dbContext;
             _userManager = userManager;
