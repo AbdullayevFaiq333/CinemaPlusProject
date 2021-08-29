@@ -16,6 +16,8 @@ namespace Buisness.Abstract
         Task<bool> UpdateBranchAsync(Branch branch);
         Task<bool> DeleteBranchAsync(Branch branch);
         Task<bool> BranchAnyAsync(Expression<Func<Branch, bool>> expression);
+        Task<Branch> GetBranchAsync(int? id);
+
 
     }
 }

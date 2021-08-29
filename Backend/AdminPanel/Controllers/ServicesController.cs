@@ -58,7 +58,6 @@ namespace AdminPanel.Controllers
                 return View();
             }
 
-            service.IsDeleted = false;
             await _serviceService.AddServiceAsync(service);
 
             return RedirectToAction("Index");

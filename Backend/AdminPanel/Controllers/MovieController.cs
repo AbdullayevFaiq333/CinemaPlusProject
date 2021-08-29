@@ -75,8 +75,6 @@ namespace AdminPanel.Controllers
 
             var movieDetail = await _movieService.GetMovieDetail(id);
 
-            
-
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
             if (movieDetail == null)

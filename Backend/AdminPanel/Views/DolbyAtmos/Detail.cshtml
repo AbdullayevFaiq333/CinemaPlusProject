@@ -16,7 +16,7 @@
                 <form>
                     <select name="LanguageId" id="language" class="btn btn-secondary" style="margin-bottom: 5px">
 
-                        @foreach (var item in ViewBag.Languages)
+                        @foreach (var item in ViewBag.Languages) 
                         {
 
                             <!option value="@item.Id" @(item.Id == Model.LanguageId ? "selected" : "")> @item.Code</!option>

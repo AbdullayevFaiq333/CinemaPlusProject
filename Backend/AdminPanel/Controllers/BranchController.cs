@@ -44,7 +44,7 @@ namespace AdminPanel.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Branch branch)
+        public async Task<IActionResult> Create(int? id,Branch branch)
         {
             if (!ModelState.IsValid)
             {
@@ -57,6 +57,7 @@ namespace AdminPanel.Controllers
                 ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
                 return View();
             }
+            await _branchService.GetBranchAsync(id.Value);
             await _branchService.AddBranchAsync(branch);
 
             return RedirectToAction("Index");
@@ -73,11 +74,20 @@ namespace AdminPanel.Controllers
         #endregion
 
         #region Detail
-        public async Task<IActionResult> Detail()
+        public async Task<IActionResult> Detail(int? id)
         {
+            if (id == null)
+                return NotFound();
+
+            var branch = await _branchService.GetBranchAsync(id);
+          
+
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
-            return View();
+            if (branch== null)
+                return NotFound();
+
+            return View(branch);
         }
 
         [HttpGet]

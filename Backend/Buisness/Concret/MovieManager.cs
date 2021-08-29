@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Buisness.Concret
-{
+{ 
     public class MovieManager : IMovieService
     {
         private readonly IMovieDal _movieDal;

@@ -3,11 +3,6 @@
     Branch branches = Model;
 }
 
-
-
-
-
-
 <div class="col-lg-12">
     <div class="card">
         <div class="card-body">
@@ -33,24 +28,63 @@
                 <table class="table table-bordered mb-0">
                     <tbody>
                         <tr>
-                            <th scope="row">Trailer</th>
+                            <th scope="row">Branch Name</th>
                             <td>
                                 @branches.Name
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row">Country</th>
+                            <th scope="row">Description</th>
                             <td>
                                 @branches.Description
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row">Director</th>
+                            <th scope="row">Our Address</th>
                             <td>
-                                @branches.Photos.Image
+                                @branches.Contact.OurAddress
                             </td>
-                        </tr>                     
-
+                        </tr>
+                        <tr>
+                            <th scope="row">Phone</th>
+                            <td>
+                                @branches.Contact.Phone
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td>
+                                @branches.Contact.Email
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Media Sales Department</th>
+                            <td>
+                                @branches.Contact.MediaSalesDepartment
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Working Hours</th>
+                            <td>
+                                @branches.Contact.WorkingHours
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Map</th>
+                            <td>
+                                <iframe src="@branches.Contact.Map" class="map"
+                                        allowfullscreen="" loading="lazy"></iframe>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tariffs</th>
+                            <td >
+                                <div class="form-group form-group-float">
+                                    <img src="/Uploads/@branches.Tariff.Image" width="300" />
+                                    <input type="hidden" name="oldPhoto" value="@branches.Tariff.Image" />
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
 
                 </table>

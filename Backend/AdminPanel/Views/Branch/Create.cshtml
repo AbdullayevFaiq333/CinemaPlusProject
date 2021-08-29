@@ -33,7 +33,36 @@
                     <div class="form-group form-group-float">
                         <input asp-for="Description" class="form-control" placeholder="Description">
                         <span class="text-danger" asp-validation-for="Description"></span>
-                    </div>               
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="@Model.Contact.OurAddress" class="form-control" placeholder="Out Address">
+                        <span class="text-danger" asp-validation-for="@Model.Contact.OurAddress"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="@Model.Contact.Phone" class="form-control" placeholder="Phone">
+                        <span class="text-danger" asp-validation-for="@Model.Contact.Phone"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="@Model.Contact.Email" class="form-control" placeholder="Email">
+                        <span class="text-danger" asp-validation-for="@Model.Contact.Email"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="@Model.Contact.MediaSalesDepartment" class="form-control" placeholder="Media Sales Department">
+                        <span class="text-danger" asp-validation-for="@Model.Contact.MediaSalesDepartment"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="@Model.Contact.WorkingHours" class="form-control" placeholder="Working Hours">
+                        <span class="text-danger" asp-validation-for="@Model.Contact.WorkingHours"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="@Model.Contact.Map" class="form-control" placeholder="Map">
+                        <span class="text-danger" asp-validation-for="@Model.Contact.Map"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input type="file" asp-for="Photos" class="form-control" placeholder="Photo">
+                        <span class="text-danger" asp-validation-for="Photos"></span>
+                    </div>
+
 
                     <button type="submit" class="btn bg-blue-800">Submit<i class="icon-ml-2"></i></button>
                 </form>

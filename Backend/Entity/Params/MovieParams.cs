@@ -18,7 +18,7 @@ namespace Entity.Params
         public IFormFile Photo { get; set; }
         public int LanguageId { get; set; }
 
-        //details
+        //Details
         public string Treyler { get; set; }
         public string Country { get; set; }
         public string Director { get; set; }

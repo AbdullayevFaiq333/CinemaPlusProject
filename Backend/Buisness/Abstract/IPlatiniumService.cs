@@ -16,8 +16,9 @@ namespace Buisness.Abstract
 
         Task<bool> AddPlatiniumAsync(Platinium platinium); 
 
-        Task<bool> UpdatePlatiniumAsync(Platinium platinium);
+        Task<bool> UpdatePlatiniumAsync(Platinium platinium,string oldPhoto);
         Task<bool> DeletePlatiniumAsync(Platinium platinium);
+        Task<bool> UpdatePlatiniumAsync(Platinium platinium);
 
         Task<bool> PlatinumAnyAsync(Expression<Func<Platinium, bool>> expression);
     }

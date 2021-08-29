@@ -13,6 +13,7 @@ namespace DataAccess.Concret
 {
     public class EFBranchDal : EFRepositoryBase<Branch, AppDbContext>, IBranchDal
     {
+      
         public async Task<bool> CheckBranch(Expression<Func<Branch, bool>> expression)
         {
             await using var context = new AppDbContext();
@@ -26,5 +27,13 @@ namespace DataAccess.Concret
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }
+
+        public async Task<Branch> GetBranchWithInclude(int id)
+        {
+            await using var context = new AppDbContext();
+            return await context.Branches.Include(x => x.Tariff).Include(x => x.Contact)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
     }
 }

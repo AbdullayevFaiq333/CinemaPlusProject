@@ -121,7 +121,7 @@ namespace AdminPanel.Controllers
                 return View();
             }
             platinium.IsDeleted = false;
-            await _platiniumService.UpdatePlatiniumAsync(platinium);
+            await _platiniumService.UpdatePlatiniumAsync(platinium, oldPhoto);
 
             return RedirectToAction("Index");
 

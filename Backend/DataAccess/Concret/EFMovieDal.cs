@@ -15,7 +15,7 @@ namespace DataAccess.Concret
     {
         public async Task<bool> CheckMovie(Expression<Func<Movie, bool>> expression)
         {
-            await using var context = new AppDbContext();
+            await using var context = new AppDbContext(); 
             return await context.Movies.AnyAsync(expression);
         } 
 

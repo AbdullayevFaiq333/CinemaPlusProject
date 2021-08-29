@@ -12,6 +12,10 @@ namespace DataAccess.Abstract
     {
         Task<List<Branch>> GetBranchAsync(string languageCode);
         Task<bool> CheckBranch(Expression<Func<Branch, bool>> expression);
+        Task<Branch> GetBranchWithInclude(int id);
+
+      
+
 
     }
 }

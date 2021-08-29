@@ -1,6 +1,7 @@
 ﻿using Buisness.Abstract;
 using DataAccess.Abstract;
 using Entities.Models;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -12,10 +13,13 @@ namespace Buisness.Concret
     public class BranchManager : IBranchService
     {
         private readonly IBranchDal _branchDal;
-         
-        public BranchManager(IBranchDal branchDal)
+        private readonly IHostEnvironment _environment;
+
+
+        public BranchManager(IBranchDal branchDal, IHostEnvironment environment)
         {
             _branchDal = branchDal;
+            _environment = environment;
         }
 
         public async Task<Branch> GetBranchWithIdAsync(int id)
@@ -44,7 +48,6 @@ namespace Buisness.Concret
             return await _branchDal.UpdateAsync(branch);
 
         }
-
         public async Task<List<Branch>> GetAllBranchAsync(string languageCode)
         {
             return await _branchDal.GetBranchAsync(languageCode);
@@ -52,6 +55,10 @@ namespace Buisness.Concret
         public async Task<bool> BranchAnyAsync(Expression<Func<Branch, bool>> expression)
         {
             return await _branchDal.CheckBranch(expression);
+        }
+        public async Task<Branch> GetBranchAsync(int? id)
+        {
+            return await _branchDal.GetBranchWithInclude(id.Value);
         }
     }
 }

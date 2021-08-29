@@ -2,6 +2,7 @@
 using DataAccess.Abstract;
 using Entities.Models;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,10 +15,14 @@ namespace Buisness.Concret
     public class PlatiniumManager : IPlatiniumService
     { 
         private readonly IPlatiniumDal _platiniumDal;
+        private readonly IHostEnvironment _environment;
 
-        public PlatiniumManager(IPlatiniumDal platiniumDal)
+
+        public PlatiniumManager(IPlatiniumDal platiniumDal, IHostEnvironment environment)
         {
             _platiniumDal = platiniumDal;
+            _environment = environment;
+
         }
         public async Task<Platinium> GetPlatiniumWithIdAsync(int id)
         {
@@ -85,10 +90,65 @@ namespace Buisness.Concret
             return await _platiniumDal.DeleteAsync(platinium);
         }
 
+        public async Task<bool> UpdatePlatiniumAsync(Platinium platinium, string oldPhoto)
+        {
+
+            var newFileName = string.Empty;
+
+            if (platinium.Photo != null)
+            {
+                if (platinium.Photo.Length > 0 &&
+                    (platinium.Photo.ContentType == "image/jpeg"
+                      || platinium.Photo.ContentType == "image/jpg"
+                    || platinium.Photo.ContentType == "image/png"
+                    || platinium.Photo.ContentType == "image/x-png"
+                    || platinium.Photo.ContentType == "image/pjpeg"))
+
+                {
+                    if (oldPhoto != null)
+                    {
+                        var oldFilePath = Path.Combine(
+        _environment.ContentRootPath, "wwwroot", "Uploads", "platinium", oldPhoto);
+                        if (System.IO.File.Exists(oldFilePath))
+                            System.IO.File.Delete(oldFilePath);
+                    }
+                    //Getting FileName
+                    var fileName = Path.GetFileName(platinium.Photo.FileName);
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(platinium.Photo.FileName);
+
+                    //Assigning Unique Filename (Guid)
+                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+
+                    // concatenating  FileName + FileExtension
+                    newFileName = String.Concat("platinium/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+
+                    // Combines two strings into a path.
+                    var filepath =
+            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
+            .Root + $@"\{newFileName}";
+
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        platinium.Photo.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+                platinium.Icon = newFileName;
+
+                await _platiniumDal.UpdateAsync(platinium);
+                return true;
+            }
+            return false;
+
+
+        }
+
         public async Task<bool> UpdatePlatiniumAsync(Platinium platinium)
         {
             return await _platiniumDal.UpdateAsync(platinium);
-
         }
 
         public async Task<List<Platinium>> GetAllPlatiniumAsync(string languageCode)
