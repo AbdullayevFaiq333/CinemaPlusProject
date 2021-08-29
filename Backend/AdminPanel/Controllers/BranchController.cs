@@ -34,10 +34,12 @@ namespace AdminPanel.Controllers
         #endregion
 
         #region Create
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int? id)
         {
 
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+
 
             return View();
         }
@@ -54,11 +56,11 @@ namespace AdminPanel.Controllers
             var isExist = await _branchService.BranchAnyAsync(x => x.Name.ToLower() == branch.Name);
             if (isExist)
             {
-                ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
+                ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
                 return View();
             }
-            await _branchService.GetBranchAsync(id.Value);
-            await _branchService.AddBranchAsync(branch);
+
+            await _branchService.AddRangeAsync(branch, branch.Contact, branch.Tariff);
 
             return RedirectToAction("Index");
         }

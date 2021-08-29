@@ -14,7 +14,7 @@ namespace DataAccess.Abstract
         Task<bool> CheckBranch(Expression<Func<Branch, bool>> expression);
         Task<Branch> GetBranchWithInclude(int id);
 
-      
+        Task<bool> AddRangeAsync(params object[] entities);
 
 
     }
