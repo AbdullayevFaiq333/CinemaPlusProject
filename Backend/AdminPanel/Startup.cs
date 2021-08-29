@@ -35,7 +35,7 @@ namespace AdminPanel
 
             services.AddControllersWithViews();
             var conectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options =>
+            services.AddDbContext<UserDbContext>(options =>
             {
                 options.UseSqlServer(conectionString, builder =>
                 {
@@ -51,7 +51,7 @@ namespace AdminPanel
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
                 options.Lockout.AllowedForNewUsers = true;
 
-            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            }).AddEntityFrameworkStores<UserDbContext>().AddDefaultTokenProviders();
 
 
             services.AddScoped<IAboutUsBottomPartService, AboutUsBottomPartManager>();

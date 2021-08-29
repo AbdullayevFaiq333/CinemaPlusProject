@@ -60,5 +60,10 @@ namespace Buisness.Concret
         {
             return await _branchDal.GetBranchWithInclude(id.Value);
         }
+
+        public async Task<bool> AddRangeAsync(params object[] entities)
+        {
+             return await _branchDal.AddRangeAsync(entities);
+        }
     }
 }

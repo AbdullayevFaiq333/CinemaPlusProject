@@ -13,7 +13,26 @@ namespace DataAccess.Concret
 {
     public class EFBranchDal : EFRepositoryBase<Branch, AppDbContext>, IBranchDal
     {
-      
+        public async Task<bool> AddRangeAsync(params object[] entities)
+        {
+            await using var context = new AppDbContext();
+            await using var transaction = await context.Database.BeginTransactionAsync();
+            try
+            {
+                await context.AddRangeAsync(entities);
+                await context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+
+        }
+
         public async Task<bool> CheckBranch(Expression<Func<Branch, bool>> expression)
         {
             await using var context = new AppDbContext();
@@ -23,7 +42,7 @@ namespace DataAccess.Concret
         {
             await using var context = new AppDbContext();
             return await context.Branches.Include(x => x.Language)
-                .Include(x => x.Photos).Include(x=>x.Tariff).Include(x=>x.Contact)
+                .Include(x => x.Photos).Include(x => x.Tariff).Include(x => x.Contact)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

@@ -13,6 +13,25 @@ namespace DataAccess.Concret
 {
     public class EFMovieDal : EFRepositoryBase<Movie, AppDbContext>, IMovieDal
     {
+        public async Task<bool> AddRangeAsync(params object[] entities)
+        {
+            await using var context = new AppDbContext();
+            await using var transaction = await context.Database.BeginTransactionAsync();
+            try
+            {
+                await context.AddRangeAsync(entities);
+                await context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+
+        }
         public async Task<bool> CheckMovie(Expression<Func<Movie, bool>> expression)
         {
             await using var context = new AppDbContext(); 

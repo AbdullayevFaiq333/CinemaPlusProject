@@ -176,6 +176,12 @@ namespace Buisness.Concret
         {
             return await _movieDal.GetMovieDetail(movieId);
         }
-     
+
+        public Task<bool> AddAsync(params object[] entities)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }
