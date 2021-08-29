@@ -22,7 +22,7 @@ namespace AdminPanel
             using (var scope = webHost.Services.CreateScope())
             {
 
-                var dbContex = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+                var dbContex = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
