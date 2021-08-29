@@ -4,14 +4,16 @@ using DataAccess.Concret;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DataAccess.Migrations
+namespace CinemaPlus.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210829193137_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -798,26 +800,6 @@ namespace DataAccess.Migrations
                     b.ToTable("Tariffs");
                 });
 
-            modelBuilder.Entity("Entities.Models.Ticket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SessionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
-
-                    b.ToTable("Tickets");
-                });
-
             modelBuilder.Entity("Entity.Entities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -1352,17 +1334,6 @@ namespace DataAccess.Migrations
                     b.Navigation("Branch");
                 });
 
-            modelBuilder.Entity("Entities.Models.Ticket", b =>
-                {
-                    b.HasOne("Entities.Models.Session", "Session")
-                        .WithMany("Tickets")
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Session");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1500,11 +1471,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Entities.Models.Row", b =>
                 {
                     b.Navigation("Seats");
-                });
-
-            modelBuilder.Entity("Entities.Models.Session", b =>
-                {
-                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

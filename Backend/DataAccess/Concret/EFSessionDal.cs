@@ -21,7 +21,7 @@ namespace DataAccess.Concret
         public async Task<List<Session>> GetSessionAsync(int id)
         {
             await using var context = new AppDbContext();
-            return await context.Sessions.Include(x => x.Tickets).Include(x=>x.Branch)
+            return await context.Sessions.Include(x=>x.Branch)
                 .Include(x=>x.Hall).Include(x=>x.Movie).Where(x => x.MovieId == id)
                 .ToListAsync();
         }

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchContentRow,
   fetchContentHall,
-  fetchContentTicket,
+  
   fetchContentMovieWidthId,
   
 } from "../actions";
@@ -23,7 +23,7 @@ const Hall = () => {
 
   const { row } = useSelector((state) => state.row);
   const { hall } = useSelector((state) => state.contentHall);
-  const { ticket } = useSelector((state) => state.ticket);
+  
   const { movieWidthId } = useSelector((state) => state.movieWidthId);
 
   const [active, setActive] = useState(false);
@@ -33,7 +33,7 @@ const Hall = () => {
     dispatch(fetchContentHall(history.location.state.session));
     dispatch(fetchContentMovieWidthId(history.location.state.movie));
     dispatch(fetchContentRow(history.location.state.session));
-    dispatch(fetchContentTicket(history.location.state.session));
+    
     
   }, [dispatch]);
 
@@ -110,8 +110,8 @@ const Hall = () => {
         }
       </div>
       <div className="prc">
-        <div>TICKET PRICE: {ticket.price}₼</div>
-        <div>TOTAL PRICE: {ticket.price * count}₼</div>
+        <div>TICKET PRICE: 7₼</div>
+        <div>TOTAL PRICE: {7 * count}₼</div>
       </div>
 
       <div className="buy">
@@ -120,7 +120,7 @@ const Hall = () => {
           token={handleToken}
           billingAddress
           shippingAddress
-          amount={ticket.price * count * 100}
+          amount={7 * count * 100}
           name={movieWidthId.name}
         />
       </div>

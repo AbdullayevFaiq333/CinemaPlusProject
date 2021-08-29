@@ -65,9 +65,6 @@ import {
   FETCH_CONTENT_SEAT,
   FETCH_CONTENT_SEAT_SUCCESS,
   FETCH_CONTENT_SEAT_FAIL,
-  FETCH_CONTENT_TICKET,
-  FETCH_CONTENT_TICKET_SUCCESS,
-  FETCH_CONTENT_TICKET_FAIL,
   FETCH_LANGUAGES,
   FETCH_LANGUAGES_SUCCESS,
   FETCH_LANGUAGES_FAIL,
@@ -695,29 +692,4 @@ export const fetchContentSeatReducer = (
   }
 };
 
-export const fetchContentTicketReducer = (
-  state = { loading: true, ticket: {} },
-  action
-) => {
-  switch (action.type) {
-    case FETCH_CONTENT_TICKET:
-      return {
-        ...state,
-        loading: true,
-      };
-    case FETCH_CONTENT_TICKET_SUCCESS:
-      return {
-        ...state,
-        ticket: action.payload,
-        loading: false,
-      };
-    case FETCH_CONTENT_TICKET_FAIL:
-      return {
-        ...state,
-        error: action.payload,
-        loading: false,
-      };
-    default:
-      return state;
-  }
-};
+

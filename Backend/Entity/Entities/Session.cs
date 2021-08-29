@@ -15,7 +15,7 @@ namespace Entities.Models
 
         public int HallId { get; set; }
         public Hall Hall { get; set; }
-        public ICollection<Ticket> Tickets { get; set; }
+        
 
         public int BranchId { get; set; }
         public Branch Branch { get; set; }

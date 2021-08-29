@@ -42,7 +42,7 @@ namespace CinemaPlus.AutoMapper
             CreateMap<Seat, SeatDto>().ReverseMap();
             CreateMap<Session, SessionDto>().ReverseMap();
             CreateMap<Tariff, TariffDto>().ReverseMap();
-            CreateMap<Ticket, TicketDto>().ReverseMap();
+            
         }
     }
 }

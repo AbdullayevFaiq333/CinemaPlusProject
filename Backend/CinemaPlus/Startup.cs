@@ -153,8 +153,7 @@ namespace CinemaPlus
             services.AddScoped<ITariffService, TariffManager>();
             services.AddScoped<ITariffDal, EFTariffDal>();
 
-            services.AddScoped<ITicketService, TicketManager>();
-            services.AddScoped<ITicketDal, EFTicketDal>();
+            
 
 
 

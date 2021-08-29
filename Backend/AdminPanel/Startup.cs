@@ -144,8 +144,7 @@ namespace AdminPanel
             services.AddScoped<ITariffService, TariffManager>();
             services.AddScoped<ITariffDal, EFTariffDal>();
 
-            services.AddScoped<ITicketService, TicketManager>();
-            services.AddScoped<ITicketDal, EFTicketDal>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
