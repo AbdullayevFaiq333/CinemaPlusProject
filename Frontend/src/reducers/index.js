@@ -44,6 +44,9 @@ import {
   FETCH_CONTENT_MOVIE,
   FETCH_CONTENT_MOVIE_SUCCESS,
   FETCH_CONTENT_MOVIE_FAIL,
+  FETCH_CONTENT_MOVIEWIDTHID,
+  FETCH_CONTENT_MOVIEWIDTHID_SUCCESS,
+  FETCH_CONTENT_MOVIEWIDTHID_FAIL,
   FETCH_CONTENT_MOVIEDETAIL,
   FETCH_CONTENT_MOVIEDETAIL_SUCCESS,
   FETCH_CONTENT_MOVIEDETAIL_FAIL,
@@ -507,18 +510,18 @@ export const fetchContentMovieWidthIdReducer = (
   action
 ) => {
   switch (action.type) {
-    case FETCH_CONTENT_MOVIE:
+    case FETCH_CONTENT_MOVIEWIDTHID:
       return {
         ...state,
         loading: true,
       };
-    case FETCH_CONTENT_MOVIE_SUCCESS:
+    case FETCH_CONTENT_MOVIEWIDTHID_SUCCESS:
       return {
         ...state,
         movieWidthId: action.payload,
         loading: false,
       };
-    case FETCH_CONTENT_MOVIE_FAIL:
+    case FETCH_CONTENT_MOVIEWIDTHID_FAIL:
       return {
         ...state,
         error: action.payload,

@@ -11,6 +11,7 @@ const Movies = () => {
   useEffect(() => {
     dispatch(fetchContentMovie());
   }, [dispatch]);
+
   return (
     <div className="movies">
       <div className="container">
@@ -20,7 +21,7 @@ const Movies = () => {
               <div className="row">
                 {
                   <>
-                    {movie.map((movieItem) => {
+                    {movie?.map((movieItem) => {
                       return (
                         <div
                           key={movieItem.id}

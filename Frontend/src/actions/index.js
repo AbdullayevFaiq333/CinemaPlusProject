@@ -44,6 +44,9 @@ import {
   FETCH_CONTENT_MOVIE,
   FETCH_CONTENT_MOVIE_SUCCESS,
   FETCH_CONTENT_MOVIE_FAIL,
+  FETCH_CONTENT_MOVIEWIDTHID,
+  FETCH_CONTENT_MOVIEWIDTHID_SUCCESS,
+  FETCH_CONTENT_MOVIEWIDTHID_FAIL,
   FETCH_CONTENT_MOVIEDETAIL,
   FETCH_CONTENT_MOVIEDETAIL_SUCCESS,
   FETCH_CONTENT_MOVIEDETAIL_FAIL,
@@ -376,17 +379,17 @@ export const fetchContentMovie =
   };
 
 export const fetchContentMovieWidthId = (id) => async (dispatch) => {
-  dispatch({ type: FETCH_CONTENT_MOVIE });
+  dispatch({ type: FETCH_CONTENT_MOVIEWIDTHID });
 
   try {
     const response = await api.get(
       `Content/getContentWebsiteMovieWidthId/${id}`
     );
 
-    dispatch({ type: FETCH_CONTENT_MOVIE_SUCCESS, payload: response.data });
+    dispatch({ type: FETCH_CONTENT_MOVIEWIDTHID_SUCCESS, payload: response.data });
   } catch (e) {
     dispatch({
-      type: FETCH_CONTENT_MOVIE_FAIL,
+      type: FETCH_CONTENT_MOVIEWIDTHID_FAIL,
       payload: e.message ? e.message : e,
     });
   }

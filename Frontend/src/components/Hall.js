@@ -5,27 +5,27 @@ import {
   fetchContentHall,
   fetchContentTicket,
   fetchContentMovieWidthId,
+  
 } from "../actions";
 import { useHistory } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+
+
 toast.configure();
 
 const Hall = () => {
   const history = useHistory();
-  console.log(history.location.state);
-
+  
   const dispatch = useDispatch();
 
   const { row } = useSelector((state) => state.row);
-  const { seat } = useSelector((state) => state.seat);
   const { hall } = useSelector((state) => state.contentHall);
   const { ticket } = useSelector((state) => state.ticket);
   const { movieWidthId } = useSelector((state) => state.movieWidthId);
 
-  
   const [active, setActive] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -34,6 +34,7 @@ const Hall = () => {
     dispatch(fetchContentMovieWidthId(history.location.state.movie));
     dispatch(fetchContentRow(history.location.state.session));
     dispatch(fetchContentTicket(history.location.state.session));
+    
   }, [dispatch]);
 
   const handleSeatClick = () => {
@@ -59,14 +60,10 @@ const Hall = () => {
     }
   }
 
-  React.useEffect(() => {
-    
-  }, [history]);
-
   return (
     <div class="plane">
       <div className="title ">
-        <div>Movie: {movieWidthId.name}</div>
+        <div >Movie: {movieWidthId.name}</div>
         <div key={hall.id}>{hall.name}</div>
       </div>
 
