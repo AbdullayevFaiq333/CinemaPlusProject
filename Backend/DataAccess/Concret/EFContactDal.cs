@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFContactDal : EFRepositoryBase<Contact, AppDbContext>, IContactDal
     {
+        public EFContactDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckContact(Expression<Func<Contact, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Contacts.AnyAsync(expression);
+            return await Context.Contacts.AnyAsync(expression);
         }
         public async Task<Contact> GetContactAsync(int id)
         {
-            await using var context = new AppDbContext();
-            return await context.Contacts
+            return await Context.Contacts
                 .Include(x => x.Branch)
                 .Where(x => x.BranchId == id)
                 .FirstOrDefaultAsync();

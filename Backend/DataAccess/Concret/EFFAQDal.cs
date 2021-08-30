@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFFAQDal : EFRepositoryBase<FAQ, AppDbContext>, IFAQDal
     {
+        public EFFAQDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckFAQ(Expression<Func<FAQ, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.FAQs.AnyAsync(expression);
+            return await Context.FAQs.AnyAsync(expression);
         }
         public async Task<List<FAQ>> GetFAQAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.FAQs.Include(x => x.Language)
+            return await Context.FAQs.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

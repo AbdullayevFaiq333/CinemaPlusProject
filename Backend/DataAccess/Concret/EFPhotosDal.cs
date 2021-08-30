@@ -13,10 +13,12 @@ namespace DataAccess.Concret
 {
     public class EFPhotosDal : EFRepositoryBase<Photos, AppDbContext>, IPhotosDal
     {
+        public EFPhotosDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckPhotos(Expression<Func<Photos, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Photos.AnyAsync(expression);
+            return await Context.Photos.AnyAsync(expression);
         }
     }
 }

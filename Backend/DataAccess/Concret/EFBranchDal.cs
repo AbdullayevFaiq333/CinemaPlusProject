@@ -13,14 +13,17 @@ namespace DataAccess.Concret
 {
     public class EFBranchDal : EFRepositoryBase<Branch, AppDbContext>, IBranchDal
     {
+        public EFBranchDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> AddRangeAsync(params object[] entities)
         {
-            await using var context = new AppDbContext();
-            await using var transaction = await context.Database.BeginTransactionAsync();
+           
+            await using var transaction = await Context.Database.BeginTransactionAsync();
             try
             {
-                await context.AddRangeAsync(entities);
-                await context.SaveChangesAsync();
+                await Context.AddRangeAsync(entities);
+                await Context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
                 return true;
@@ -35,13 +38,13 @@ namespace DataAccess.Concret
 
         public async Task<bool> CheckBranch(Expression<Func<Branch, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Branches.AnyAsync(expression);
+            
+            return await Context.Branches.AnyAsync(expression);
         }
         public async Task<List<Branch>> GetBranchAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.Branches.Include(x => x.Language)
+            
+            return await Context.Branches.Include(x => x.Language)
                 .Include(x => x.Photos).Include(x => x.Tariff).Include(x => x.Contact)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
@@ -49,8 +52,8 @@ namespace DataAccess.Concret
 
         public async Task<Branch> GetBranchWithInclude(int id)
         {
-            await using var context = new AppDbContext();
-            return await context.Branches.Include(x => x.Tariff).Include(x => x.Contact)
+            
+            return await Context.Branches.Include(x => x.Tariff).Include(x => x.Contact)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 

@@ -12,11 +12,12 @@ namespace DataAccess.Concret
 {
     public class EFAdvertisementDal : EFRepositoryBase<Advertisement, AppDbContext>, IAdvertisementDal
     {
-
-        public async Task<bool> CheckAdvertisement(Expression<Func<Advertisement, bool>> expression)
+        public EFAdvertisementDal(AppDbContext dbContext) : base(dbContext)
         {
-            await using var context = new AppDbContext();
-            return await context.Advertisements.AnyAsync(expression);
+        }
+        public async Task<bool> CheckAdvertisement(Expression<Func<Advertisement, bool>> expression)
+        { await using var context = new AppDbContext();
+            return await Context.Advertisements.AnyAsync(expression);
         }
 
     }

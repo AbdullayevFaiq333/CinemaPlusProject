@@ -12,10 +12,12 @@ namespace DataAccess.Concret
 {
     public class EFMovieFormatDal : EFRepositoryBase<MovieFormat, AppDbContext>, IMovieFormatDal
     {
+        public EFMovieFormatDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckMovieFormat(Expression<Func<MovieFormat, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.MovieFormats.AnyAsync(expression);
+            return await Context.MovieFormats.AnyAsync(expression);
         }
     }
 }

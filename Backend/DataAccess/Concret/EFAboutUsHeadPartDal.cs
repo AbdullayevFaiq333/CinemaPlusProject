@@ -13,15 +13,18 @@ namespace DataAccess.Concret
 {
     public class EFAboutUsHeadPartDal : EFRepositoryBase<AboutUsHeadPart, AppDbContext>, IAboutUsHeadPartDal
     {
+        public EFAboutUsHeadPartDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckAboutUsHeadPart(Expression<Func<AboutUsHeadPart, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.AboutUsHeadParts.AnyAsync(expression);
+           
+            return await Context.AboutUsHeadParts.AnyAsync(expression);
         }
         public async Task<List<AboutUsHeadPart>> GetAboutUsHeadPartAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.AboutUsHeadParts.Include(x => x.Language)
+           
+            return await Context.AboutUsHeadParts.Include(x => x.Language)
                 .Where(x=> x.Language.Code == languageCode)
                 .ToListAsync();
         }

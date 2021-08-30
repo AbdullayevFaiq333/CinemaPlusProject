@@ -12,10 +12,12 @@ namespace DataAccess.Concret
 {
     public class EFSocialMediaDal : EFRepositoryBase<SocialMedia, AppDbContext>, ISocialMediaDal
     {
+        public EFSocialMediaDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckSocialMedia(Expression<Func<SocialMedia, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.SocialMedias.AnyAsync(expression);
+            return await Context.SocialMedias.AnyAsync(expression);
         }
     }
 }

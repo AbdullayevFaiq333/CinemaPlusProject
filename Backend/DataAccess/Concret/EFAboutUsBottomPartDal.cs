@@ -13,20 +13,19 @@ namespace DataAccess.Concret
 {
     public class EFAboutUsBottomPartDal : EFRepositoryBase<AboutUsBottomPart, AppDbContext>, IAboutUsBottomPartDal
     {
-        //burda niye her defe instance alinir dbContexden?        
-        //Bu dbcontext dependency injectionan ctor-dan gelmelidir
-        //onlari duzeldin chunki indi build kechmir heleki men commente atiram-ok
-        //yadaki helelik parametrless ctor yaradiram
+        
+        public EFAboutUsBottomPartDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
+
 
         public async Task<bool> CheckAboutUsBottomPart(Expression<Func<AboutUsBottomPart, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.AboutUsBottomParts.AnyAsync(expression);
+            return await Context.AboutUsBottomParts.AnyAsync(expression);
         }
         public async Task<List<AboutUsBottomPart>> GetAboutUsBottomPartAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.AboutUsBottomParts.Include(x => x.Language)
+            return await Context.AboutUsBottomParts.Include(x => x.Language)
                 .Where(x => x.IsDeleted == false && x.Language.Code == languageCode)
                 .ToListAsync();
         }

@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFNewsDal : EFRepositoryBase<News, AppDbContext>, INewsDal
     {
+        public EFNewsDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckNews(Expression<Func<News, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.News.AnyAsync(expression);
+            return await Context.News.AnyAsync(expression);
         }
         public async Task<List<News>> GetNewsAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.News.Include(x => x.Language)
+            return await Context.News.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

@@ -13,16 +13,17 @@ namespace DataAccess.Concret
 {
     public class EFServiceDal : EFRepositoryBase<Service, AppDbContext>, IServiceDal
     {
+        public EFServiceDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckService(Expression<Func<Service, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Services.AnyAsync(expression);
+            return await Context.Services.AnyAsync(expression);
         }
 
         public async Task<List<Service>> GetServiceAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.Services.Include(x => x.Language)
+            return await Context.Services.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

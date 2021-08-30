@@ -13,16 +13,18 @@ namespace DataAccess.Concret
 {
     public class EFPlatiniumDal : EFRepositoryBase<Platinium, AppDbContext>, IPlatiniumDal 
     {
+        public EFPlatiniumDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckPlatinumItem(Expression<Func<Platinium, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Platiniums.AnyAsync(expression);
+            
+            return await Context.Platiniums.AnyAsync(expression);
         }
 
         public async Task<List<Platinium>> GetPlatiniumAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.Platiniums.Include(x => x.Language)
+            return await Context.Platiniums.Include(x => x.Language)
                 .Where(x => x.IsDeleted == false && x.Language.Code == languageCode)
                 .ToListAsync();
         }

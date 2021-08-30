@@ -13,15 +13,17 @@ namespace DataAccess.Concret
 {
     public class EFHallDal : EFRepositoryBase<Hall, AppDbContext>, IHallDal
     {
+        public EFHallDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckHall(Expression<Func<Hall, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Halls.AnyAsync(expression);
+            
+            return await Context.Halls.AnyAsync(expression);
         }
         public async Task<Hall> GetHallAsync(string languageCode,int id)
         {
-            await using var context = new AppDbContext();
-            return await context.Halls.Include(x => x.Language).Include(x=>x.Rows)
+            return await Context.Halls.Include(x => x.Language).Include(x=>x.Rows)
                 .Where(x => x.Language.Code == languageCode).Include(x=>x.Sessions).Where(x=>x.Sessions.Any(x => x.HallId==id))
                 .FirstOrDefaultAsync();
         }

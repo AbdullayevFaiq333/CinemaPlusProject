@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFSecondFooterDal : EFRepositoryBase<SecondFooter, AppDbContext>, ISecondFooterDal
     {
+        public EFSecondFooterDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckSecondFooter(Expression<Func<SecondFooter, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.SecondFooters.AnyAsync(expression);
+            return await Context.SecondFooters.AnyAsync(expression);
         }
         public async Task<List<SecondFooter>> GetSecondFooterAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.SecondFooters.Include(x => x.Language)
+            return await Context.SecondFooters.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

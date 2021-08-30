@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFMovieDetailDal : EFRepositoryBase<MovieDetail, AppDbContext>, IMovieDetailDal
     {
+        public EFMovieDetailDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckMovieDetail(Expression<Func<MovieDetail, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.MovieDetails.AnyAsync(expression);
+            return await Context.MovieDetails.AnyAsync(expression);
         }
         public async Task<MovieDetail> GetMovieDetailAsync(string languageCode,int id)
         {
-            await using var context = new AppDbContext();
-            return await context.MovieDetails.Include(x => x.Language)
+            return await Context.MovieDetails.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .Include(x => x.Movie)
                 .Where(x => x.MovieId == id)

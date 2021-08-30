@@ -14,9 +14,16 @@ namespace Core.Repository.EFRepository
         where IContext : DbContext, new()
 
     {
+        protected readonly IContext Context;
+
+        public EFRepositoryBase(IContext context)
+        {
+            Context = context;
+        }
+
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-           await using(var context =new IContext())
+           await using(var context = Context)
             {
                 return filter == null
                     ? await context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync()
@@ -25,7 +32,7 @@ namespace Core.Repository.EFRepository
         }
         public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-            await using (var context=new IContext())
+            await using (var context= Context)
             {
                 if (filter==null)
                 {
@@ -37,7 +44,7 @@ namespace Core.Repository.EFRepository
 
         public async Task<bool> AddAsync(TEntity entity)
         {
-            await using (var context = new IContext())
+            await using (var context = Context)
             {
                 await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
                 try
@@ -57,7 +64,7 @@ namespace Core.Repository.EFRepository
         }
         public async Task<object> AddReturnEntityAsync(TEntity entity)
         {
-            await using (var context = new IContext())
+            await using (var context = Context)
             {
                 await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
                 try
@@ -78,7 +85,7 @@ namespace Core.Repository.EFRepository
 
         public async Task<bool> DeleteAsync(TEntity entity)
         {
-            await using (var context = new IContext())
+            await using (var context = Context)
             {
                 await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
                 try
@@ -98,7 +105,7 @@ namespace Core.Repository.EFRepository
 
         public async Task<bool> UpdateAsync(TEntity entity)
         {
-            await using (var context = new IContext())
+            await using (var context = Context)
             {
                 await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
                 try
@@ -117,7 +124,7 @@ namespace Core.Repository.EFRepository
         }
         public async Task<bool> UpdateWithEntryAsync(TEntity entity, params object[] propertyNames)
         {
-            await using (var context = new IContext())
+            await using (var context = Context)
             {
                 await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
                 try

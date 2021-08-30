@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFFormatDal : EFRepositoryBase<Format, AppDbContext>, IFormatDal
     {
+        public EFFormatDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckFormat(Expression<Func<Format, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Formats.AnyAsync(expression);
+            return await Context.Formats.AnyAsync(expression);
         }
         public async Task<List<Format>> GetFormatAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.Formats.Include(x => x.Language)
+            return await Context.Formats.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

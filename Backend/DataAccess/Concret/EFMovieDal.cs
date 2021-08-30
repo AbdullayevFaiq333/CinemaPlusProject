@@ -13,14 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFMovieDal : EFRepositoryBase<Movie, AppDbContext>, IMovieDal
     {
+        public EFMovieDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> AddRangeAsync(params object[] entities)
         {
-            await using var context = new AppDbContext();
-            await using var transaction = await context.Database.BeginTransactionAsync();
+            await using var transaction = await Context.Database.BeginTransactionAsync();
             try
             {
-                await context.AddRangeAsync(entities);
-                await context.SaveChangesAsync();
+                await Context.AddRangeAsync(entities);
+                await Context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
                 return true;
@@ -34,19 +36,16 @@ namespace DataAccess.Concret
         }
         public async Task<bool> CheckMovie(Expression<Func<Movie, bool>> expression)
         {
-            await using var context = new AppDbContext(); 
-            return await context.Movies.AnyAsync(expression);
+            return await Context.Movies.AnyAsync(expression);
         } 
 
         public async Task<MovieDetail> GetMovieDetail(int? movieId)
         {
-            await using var context = new AppDbContext();
-            return await context.MovieDetails.SingleOrDefaultAsync(s => s.MovieId == movieId);
+            return await Context.MovieDetails.SingleOrDefaultAsync(s => s.MovieId == movieId);
         }
         public async Task<List<Movie>> GetMovieAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.Movies.Include(x => x.Language).Include(x=>x.MovieFormats).ThenInclude(x=>x.Format)
+            return await Context.Movies.Include(x => x.Language).Include(x=>x.MovieFormats).ThenInclude(x=>x.Format)
                 .Include(x=>x.Sessions)
                 .Where(x =>x.Language.Code == languageCode)
                 .ToListAsync();

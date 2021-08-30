@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFCinemaClubDal : EFRepositoryBase<CinemaClub, AppDbContext>, ICinemaClubDal
     {
+        public EFCinemaClubDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckCinemaClub(Expression<Func<CinemaClub, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.CinemaClubs.AnyAsync(expression);
+            return await Context.CinemaClubs.AnyAsync(expression);
         }
         public async Task<List<CinemaClub>> GetCinemaClubAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.CinemaClubs.Include(x => x.Language)
+            return await Context.CinemaClubs.Include(x => x.Language)
                 .Where(x => x.IsDeleted == false && x.Language.Code == languageCode)
                 .ToListAsync();
         }

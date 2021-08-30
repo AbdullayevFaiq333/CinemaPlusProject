@@ -12,10 +12,12 @@ namespace DataAccess.Concret
 {
     public class EFLanguageDal : EFRepositoryBase<Language, AppDbContext>, ILanguageDal
     {
+        public EFLanguageDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckLanguage(Expression<Func<Language, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Languages.AnyAsync(expression);
+            return await Context.Languages.AnyAsync(expression);
         }
     }
 }

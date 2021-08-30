@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFNavbarDal : EFRepositoryBase<Navbar, AppDbContext>, INavbarDal
     {
+        public EFNavbarDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckNavbar(Expression<Func<Navbar, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Navbars.AnyAsync(expression);
+            return await Context.Navbars.AnyAsync(expression);
         }
         public async Task<List<Navbar>> GetNavbarAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.Navbars.Include(x => x.Language)
+            return await Context.Navbars.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

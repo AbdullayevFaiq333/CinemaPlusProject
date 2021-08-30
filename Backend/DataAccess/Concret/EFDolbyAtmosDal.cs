@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFDolbyAtmosDal : EFRepositoryBase<DolbyAtmos, AppDbContext>, IDolbyAtmosDal
     {
+        public EFDolbyAtmosDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckDolbyAtmos(Expression<Func<DolbyAtmos, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.DolbyAtmos.AnyAsync(expression);
+            return await Context.DolbyAtmos.AnyAsync(expression);
         }
         public async Task<List<DolbyAtmos>> GetDolbyAtmosAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.DolbyAtmos.Include(x => x.Language)
+            return await Context.DolbyAtmos.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

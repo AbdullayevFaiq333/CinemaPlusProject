@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFTariffDal : EFRepositoryBase<Tariff, AppDbContext>, ITariffDal
     {
+        public EFTariffDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckTariff(Expression<Func<Tariff, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Tariffs.AnyAsync(expression);
+            return await Context.Tariffs.AnyAsync(expression);
         }
         public async Task<Tariff> GetTariffAsync(int id)
         {
-            await using var context = new AppDbContext();
-            return await context.Tariffs
+            return await Context.Tariffs
                 .Include(x => x.Branch)
                 .Where(x => x.BranchId == id)
                 .FirstOrDefaultAsync();

@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFRulesDal : EFRepositoryBase<Rules, AppDbContext>, IRulesDal
     {
+        public EFRulesDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckRules(Expression<Func<Rules, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Rules.AnyAsync(expression);
+            return await Context.Rules.AnyAsync(expression);
         }
         public async Task<List<Rules>> GetRulesAsync(string languageCode)
         {
-            await using var context = new AppDbContext();
-            return await context.Rules.Include(x => x.Language)
+            return await Context.Rules.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }

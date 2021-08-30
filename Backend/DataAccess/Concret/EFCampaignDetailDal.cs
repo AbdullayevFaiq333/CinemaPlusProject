@@ -13,15 +13,17 @@ namespace DataAccess.Concret
 {
     public class EFCampaignDetailDal : EFRepositoryBase<CampaignDetail, AppDbContext>, ICampaignDetailDal
     {
+        public EFCampaignDetailDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckCampaignDetail(Expression<Func<CampaignDetail, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.CampaignDetails.AnyAsync(expression);
+            return await Context.CampaignDetails.AnyAsync(expression);
         }
         public async Task<CampaignDetail> GetCampaignDetailAsync(string languageCode, int id)
         {
-            await using var context = new AppDbContext();
-            return await context.CampaignDetails.Include(x => x.Language)
+            
+            return await Context.CampaignDetails.Include(x => x.Language)
                 .Where(x => x.Language.Code == languageCode)
                 .Include(x => x.Campaign)
                 .Where(x => x.CampaignId == id)

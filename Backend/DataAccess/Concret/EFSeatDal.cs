@@ -13,16 +13,18 @@ namespace DataAccess.Concret
 {
     public class EFSeatDal : EFRepositoryBase<Seat, AppDbContext>, ISeatDal
     {
+        public EFSeatDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckSeat(Expression<Func<Seat, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Seats.AnyAsync(expression);
+           
+            return await Context.Seats.AnyAsync(expression);
         }
 
         public async Task<List<Seat>> GetSeatAsync(int id)
         {
-            await using var context = new AppDbContext();
-            return await context.Seats.Include(x => x.Row)
+            return await Context.Seats.Include(x => x.Row)
                 .Where(x => x.RowId == id)
                 .ToListAsync();
         }

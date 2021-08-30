@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFRowDal : EFRepositoryBase<Row, AppDbContext>, IRowDal
     {
+        public EFRowDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckRow(Expression<Func<Row, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Rows.AnyAsync(expression);
+            return await Context.Rows.AnyAsync(expression);
         }
         public async Task<List<Row>> GetRowAsync(int id)
         {
-            await using var context = new AppDbContext();
-            return await context.Rows.Include(x => x.Seats).Include(x=>x.Hall)
+            return await Context.Rows.Include(x => x.Seats).Include(x=>x.Hall)
                 .Where(x => x.HallId == id)
                 .ToListAsync();
         }

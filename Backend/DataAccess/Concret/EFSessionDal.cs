@@ -13,15 +13,16 @@ namespace DataAccess.Concret
 {
     public class EFSessionDal : EFRepositoryBase<Session, AppDbContext>, ISessionDal
     {
+        public EFSessionDal(AppDbContext dbContext) : base(dbContext)
+        {
+        }
         public async Task<bool> CheckSession(Expression<Func<Session, bool>> expression)
         {
-            await using var context = new AppDbContext();
-            return await context.Sessions.AnyAsync(expression);
+            return await Context.Sessions.AnyAsync(expression);
         }
         public async Task<List<Session>> GetSessionAsync(int id)
         {
-            await using var context = new AppDbContext();
-            return await context.Sessions.Include(x=>x.Branch)
+            return await Context.Sessions.Include(x=>x.Branch)
                 .Include(x=>x.Hall).Include(x=>x.Movie).Where(x => x.MovieId == id)
                 .ToListAsync();
         }
