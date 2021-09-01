@@ -41,6 +41,7 @@ namespace CinemaPlus.Controllers
                         {
                             Id = seat.Id,
                             SeatNumber = seat.SeatNumber,
+                            Buyed=seat.Buyed,
                             RowId = seat.RowId
                         };
                     }

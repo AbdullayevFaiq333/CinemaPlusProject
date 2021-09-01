@@ -20,7 +20,7 @@ const Footer = () => {
     <div className="footer">
       <div className="container">
         <div className="row">
-          <div className="col-md-2 for-height">
+          <div className="col-md-2 col-sm-3 for-height">
             <ul>
               {content.map((footerItem) => {
                 return (
@@ -33,7 +33,7 @@ const Footer = () => {
               })}
             </ul>
           </div>
-          <div className="col-md-2 for-height">
+          <div className="col-md-2 col-sm-3 for-height">
             <ul>
             {secondFooter.map((secondFooterItem) => {
                 return (
@@ -46,7 +46,7 @@ const Footer = () => {
               })}
             </ul>
           </div>
-          <div className="col-md-4 social for-height">
+          <div className="col-md-4 col-sm-6 social for-height">
             <label for="subscribe">Biz sosial şəbəkələrdə</label>
             <form>
               {socialMedia.map((socialMediaItem) => {

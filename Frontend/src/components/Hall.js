@@ -27,6 +27,7 @@ const Hall = () => {
   const { movieWidthId } = useSelector((state) => state.movieWidthId);
 
   const [active, setActive] = useState(false);
+  //const[buyed,setBuyed]=useState(false)
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -74,7 +75,6 @@ const Hall = () => {
               return (
                 <div>
                   <div key={rowItem.id} className="rowName">
-                    
                   <span>SIRA {rowItem.numberRow}</span> 
                   <span className="rowName2">SIRA {rowItem.numberRow}</span>
                   </div>
@@ -90,6 +90,7 @@ const Hall = () => {
                               className={` ${active ? "active" : "seat"}`}
                               onClick={handleSeatClick}
                             >
+                              
                               <input type="checkbox" id={seatItem.id} />
                               <label for={seatItem.id}>
                                 {seatItem.seatNumber}

@@ -9,6 +9,7 @@ namespace Entities.Models
     {
         public int Id { get; set; }
         public int SeatNumber { get; set; }
+        public bool Buyed { get; set; }
         public int RowId { get; set; }
         public Row Row { get; set; }
     }

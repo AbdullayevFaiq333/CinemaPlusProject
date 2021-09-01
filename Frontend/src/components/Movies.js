@@ -37,7 +37,7 @@ const Movies = () => {
                                   <div className="posterAnim">
                                     <img
                                       src={`http://localhost:3000/images/${movieItem.image}`}
-                                      alt="mulan"
+                                      alt="movie"
                                     />
                                   </div>
                                 </Link>
