@@ -7,11 +7,12 @@ const Platinum = () => {
     
     
     const { content } = useSelector((state) => state.contentService);
+    const {activeLanguage}=useSelector((state)=> state.languages)
 
     useEffect(() => {
         dispatch(fetchContentService());
         
-    }, [dispatch])
+    }, [dispatch, activeLanguage])
   
   return (
     <div className="service-section">

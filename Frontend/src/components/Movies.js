@@ -7,10 +7,11 @@ const Movies = () => {
   const dispatch = useDispatch();
 
   const { movie } = useSelector((state) => state.contentMovie);
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   useEffect(() => {
     dispatch(fetchContentMovie());
-  }, [dispatch]);
+  }, [dispatch,activeLanguage]);
 
   return (
     <div className="movies">

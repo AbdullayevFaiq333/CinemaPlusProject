@@ -9,10 +9,11 @@ const MovieDetail = () => {
 
   const { content } = useSelector((state) => state.contentMovieDetail);
   const { id } = useParams();
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   useEffect(() => {
     dispatch(fetchContentMovieDetail(id));
-  }, [dispatch]);
+  }, [dispatch,activeLanguage]);
 
   return (
     <div className="movieDetails">

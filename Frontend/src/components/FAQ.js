@@ -8,11 +8,12 @@ export default function Accordion() {
     
     
   const { content } = useSelector((state) => state.contentFAQ);
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   useEffect(() => {
       dispatch(fetchContentFAQ());
       console.log(refHeight);
-  }, [dispatch])
+  }, [dispatch, activeLanguage])
 
   const [toggle, setToggle] = useState(false);
   const [toggleClass, setToggleClass] = useState({});

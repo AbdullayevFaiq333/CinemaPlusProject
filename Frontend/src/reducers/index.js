@@ -71,7 +71,7 @@ import {
 } from "../constants";
 
 export const fetchLanguagesReducer = (
-  state = { loading: true, languages: [] },
+  state = { loading: true, languages: [],activeLanguage:localStorage.getItem("language") },
   action
 ) => {
   switch (action.type) {
@@ -83,7 +83,8 @@ export const fetchLanguagesReducer = (
     case FETCH_LANGUAGES_SUCCESS:
       return {
         ...state,
-        languages: action.payload,
+        languages: action.payload.language,
+        activeLanguage: action.payload.activeLanguage,
         loading: false,
       };
     case FETCH_LANGUAGES_FAIL:
@@ -98,7 +99,7 @@ export const fetchLanguagesReducer = (
 };
 
 export const fetchContentNavbarReducer = (
-  state = { loading: true, content: {} },
+  state = { loading: true, content: [] },
   action
 ) => {
   switch (action.type) {

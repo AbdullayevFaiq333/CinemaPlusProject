@@ -6,10 +6,11 @@ const Platinum = () => {
   const dispatch = useDispatch();
 
   const { content } = useSelector((state) => state.contentPlatinum);
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   useEffect(() => {
     dispatch(fetchContentPlatinum());
-  }, [dispatch]);
+  }, [dispatch, activeLanguage]);
 
   return (
     <div className="platinum-section">

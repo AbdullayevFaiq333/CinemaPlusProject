@@ -5,14 +5,14 @@ import { fetchContentBranch } from "../actions";
 
 const Branch = ({getBrach}) => {
   const [tag, setTag] = useState("28 Mall");
-  // const [tariff, setTariff] = useState("");
-  // const [isClicked, setIsClicked] = useState(false);
+  
   const dispatch = useDispatch();
   const { branch } = useSelector((state) => state.contentBranch);
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   useEffect(() => {
     dispatch(fetchContentBranch());
-  }, [dispatch]);
+  }, [dispatch,activeLanguage]);
 
   const handleClickBranch = async (id) => {
     getBrach(id);

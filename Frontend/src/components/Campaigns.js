@@ -7,10 +7,11 @@ const Campaigns = () => {
   const dispatch = useDispatch();
 
   const { content } = useSelector((state) => state.contentCampaigns);
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   useEffect(() => {
     dispatch(fetchContentCampaigns());
-  }, [dispatch]);
+  }, [dispatch,activeLanguage]);
   return (
     <div className="campaigns">
       <div className="container">

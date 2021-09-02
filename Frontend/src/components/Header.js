@@ -22,25 +22,20 @@ const Header = () => {
 
   const { languages } = useSelector((state) => state.languages);
   const { content, loading } = useSelector((state) => state.contentNavbar);
+  const {activeLanguage}=useSelector((state)=> state.languages)
+  if (localStorage.getItem("language") === null) {
+    localStorage.setItem("language", "AZ");
+  }
 
   useEffect(() => {
     dispatch(fetchContentNavbar());
     dispatch(fetchLanguages());
-  }, [dispatch]);
+  }, [dispatch, activeLanguage]);
 
   const handleClickLanguage = (code) => {
-    dispatch(fetchContentNavbar(code));
-    dispatch(fetchContentPlatinum(code));
-    dispatch(fetchContentDolbyAtmos(code));
-    dispatch(fetchContentService(code));
-    dispatch(fetchContentFooter(code));
-    dispatch(fetchContentSecondFooter(code));
-    dispatch(fetchContentNews(code));
-    dispatch(fetchContentFAQ(code));
-    dispatch(fetchContentCampaigns(code));
-    dispatch(fetchContentCampaignDetail(code));
-    dispatch(fetchContentMovie(code));
-    dispatch(fetchContentMovieDetail(code));
+    localStorage.setItem("language", code);
+    dispatch(fetchLanguages(code));
+    
   };
 
   return (
@@ -48,11 +43,13 @@ const Header = () => {
       {loading ? (
         <h1>loading</h1>
       ) : (
-        
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-0">
           <div class="container-fluid p-0">
             <div>
-              <img className="logo-img" src="http://localhost:3000/images/navbar/logo.svg" />
+              <img
+                className="logo-img"
+                src="http://localhost:3000/images/navbar/logo.svg"
+              />
             </div>
             <button
               class="navbar-toggler"
@@ -68,46 +65,46 @@ const Header = () => {
             <div class="collapse right navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav ">
                 <div className=" navbar-up">
-                {content.navbarDto.map((navbarItem) => {
-                  return (
-                    <div  key={navbarItem.id}>
-                      <Link class="nav-link title" to={`${navbarItem.url}`}>
-                        {navbarItem.title}
+                  {content.navbarDto.map((navbarItem) => {
+                    return (
+                      <div key={navbarItem.id}>
+                        <Link class="nav-link title" to={`${navbarItem.url}`}>
+                          {navbarItem.title}
+                        </Link>
+                      </div>
+                    );
+                  })}
+                  {languages.map((language) => {
+                    return (
+                      <Link
+                        class="nav-link "
+                        key={language.id}
+                        onClick={() => handleClickLanguage(language.code)}
+                      >
+                        {language.code}
                       </Link>
-                    </div>
-                  );
-                })}
-                {languages.map((language) => {
-                  return (
-                    <Link
-                      class="nav-link "
-                      key={language.id}
-                      onClick={() => handleClickLanguage(language.code)}
-                    >
-                      {language.code}
-                    </Link>
-                  );
-                })}
-                <img src="http://localhost:3000/images/navbar/ios.svg" />
-                     <img src="http://localhost:3000/images/navbar/android.svg" />
+                    );
+                  })}
+                  <img src="http://localhost:3000/images/navbar/ios.svg" />
+                  <img src="http://localhost:3000/images/navbar/android.svg" />
                 </div>
                 <div className=" navbar-down">
-                
-                {content.secondNavbarDto.map((secondNavbarItem) => {
-                  return (
-                    <div key={secondNavbarItem.id}>
-                      <Link class="nav-link title" to={`${secondNavbarItem.url}`}>
-                        {secondNavbarItem.title}
-                      </Link>
-                    </div>
-                  );
-                })}
-                <div className="phone">
-                       <i class="fas fa-phone-alt"></i>+99412 499 89 88
-                     </div>
+                  {content.secondNavbarDto.map((secondNavbarItem) => {
+                    return (
+                      <div key={secondNavbarItem.id}>
+                        <Link
+                          class="nav-link title"
+                          to={`${secondNavbarItem.url}`}
+                        >
+                          {secondNavbarItem.title}
+                        </Link>
+                      </div>
+                    );
+                  })}
+                  <div className="phone">
+                    <i class="fas fa-phone-alt"></i>+99412 499 89 88
+                  </div>
                 </div>
-                
-                
               </div>
             </div>
           </div>

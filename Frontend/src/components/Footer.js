@@ -9,12 +9,13 @@ const Footer = () => {
   const { content } = useSelector((state) => state.contentFooter);
   const { socialMedia } = useSelector((state) => state.socialMedia);
   const { secondFooter } = useSelector((state) => state.contentSecondFooter);
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   useEffect(() => {
     dispatch(fetchContentFooter());
     dispatch(fetchContentSocialMedia());
     dispatch(fetchContentSecondFooter());
-  }, [dispatch]);
+  }, [dispatch, activeLanguage]);
 
   return (
     <div className="footer">
