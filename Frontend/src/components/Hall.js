@@ -25,9 +25,10 @@ const Hall = () => {
   const { hall } = useSelector((state) => state.contentHall);
   
   const { movieWidthId } = useSelector((state) => state.movieWidthId);
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   const [active, setActive] = useState(false);
-  //const[buyed,setBuyed]=useState(false)
+  
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const Hall = () => {
     dispatch(fetchContentRow(history.location.state.session));
     
     
-  }, [dispatch]);
+  }, [dispatch,activeLanguage]);
 
   const handleSeatClick = () => {
     setActive(!active);

@@ -6,10 +6,11 @@ const DolbyAtmos = () => {
   const dispatch = useDispatch();
 
   const { content } = useSelector((state) => state.contentDolbyAtmos);
+  const {activeLanguage}=useSelector((state)=> state.languages)
 
   useEffect(() => {
     dispatch(fetchContentDolbyAtmos());
-  }, [dispatch]);
+  }, [dispatch, activeLanguage]);
 
   return (
     <div className="dolbyAtmos">

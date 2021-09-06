@@ -77,7 +77,10 @@ export const fetchLanguages = () => async (dispatch) => {
   try {
     const response = await api.get("Language");
 
-    dispatch({ type: FETCH_LANGUAGES_SUCCESS, payload: response.data });
+    dispatch({ type: FETCH_LANGUAGES_SUCCESS, payload: {
+      language:response.data,
+      activeLanguage: localStorage.getItem("language")}, 
+    });
   } catch (e) {
     dispatch({
       type: FETCH_LANGUAGES_FAIL,
@@ -87,7 +90,7 @@ export const fetchLanguages = () => async (dispatch) => {
 };
 
 export const fetchContentNavbar =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_NAVBAR });
 
@@ -105,7 +108,7 @@ export const fetchContentNavbar =
   };
 
 export const fetchContentPlatinum =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_PLATINUM });
 
@@ -127,7 +130,7 @@ export const fetchContentPlatinum =
   };
 
 export const fetchContentDolbyAtmos =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_DOLBYATMOS });
 
@@ -149,7 +152,7 @@ export const fetchContentDolbyAtmos =
   };
 
 export const fetchContentService =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_SERVICE });
 
@@ -168,7 +171,7 @@ export const fetchContentService =
   };
 
 export const fetchContentFooter =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_FOOTER });
 
@@ -223,7 +226,7 @@ export const fetchContentAdvertisement = () => async (dispatch) => {
 };
 
 export const fetchContentSecondFooter =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_SECONDFOOTER });
 
@@ -245,7 +248,7 @@ export const fetchContentSecondFooter =
   };
 
 export const fetchContentNews =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_NEWS });
 
@@ -264,7 +267,7 @@ export const fetchContentNews =
   };
 
 export const fetchContentFAQ =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_FAQ });
 
@@ -283,7 +286,7 @@ export const fetchContentFAQ =
   };
 
 export const fetchContentCampaigns =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_CAMPAIGNS });
 
@@ -305,7 +308,7 @@ export const fetchContentCampaigns =
   };
 
 export const fetchContentCampaignDetail =
-  (id, languageCode = "AZ") =>
+  (id, languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_CAMPAIGNDETAIL });
 
@@ -357,7 +360,7 @@ export const fetchContentTariff = () => async (dispatch) => {
 };
 
 export const fetchContentMovie =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_MOVIE });
 
@@ -393,7 +396,7 @@ export const fetchContentMovieWidthId = (id) => async (dispatch) => {
 };
 
 export const fetchContentMovieDetail =
-  (id, languageCode = "AZ") =>
+  (id, languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_MOVIEDETAIL });
 
@@ -415,7 +418,7 @@ export const fetchContentMovieDetail =
   };
 
 export const fetchContentBranch =
-  (languageCode = "AZ") =>
+  (languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_BRANCH });
 
@@ -464,7 +467,7 @@ export const fetchContentRow = (id) => async (dispatch) => {
 };
 
 export const fetchContentHall =
-  (id, languageCode = "AZ") =>
+  (id, languageCode = localStorage.getItem("language")) =>
   async (dispatch) => {
     dispatch({ type: FETCH_CONTENT_HALL });
 

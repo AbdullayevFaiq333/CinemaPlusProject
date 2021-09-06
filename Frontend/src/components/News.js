@@ -8,10 +8,11 @@ const News = () => {
   const dispatch = useDispatch();
 
   const { content } = useSelector((state) => state.contentNews);
+  const {activeLanguage}=useSelector((state)=> state.languages)
   
   useEffect(() => {
     dispatch(fetchContentNews());
-  }, [dispatch]);
+  }, [dispatch, activeLanguage]);
 
   const settings = {
     dots: true,

@@ -9,12 +9,13 @@ const CampaignDetail = () => {
 
   const { content } = useSelector((state) => state.contentCampaignDetail);
   const {id} = useParams();
+  const {activeLanguage}=useSelector((state)=> state.languages)
   
-  var dt=content.date
+  
   
   useEffect(() => {
     dispatch(fetchContentCampaignDetail(id));
-  }, [dispatch]);
+  }, [dispatch,activeLanguage]);
 
   return (
     <div className="campaignDetail">
@@ -24,7 +25,7 @@ const CampaignDetail = () => {
           <div className="col-md-12">
             <div className="campgDetailHead">
               <h4 className="campgHead">{content.title}</h4>
-              <div className="campgDate"> {Moment(dt).format('MMMM Do, YYYY')} </div>
+              <div className="campgDate"> {Moment(content.date).format('MMMM Do, YYYY')} </div>
               
               <div className="campgImg">
                 <img src={`http://localhost:3000/images/${content.image}`} alt="" />
