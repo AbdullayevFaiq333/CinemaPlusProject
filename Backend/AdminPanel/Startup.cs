@@ -42,7 +42,7 @@ namespace AdminPanel
             {
                 options.UseSqlServer(conectionString, builder =>
                 {
-                    builder.MigrationsAssembly(nameof(CinemaPlus));
+                    builder.MigrationsAssembly(nameof(AdminPanel));
                 });
             });
 

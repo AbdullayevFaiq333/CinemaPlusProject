@@ -1,5 +1,4 @@
-﻿using AdminPanel.Utils;
-using Buisness.Abstract;
+﻿using Buisness.Abstract;
 using DataAccess.Abstract;
 using Entities.Models;
 using Entity.Params;
@@ -69,7 +68,7 @@ namespace Buisness.Concret
                     // Combines two strings into a path.
                     var filepath =
             new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
-            .Root + $@"\{newFileName}"; 
+            .Root + $@"\{newFileName}";
 
                     using (FileStream fs = System.IO.File.Create(filepath))
                     {
@@ -79,19 +78,19 @@ namespace Buisness.Concret
                 }
             }
 
-
+            //Admin panelden istifade etdiyniz melumatlar chixmalidi ortag bir yere
+            //nece edilecek ki ? ortaq bir sey yaradib ordan alinacaq referance
+            //okeydi?coxxxx sagolun)
             var folderList = new List<string>
-                {
-                    AdminPanel.Utils.Constants.MovieImageFolderPath,
-                    @"D:\Programming\CodeAcademy\FrontEnd\FinalProject\limak-az--front-end\public\images"
-                };
-
-
-
+            {
+                //AdminPanel.Utils.Constants.MovieImageFolderPath,
+                @"D:\Programming\CodeAcademy\FrontEnd\FinalProject\limak-az--front-end\public\images"
+            };
 
             movieParams.Image = newFileName;
 
-            Movie movie = new Movie {
+            Movie movie = new Movie
+            {
 
                 Age = movieParams.Age,
                 Name = movieParams.Name,
@@ -116,13 +115,13 @@ namespace Buisness.Concret
                     Treyler = movieParams.Treyler,
                     Genre = movieParams.Genre,
                     MovieId = movie.Id
-                    
+
 
                 };
                 await _movieDetailDal.AddAsync(movieDetail);
 
             }
-           
+
 
             return true;
         }
