@@ -20,12 +20,7 @@ namespace DataAccess.Concret
         {
 
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-896NS6C\SQLEXPRESS;Database=CinemaPlus;Trusted_Connection=True;MultipleActiveResultSets=true");
-        }
+    
 
         public DbSet<DolbyAtmos> DolbyAtmos { get; set; }
         public DbSet<Language> Languages { get; set; }
@@ -53,8 +48,7 @@ namespace DataAccess.Concret
         public DbSet<MovieDetail> MovieDetails { get; set; }
         public DbSet<MovieFormat> MovieFormats { get; set; }
         public DbSet<Format> Formats { get; set; }
-        public DbSet<Session> Sessions { get; set; }
-        
+        public DbSet<Session> Sessions { get; set; }        
         public DbSet<Hall> Halls { get; set; }
         public DbSet<Row> Rows { get; set; }
         public DbSet<Seat> Seats { get; set; }

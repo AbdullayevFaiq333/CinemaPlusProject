@@ -17,3 +17,4 @@ namespace Entities.Models
         public IFormFile Photo { get; set; }
     }
 }
+ 

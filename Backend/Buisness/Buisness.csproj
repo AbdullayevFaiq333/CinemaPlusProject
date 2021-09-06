@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Entity\Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="AdminPanel">
+      <HintPath>..\AdminPanel\bin\Debug\net5.0\AdminPanel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

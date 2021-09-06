@@ -20,5 +20,12 @@ namespace DataAccess.Concret
         {
             return await Context.Photos.AnyAsync(expression);
         }
+        public async Task<Photos> CheckPhotosId(int? branchId) 
+        {
+            return await Context.Photos.Include(i => i.Branches)
+                       .SingleOrDefaultAsync(s => s.Branches.Any(a => a.Id == branchId));
+
+            
+        }
     }
 }

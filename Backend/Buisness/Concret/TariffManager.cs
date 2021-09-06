@@ -18,9 +18,9 @@ namespace Buisness.Concret
             _tariffDal = tariffDal;
         }
 
-        public async Task<Tariff> GetTariffWithIdAsync(int id)
+        public async Task<Tariff> GetTariffWithIdAsync(int branchId)
         {
-            return await _tariffDal.GetAsync(x => x.Id == id);
+            return await _tariffDal.GetAsync(x => x.BranchId == branchId);
         }
 
         public async Task<List<Tariff>> GetAllTariffAsync()

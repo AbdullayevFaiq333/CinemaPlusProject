@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Detail";
-    Branch branches = Model;
+    BranchParams branchParams = Model;
 }
 
 <div class="col-lg-12">
@@ -12,82 +12,85 @@
 
             <div class="table-responsive">
                 <form>
-                    <select name="LanguageId" id="language" class="btn btn-secondary" style="margin-bottom: 5px">
-
-                        @foreach (var item in ViewBag.Languages)
-                        {
-
-                            <!option value="@item.Id" @(item.Id == Model.LanguageId ? "selected" : "")> @item.Code</!option>
-
-                        }
-
-
-                    </select>
+                    
+                    <input disabled value="@branchParams.LanguageName" name="LanguageId"
+                           id="language" class="btn btn-secondary" style="margin-bottom: 5px">                 
 
                 </form>
                 <table class="table table-bordered mb-0">
                     <tbody>
                         <tr>
-                            <th scope="row">Branch Name</th>
+                            <th scope="row">Name</th>
                             <td>
-                                @branches.Name
+                                @branchParams.Name
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Description</th>
                             <td>
-                                @branches.Description
+                                @branchParams.Description
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Our Address</th>
                             <td>
-                                @branches.Contact.OurAddress
+                                @branchParams.OurAddress
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Phone</th>
                             <td>
-                                @branches.Contact.Phone
+                                @branchParams.Phone
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Email</th>
                             <td>
-                                @branches.Contact.Email
+                                @branchParams.Email
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Media Sales Department</th>
                             <td>
-                                @branches.Contact.MediaSalesDepartment
+                                @branchParams.MediaSalesDepartment
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Working Hours</th>
                             <td>
-                                @branches.Contact.WorkingHours
+                                @branchParams.WorkingHours
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Map</th>
                             <td>
-                                <iframe src="@branches.Contact.Map" class="map"
+                                <iframe src="Map" class="map"
                                         allowfullscreen="" loading="lazy"></iframe>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row">Tariffs</th>
-                            <td >
+                            <th scope="row">Branch Photo</th>
+                            <td>
                                 <div class="form-group form-group-float">
-                                    <img src="/Uploads/@branches.Tariff.Image" width="300" />
-                                    <input type="hidden" name="oldPhoto" value="@branches.Tariff.Image" />
+                                    <img src="/Uploads/@branchParams.PhotosImage" width="250" />
+                                    <input type="hidden" name="oldPhoto" value="@branchParams.PhotosPhoto" />
                                 </div>
                             </td>
                         </tr>
-                    </tbody>
+                        <tr>
+                            <th scope="row">Tariff Photo</th>
+                            <td>
+                                <div class="form-group form-group-float">
+                                    <img src="/Uploads/@branchParams.TariffImage" width="250" />
+                                    <input type="hidden" name="oldPhoto" value="@branchParams.TariffPhoto" />
+                                </div>
+                            </td>
+                        </tr>
 
+
+                    </tbody>
                 </table>
+
                 <a asp-action="Index" class="btn btn-secondary" style="margin-top: 5px">
                     Go Back
                 </a>

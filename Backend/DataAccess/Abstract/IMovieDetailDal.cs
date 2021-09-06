@@ -10,7 +10,7 @@ namespace DataAccess.Abstract
 {
     public interface IMovieDetailDal : IRepository<MovieDetail>
     {
-        Task<MovieDetail> GetMovieDetailAsync(string languageCode,int id);
+        Task<MovieDetail> GetMovieDetailAsync(int id);
         Task<bool> CheckMovieDetail(Expression<Func<MovieDetail, bool>> expression);
 
 

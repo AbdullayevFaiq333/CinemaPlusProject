@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,12 +23,14 @@ namespace AdminPanel
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            _environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        private readonly IWebHostEnvironment _environment;
          
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -39,7 +42,7 @@ namespace AdminPanel
             {
                 options.UseSqlServer(conectionString, builder =>
                 {
-                    builder.MigrationsAssembly(nameof(AdminPanel));
+                    builder.MigrationsAssembly(nameof(CinemaPlus));
                 });
             });
 
@@ -144,7 +147,9 @@ namespace AdminPanel
             services.AddScoped<ITariffService, TariffManager>();
             services.AddScoped<ITariffDal, EFTariffDal>();
 
-            
+            Utils.Constants.MovieImageFolderPath = Path.Combine(_environment.WebRootPath, "Uploads");
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

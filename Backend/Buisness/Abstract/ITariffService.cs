@@ -9,7 +9,7 @@ namespace Buisness.Abstract
 {
     public interface ITariffService
     {
-        Task<Tariff> GetTariffWithIdAsync(int id);
+        Task<Tariff> GetTariffWithIdAsync(int branchId);
         Task<List<Tariff>> GetAllTariffAsync();
         Task<Tariff> GetAllTariffAsync(int id);
 

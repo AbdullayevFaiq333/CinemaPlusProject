@@ -20,10 +20,9 @@ namespace DataAccess.Concret
         {
             return await Context.MovieDetails.AnyAsync(expression);
         }
-        public async Task<MovieDetail> GetMovieDetailAsync(string languageCode,int id)
+        public async Task<MovieDetail> GetMovieDetailAsync(int id)
         {
             return await Context.MovieDetails.Include(x => x.Language)
-                .Where(x => x.Language.Code == languageCode)
                 .Include(x => x.Movie)
                 .Where(x => x.MovieId == id)
                 .FirstOrDefaultAsync();

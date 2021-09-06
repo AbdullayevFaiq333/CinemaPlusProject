@@ -23,129 +23,106 @@ namespace Core.Repository.EFRepository
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-           await using(var context = Context)
-            {
-                return filter == null
-                    ? await context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync()
-                    : await context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(filter);
-            }
+            return filter == null
+                ? await Context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync()
+                : await Context.Set<TEntity>().AsNoTracking().FirstOrDefaultAsync(filter);
         }
         public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-            await using (var context= Context)
+            if (filter==null)
             {
-                if (filter==null)
-                {
-                    return await context.Set<TEntity>().AsNoTracking().ToListAsync();
-                }
-                return await context.Set<TEntity>().AsNoTracking().Where(filter).ToListAsync();
+                return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
             }
+            return await Context.Set<TEntity>().AsNoTracking().Where(filter).ToListAsync();
         }
 
         public async Task<bool> AddAsync(TEntity entity)
         {
-            await using (var context = Context)
+            await using var dbContextTransaction = await Context.Database.BeginTransactionAsync();
+            try
             {
-                await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
-                try
-                {
-                    await context.Set<TEntity>().AddAsync(entity);
-                    await context.SaveChangesAsync();
-                    await dbContextTransaction.CommitAsync();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    await dbContextTransaction.RollbackAsync();
-                    throw;
-                }
+                await Context.Set<TEntity>().AddAsync(entity);
+                await Context.SaveChangesAsync();
+                await dbContextTransaction.CommitAsync();
+                return true;
             }
-               
+            catch (Exception)
+            {
+                await dbContextTransaction.RollbackAsync();
+                throw;
+            }
         }
         public async Task<object> AddReturnEntityAsync(TEntity entity)
         {
-            await using (var context = Context)
+            await using var dbContextTransaction = await Context.Database.BeginTransactionAsync();
+            try
             {
-                await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
-                try
-                {
-                  var returnEntity=  await context.Set<TEntity>().AddAsync(entity);
-                    await context.SaveChangesAsync();
-                    await dbContextTransaction.CommitAsync();
-                    return  returnEntity;
-                }
-                catch (Exception)
-                {
-                    await dbContextTransaction.RollbackAsync();
-                    throw;
-                }
+                var returnEntity=  await Context.Set<TEntity>().AddAsync(entity);
+                await Context.SaveChangesAsync();
+                await dbContextTransaction.CommitAsync();
+                return  returnEntity;
             }
-
+            catch (Exception)
+            {
+                await dbContextTransaction.RollbackAsync();
+                throw;
+            }
         }
 
         public async Task<bool> DeleteAsync(TEntity entity)
         {
-            await using (var context = Context)
+            await using var dbContextTransaction = await Context.Database.BeginTransactionAsync();
+            try
             {
-                await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
-                try
-                {
-                    context.Set<TEntity>().Remove(entity);
-                    await context.SaveChangesAsync();
-                    await dbContextTransaction.CommitAsync();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    await dbContextTransaction.RollbackAsync();
-                    throw;
-                }
+                Context.Set<TEntity>().Remove(entity);
+                await Context.SaveChangesAsync();
+                await dbContextTransaction.CommitAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                await dbContextTransaction.RollbackAsync();
+                throw;
             }
         }
 
         public async Task<bool> UpdateAsync(TEntity entity)
         {
-            await using (var context = Context)
+            await using var dbContextTransaction = await Context.Database.BeginTransactionAsync();
+            try
             {
-                await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
-                try
-                {
-                    context.Set<TEntity>().Update(entity);
-                    await context.SaveChangesAsync();
-                    await dbContextTransaction.CommitAsync();
-                    return true;
-                }
-                catch (Exception)
-                {
-                    await dbContextTransaction.RollbackAsync();
-                    throw;
-                }
+                Context.Set<TEntity>().Update(entity);
+                await Context.SaveChangesAsync();
+                await dbContextTransaction.CommitAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                await dbContextTransaction.RollbackAsync();
+                throw;
             }
         }
         public async Task<bool> UpdateWithEntryAsync(TEntity entity, params object[] propertyNames)
         {
-            await using (var context = Context)
+            await using var dbContextTransaction = await Context.Database.BeginTransactionAsync();
+            try
             {
-                await using var dbContextTransaction = await context.Database.BeginTransactionAsync();
-                try
+                Context.Entry(entity).State = EntityState.Modified;
+                for (int i = 0; i < propertyNames.Count(); i++)
                 {
-                    context.Entry(entity).State = EntityState.Modified;
-                    for (int i = 0; i < propertyNames.Count(); i++)
-                    {
-                        context.Entry(entity).Property(propertyNames[i].ToString()).IsModified = false;
+                    Context.Entry(entity).Property(propertyNames[i].ToString()).IsModified = false;
 
-                        foreach (var p in context.Entry(propertyNames[i].ToString()).Properties.Where(p => p.Metadata.Name != "Label"))
-                            p.IsModified = false;
-                    }
-                    await context.SaveChangesAsync();
-                    await dbContextTransaction.CommitAsync();
-                    return true;
+                    foreach (var p in Context.Entry(propertyNames[i].ToString()).Properties.Where(p => p.Metadata.Name != "Label"))
+                        p.IsModified = false;
                 }
-                catch (Exception)
-                {
-                    await dbContextTransaction.RollbackAsync();
-                    throw;
-                }
+                await Context.SaveChangesAsync();
+                await dbContextTransaction.CommitAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                await dbContextTransaction.RollbackAsync();
+                throw;
             }
         }
     }

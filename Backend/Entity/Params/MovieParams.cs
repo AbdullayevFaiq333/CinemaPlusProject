@@ -27,5 +27,7 @@ namespace Entity.Params
         public string Genre { get; set; }
         public string About { get; set; }
         public int MovieId { get; set; }
+        public string LanguageName { get; set; }
+        public int MovieDetailId{ get; set; }
     }
 }

@@ -15,7 +15,7 @@
 
             <div class="table-responsive">
                 <form>
-                    <select name="LanguageId" id="language" class="btn btn-secondary" style="margin-bottom: 5px">
+                    <select name="LanguageId" id="language" class="btn btn-secondary" style="margin-bottom: 5px" disabled>
 
                         @foreach (var item in ViewBag.Languages)
                         {
@@ -23,10 +23,9 @@
                             <!option value="@item.Id" @(item.Id == Model.LanguageId ? "selected" : "")> @item.Code</!option>
 
                         }
-
+                         
 
                     </select>
-
                 </form>
                 <table class="table table-bordered mb-0">
 

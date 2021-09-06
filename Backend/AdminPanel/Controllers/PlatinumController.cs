@@ -36,7 +36,7 @@ namespace AdminPanel.Controllers
 
         #region Create
         public async Task<IActionResult> Create()
-        {
+        { 
 
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 

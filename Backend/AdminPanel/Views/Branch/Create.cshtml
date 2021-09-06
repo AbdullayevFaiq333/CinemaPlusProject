@@ -1,9 +1,9 @@
-﻿@model Branch
+﻿@model BranchParams
 
 
 @{
     ViewData["Title"] = "Create";
-}
+} 
 
 <div class="content text-center">
     <div class="col-lg-5" style="display: inline-block">
@@ -35,32 +35,38 @@
                         <span class="text-danger" asp-validation-for="Description"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="@Model.Contact.OurAddress" class="form-control" placeholder="Out Address">
-                        <span class="text-danger" asp-validation-for="@Model.Contact.OurAddress"></span>
+                        <input asp-for="OurAddress" class="form-control" placeholder="Out Address">
+                        <span class="text-danger" asp-validation-for="OurAddress"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="@Model.Contact.Phone" class="form-control" placeholder="Phone">
-                        <span class="text-danger" asp-validation-for="@Model.Contact.Phone"></span>
+                        <input asp-for="Phone" class="form-control" placeholder="Phone">
+                        <span class="text-danger" asp-validation-for="Phone"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="@Model.Contact.Email" class="form-control" placeholder="Email">
-                        <span class="text-danger" asp-validation-for="@Model.Contact.Email"></span>
+                        <input asp-for="Email" class="form-control" placeholder="Email">
+                        <span class="text-danger" asp-validation-for="Email"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="@Model.Contact.MediaSalesDepartment" class="form-control" placeholder="Media Sales Department">
-                        <span class="text-danger" asp-validation-for="@Model.Contact.MediaSalesDepartment"></span>
+                        <input asp-for="MediaSalesDepartment" class="form-control" placeholder="Media Sales Department">
+                        <span class="text-danger" asp-validation-for="MediaSalesDepartment"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="@Model.Contact.WorkingHours" class="form-control" placeholder="Working Hours">
-                        <span class="text-danger" asp-validation-for="@Model.Contact.WorkingHours"></span>
+                        <input asp-for="WorkingHours" class="form-control" placeholder="Working Hours">
+                        <span class="text-danger" asp-validation-for="WorkingHours"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="@Model.Contact.Map" class="form-control" placeholder="Map">
-                        <span class="text-danger" asp-validation-for="@Model.Contact.Map"></span>
+                        <input asp-for="Map" class="form-control" placeholder="Map">
+                        <span class="text-danger" asp-validation-for="Map"></span>
                     </div>
+                    <button type="button" class="btn btn-secondary" disabled style="width: 200px; height: 30px; margin-bottom: 10px; text-align: center">Branch Photo</button>
                     <div class="form-group form-group-float">
-                        <input type="file" asp-for="Photos" class="form-control" placeholder="Photo">
-                        <span class="text-danger" asp-validation-for="Photos"></span>
+                        <input type="file" asp-for="PhotosImage" class="form-control" placeholder="Branch">
+                        <span class="text-danger" asp-validation-for="PhotosImage"></span>
+                    </div>
+                    <button type="button" class="btn btn-secondary" disabled style="width: 200px; height: 30px; margin-bottom: 10px; text-align: center">Tariff Photo</button>
+                    <div class="form-group form-group-float">
+                        <input type="file" asp-for="TariffImage" class="form-control" placeholder="Tariff">
+                        <span class="text-danger" asp-validation-for="TariffImage"></span>
                     </div>
 
 

@@ -17,9 +17,9 @@ namespace Buisness.Concret
         {
             _photosDal = photosDal;
         }
-        public async Task<Photos> GetPhotosWithIdAsync(int id)
+        public async Task<Photos> GetPhotosWithIdAsync(int branchId)
         {
-            return await _photosDal.GetAsync(x => x.Id == id);
+            return await _photosDal.CheckPhotosId(branchId);
         }
 
         public async Task<List<Photos>> GetAllPhotosAsync()

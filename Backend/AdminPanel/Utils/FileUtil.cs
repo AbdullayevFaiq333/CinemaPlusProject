@@ -23,14 +23,7 @@ namespace AdminPanel.Utils
         }
 
 
-        //var folderList = new List<string>
-        //    {
-        //        Constants.ImageFolderPath,
-        //        @"D:\Programming\CodeAcademy\FrontEnd\FinalProject\limak-az--front-end\public\images"
-        //    };
-
-        //var fileName = await FileUtil.GenerateFileAsync(folderList, advertisement.Photo);
-
+        
         public static async Task<string> GenerateFileAsync(List<string> folderPaths, IFormFile formFile)
         {
             var fileName = $"{Guid.NewGuid()}-{formFile.FileName}";

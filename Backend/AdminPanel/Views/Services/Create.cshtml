@@ -13,8 +13,8 @@
             </div>
 
             <div class="card-body">
-                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                 <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Service">
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                     <select name="LanguageId" id="language" class="btn btn-light">
                         @foreach (var item in ViewBag.Languages)
                         {
@@ -23,7 +23,7 @@
                         }
                     </select>
                     <a asp-action="Index" class="btn btn-light">
-                        Go Back 
+                        Go Back
                     </a>
 
                     <div class="form-group form-group-float">
@@ -33,8 +33,7 @@
                     <div class="form-group form-group-float">
                         <input asp-for="Description" class="form-control" placeholder="Description">
                         <span class="text-danger" asp-validation-for="Description"></span>
-                    </div>            
-
+                    </div>
                     <div class="form-group form-group-float">
                         <input type="file" asp-for="Icon" class="form-control" placeholder="Photo">
                         <span class="text-danger" asp-validation-for="Icon"></span>

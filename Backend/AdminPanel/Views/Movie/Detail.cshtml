@@ -1,14 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Detail";
-    MovieDetail movieDetail = Model;
+    MovieParams movieParams = Model;
 }
 
-
-
-
-
-
-<div class="col-lg-12"> 
+<div class="col-lg-12">
     <div class="card">
         <div class="card-body">
 
@@ -17,67 +12,92 @@
 
             <div class="table-responsive">
                 <form>
-                    <select name="LanguageId" id="language" class="btn btn-secondary" style="margin-bottom: 5px">
-
-                        @foreach (var item in ViewBag.Languages)
-                        {
-
-                            <!option value="@item.Id" @(item.Id == Model.LanguageId ? "selected" : "")> @item.Code</!option>
-
-                        }
-
-
-                    </select>
+                    <input disabled value="@movieParams.LanguageName" name="LanguageId" 
+                           id="language" class="btn btn-secondary" style="margin-bottom: 5px">
 
                 </form>
-                <table class="table table-bordered mb-0">             
+                <table class="table table-bordered mb-0">
                     <tbody>
+                        <tr>
+                            <th scope="row">Name</th>
+                            <td>
+                                @movieParams.Name
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Age</th>
+                            <td>
+                                @movieParams.Age
+                            </td>
+                        </tr>                       
                         <tr>
                             <th scope="row">Trailer</th>
                             <td>
-                                @movieDetail.Treyler
+                                @movieParams.Treyler
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Country</th>
                             <td>
-                                @movieDetail.Country
+                                @movieParams.Country
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Director</th>
                             <td>
-                                @movieDetail.Director
+                                @movieParams.Director
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Actors</th>
                             <td>
-                                @movieDetail.Actors
+                                @movieParams.Actors
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Duration</th>
                             <td>
-                                @movieDetail.Duration
+                                @movieParams.Duration
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">Genre</th>
                             <td>
-                                @movieDetail.Genre
+                                @movieParams.Genre
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">About</th>
                             <td>
-                                @movieDetail.About
+                                @movieParams.About
                             </td>
-                        </tr>                   
+                        </tr>
+                        <tr>
+                            <th scope="row">Start Time</th>
+                            <td>
+                                @movieParams.StartTime
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">End Time</th>
+                            <td>
+                                @movieParams.EndTime
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Image</th>
+                            <td>
+                                <div class="form-group form-group-float">
+                                    <img src="/Uploads/@movieParams.Image" width="250" />
+                                    <input type="hidden" name="oldPhoto" value="@movieParams.Image" />
+                                </div>
+                            </td>
+                        </tr>
+
 
                     </tbody>
-
                 </table>
+
                 <a asp-action="Index" class="btn btn-secondary" style="margin-top: 5px">
                     Go Back
                 </a>

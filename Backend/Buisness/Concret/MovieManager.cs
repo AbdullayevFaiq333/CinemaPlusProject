@@ -1,4 +1,5 @@
-﻿using Buisness.Abstract;
+﻿using AdminPanel.Utils;
+using Buisness.Abstract;
 using DataAccess.Abstract;
 using Entities.Models;
 using Entity.Params;
@@ -12,36 +13,34 @@ using System.IO;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-
+ 
 namespace Buisness.Concret
-{ 
+{
     public class MovieManager : IMovieService
     {
         private readonly IMovieDal _movieDal;
         private readonly IHostEnvironment _environment;
+        private readonly IMovieDetailDal _movieDetailDal;
 
-        public MovieManager(IMovieDal movieDal,IHostEnvironment environment) 
+        public MovieManager(IMovieDal movieDal, IHostEnvironment environment, IMovieDetailDal movieDetailDal)
         {
             _movieDal = movieDal;
             _environment = environment;
+            _movieDetailDal = movieDetailDal;
         }
         public async Task<Movie> GetMovieWithIdAsync(int id)
         {
-            return await _movieDal.GetAsync(x => x.Id == id);
-        } 
-
-        public async Task<List<Movie>> GetAllMovieAsync()
-        {
-            return await _movieDal.GetAllAsync();
-        }  
+            return await _movieDal.GetMovieWithIdAsync(id);
+        }
 
         public async Task<bool> AddMovieAsync(MovieParams movieParams)
         {
             if (movieParams == null)
                 return false;
-                
+
 
             var newFileName = string.Empty;
+
 
             if (movieParams.Photo != null)
             {
@@ -65,7 +64,119 @@ namespace Buisness.Concret
                     var fileExtension = Path.GetExtension(fileName);
 
                     // concatenating  FileName + FileExtension
-                    newFileName = String.Concat("movies/"+myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+                    newFileName = String.Concat("movies/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+
+                    // Combines two strings into a path.
+                    var filepath =
+            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
+            .Root + $@"\{newFileName}"; 
+
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        movieParams.Photo.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+            }
+
+
+            var folderList = new List<string>
+                {
+                    AdminPanel.Utils.Constants.MovieImageFolderPath,
+                    @"D:\Programming\CodeAcademy\FrontEnd\FinalProject\limak-az--front-end\public\images"
+                };
+
+
+
+
+            movieParams.Image = newFileName;
+
+            Movie movie = new Movie {
+
+                Age = movieParams.Age,
+                Name = movieParams.Name,
+                Image = movieParams.Image,
+                EndTime = movieParams.EndTime,
+                StartTime = movieParams.StartTime,
+                LanguageId = movieParams.LanguageId
+
+            };
+            var mov = await _movieDal.AddAsync(movie);
+            if (mov == true)
+            {
+                MovieDetail movieDetail = new MovieDetail
+                {
+
+                    About = movieParams.About,
+                    Actors = movieParams.Actors,
+                    Country = movieParams.Country,
+                    Duration = movieParams.Duration,
+                    LanguageId = movieParams.LanguageId,
+                    Director = movieParams.Director,
+                    Treyler = movieParams.Treyler,
+                    Genre = movieParams.Genre,
+                    MovieId = movie.Id
+                    
+
+                };
+                await _movieDetailDal.AddAsync(movieDetail);
+
+            }
+           
+
+            return true;
+        }
+    
+
+        public async Task<bool> DeleteMovieAsync(int? id)
+            {
+            var movie = await _movieDal.GetMovieWithIdAsync((int)id);
+            var movieDetail = await _movieDetailDal.GetMovieDetailAsync((int)id);
+
+            var isDeleted = _movieDetailDal.DeleteAsync(movieDetail);
+
+            if (isDeleted.Result)
+                 await _movieDal.DeleteAsync(movie); 
+
+            return true;
+            }
+
+        public async Task<bool> UpdateMovieAsync(MovieParams movieParams, string oldPhoto)
+        {
+
+            var newFileName = string.Empty;
+
+            if (movieParams.Photo != null)
+            {
+                if (movieParams.Photo.Length > 0 &&
+                    (movieParams.Photo.ContentType == "image/jpeg"
+                      || movieParams.Photo.ContentType == "image/jpg"
+                    || movieParams.Photo.ContentType == "image/png"
+                    || movieParams.Photo.ContentType == "image/x-png"
+                    || movieParams.Photo.ContentType == "image/pjpeg"))
+
+                {
+                    if (oldPhoto != null)
+                    {
+                        var oldFilePath = Path.Combine(
+         _environment.ContentRootPath, "wwwroot", "Uploads", "movies", oldPhoto);
+                        if (System.IO.File.Exists(oldFilePath))
+                            System.IO.File.Delete(oldFilePath);
+                    }
+
+
+                    //Getting FileName
+                    var fileName = Path.GetFileName(movieParams.Photo.FileName);
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(movieParams.Photo.FileName);
+
+                    //Assigning Unique Filename (Guid)
+                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+
+                    // concatenating  FileName + FileExtension
+                    newFileName = String.Concat("movies/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
 
                     // Combines two strings into a path.
                     var filepath =
@@ -78,88 +189,51 @@ namespace Buisness.Concret
                         fs.Flush();
                     }
                 }
+                movieParams.Image = newFileName;
             }
+            else
+                movieParams.Image = oldPhoto;
 
-            movieParams.Image = newFileName;
-
-            Movie movie = new Movie {
-            
-            Age = movieParams.Age,
-            Name = movieParams.Name,
+            Movie movie = new Movie
+            {
+                Id = movieParams.MovieId,
+                Age = movieParams.Age,
+                Name = movieParams.Name,
                 Image = movieParams.Image,
-                StartTime = movieParams.StartTime,
                 EndTime = movieParams.EndTime,
+                StartTime = movieParams.StartTime,
                 LanguageId = movieParams.LanguageId
 
             };
-           var mov =   await  _movieDal.AddReturnEntityAsync(movie);
-
-            //var test = mov.ToString();
-            //Dictionary<int, int> response = JsonConvert.DeserializeObject<Dictionary<int, int>>(test);
-            return true;
-
-        }
-
-        public async Task<bool> DeleteMovieAsync(Movie movie)
-        {
-            return await _movieDal.DeleteAsync(movie);
-
-        }
-
-        public async Task<bool> UpdateMovieAsync(Movie movie, string oldPhoto)
-        {
-
-            var newFileName = string.Empty;
-
-            if (movie.Photo != null)
+            var mov = await _movieDal.UpdateAsync(movie);
+            if (mov == true)
             {
-                if (movie.Photo.Length > 0 &&
-                    (movie.Photo.ContentType == "image/jpeg"
-                      || movie.Photo.ContentType == "image/jpg"
-                    || movie.Photo.ContentType == "image/png"
-                    || movie.Photo.ContentType == "image/x-png"
-                    || movie.Photo.ContentType == "image/pjpeg"))
-
+                MovieDetail movieDetail = new MovieDetail
                 {
-                    if(oldPhoto!= null)
-                    {
-                        var oldFilePath = Path.Combine(
-         _environment.ContentRootPath, "wwwroot", "Uploads", "movies", oldPhoto);
-                        if (System.IO.File.Exists(oldFilePath))
-                            System.IO.File.Delete(oldFilePath);
-                    }
-                   
+                    Id = movieParams.MovieDetailId,
+                    About = movieParams.About,
+                    Actors = movieParams.Actors,
+                    Country = movieParams.Country,
+                    Director = movieParams.Director,
+                    LanguageId = movieParams.LanguageId,
+                    Duration = movieParams.Duration,
+                    Treyler = movieParams.Treyler,
+                    Genre = movieParams.Genre,
+                    MovieId = movie.Id,
+                    
 
-                    //Getting FileName
-                    var fileName = Path.GetFileName(movie.Photo.FileName);
-                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(movie.Photo.FileName);
+                };
+                await _movieDetailDal.UpdateAsync(movieDetail);
 
-                    //Assigning Unique Filename (Guid)
-                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                    //Getting file Extension
-                    var fileExtension = Path.GetExtension(fileName);
-
-                    // concatenating  FileName + FileExtension
-                    newFileName = String.Concat("movies/"+myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
-
-                    // Combines two strings into a path.
-                    var filepath =
-            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
-            .Root + $@"\{newFileName}";
-
-                    using (FileStream fs = System.IO.File.Create(filepath))
-                    {
-                        movie.Photo.CopyTo(fs);
-                        fs.Flush();
-                    }
-                }
-                movie.Image = newFileName;
-
-                await _movieDal.UpdateAsync(movie);
-                return true;
             }
-            return false;
+         
+            return true;
+        }
+        
+
+        public async Task<List<Movie>> GetAllMovieAsync()
+        {
+            return await _movieDal.GetAllAsync();
         }
 
         public async Task<List<Movie>> GetAllMovieAsync(string languageCode)
@@ -177,11 +251,6 @@ namespace Buisness.Concret
             return await _movieDal.GetMovieDetail(movieId);
         }
 
-        public Task<bool> AddAsync(params object[] entities)
-        {
-            throw new NotImplementedException();
-        }
-
-
+       
     }
 }

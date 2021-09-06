@@ -17,9 +17,9 @@ namespace Buisness.Concret
         {
             _movieDetailDal = movieDetailDal;
         }
-        public async Task<MovieDetail> GetMovieDetailWithIdAsync(int id)
+        public async Task<MovieDetail> GetMovieDetailWithIdAsync(int movieId)
         {
-            return await _movieDetailDal.GetAsync(x => x.Id == id);
+            return await _movieDetailDal.GetAsync(x => x.MovieId == movieId);
         }
 
         public async Task<List<MovieDetail>> GetAllMovieDetailAsync()
@@ -27,15 +27,17 @@ namespace Buisness.Concret
             return await _movieDetailDal.GetAllAsync();
         }
 
-        public Task<bool> AddMovieDetailAsync(MovieDetail movieDetail)
+        public async Task<bool> AddMovieDetailAsync(MovieDetail movieDetail)
         {
-            throw new NotImplementedException();
+            await _movieDetailDal.AddAsync(movieDetail);
+            return true;
         }
 
-        public Task<bool> DeleteMovieDetailAsync(int id)
+        public async Task<bool> DeleteMovieDetailAsync(MovieDetail movieDetail)
         {
-            throw new NotImplementedException();
+            return await _movieDetailDal.DeleteAsync(movieDetail);
         }
+
 
         public Task<bool> UpdateMovieDetailAsync(MovieDetail movieDetail)
         {
@@ -44,7 +46,7 @@ namespace Buisness.Concret
 
         public async Task<MovieDetail> GetAllMovieDetailAsync(string languageCode,int id)
         {
-            return await _movieDetailDal.GetMovieDetailAsync(languageCode,id);
+            return await _movieDetailDal.GetMovieDetailAsync(id);
 
         }
         public async Task<bool> MovieDetailAnyAsync(Expression<Func<MovieDetail, bool>> expression)

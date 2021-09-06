@@ -54,7 +54,7 @@ namespace AdminPanel.Controllers
             var isExist = await _serviceService.ServiceAnyAsync(x => x.Title.ToLower() == service.Title);
             if (isExist)
             {
-                ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
+                ModelState.AddModelError("Title", "Please change the context.Title is already exist !");
                 return View();
             }
 
@@ -73,7 +73,6 @@ namespace AdminPanel.Controllers
             var service = await _serviceService.GetServiceWithIdAsync(id.Value);
 
 
-            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
             if (service == null)
                 return NotFound();

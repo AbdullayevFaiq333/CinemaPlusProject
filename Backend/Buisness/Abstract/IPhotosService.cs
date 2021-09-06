@@ -9,7 +9,7 @@ namespace Buisness.Abstract
 {
     public interface IPhotosService
     {
-        Task<Photos> GetPhotosWithIdAsync(int id);
+        Task<Photos> GetPhotosWithIdAsync(int branchId);
         Task<List<Photos>> GetAllPhotosAsync();
         Task<bool> AddPhotosAsync(Photos photos);
         Task<bool> UpdatePhotosAsync(Photos photos);

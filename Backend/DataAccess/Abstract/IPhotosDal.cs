@@ -11,6 +11,7 @@ namespace DataAccess.Abstract
     public interface IPhotosDal : IRepository<Photos>
     {
         Task<bool> CheckPhotos(Expression<Func<Photos, bool>> expression);
+        Task<Photos> CheckPhotosId(int? branchId);
 
     }
 }

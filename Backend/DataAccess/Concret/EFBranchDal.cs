@@ -16,25 +16,6 @@ namespace DataAccess.Concret
         public EFBranchDal(AppDbContext dbContext) : base(dbContext)
         {
         }
-        public async Task<bool> AddRangeAsync(params object[] entities)
-        {
-           
-            await using var transaction = await Context.Database.BeginTransactionAsync();
-            try
-            {
-                await Context.AddRangeAsync(entities);
-                await Context.SaveChangesAsync();
-                await transaction.CommitAsync();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
-
-        }
 
         public async Task<bool> CheckBranch(Expression<Func<Branch, bool>> expression)
         {
@@ -50,11 +31,20 @@ namespace DataAccess.Concret
                 .ToListAsync();
         }
 
-        public async Task<Branch> GetBranchWithInclude(int id)
+        public async Task<Branch> GetBranchWithInclude(int id) 
         {
             
-            return await Context.Branches.Include(x => x.Tariff).Include(x => x.Contact)
+            return await Context.Branches.Include(x => x.Language).Include(x => x.Tariff).Include(x => x.Contact)
                 .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Contact> GetContact(int? branchId)
+        {
+            return await Context.Contacts.SingleOrDefaultAsync(s => s.BranchId == branchId);
+        }
+        public async Task<Tariff> GetTariff(int? branchId)
+        {
+            return await Context.Tariffs.SingleOrDefaultAsync(s => s.BranchId == branchId);
         }
 
     }

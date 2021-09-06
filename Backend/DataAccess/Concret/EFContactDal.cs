@@ -16,7 +16,7 @@ namespace DataAccess.Concret
         public EFContactDal(AppDbContext dbContext) : base(dbContext)
         {
         }
-        public async Task<bool> CheckContact(Expression<Func<Contact, bool>> expression)
+        public async Task<bool> CheckContact(Expression<Func<Contact, bool>> expression) 
         {
             return await Context.Contacts.AnyAsync(expression);
         }
@@ -27,7 +27,7 @@ namespace DataAccess.Concret
                 .Where(x => x.BranchId == id)
                 .FirstOrDefaultAsync();
         }
+     
 
-        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Core.Repository.EFRepository;
 using DataAccess.Abstract;
 using Entities.Models;
+using Entity.Params;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,39 +17,33 @@ namespace DataAccess.Concret
         public EFMovieDal(AppDbContext dbContext) : base(dbContext)
         {
         }
-        public async Task<bool> AddRangeAsync(params object[] entities)
-        {
-            await using var transaction = await Context.Database.BeginTransactionAsync();
-            try
-            {
-                await Context.AddRangeAsync(entities);
-                await Context.SaveChangesAsync();
-                await transaction.CommitAsync();
-
-                return true;
-            }
-            catch (Exception)
-            {
-                await transaction.RollbackAsync();
-                throw;
-            }
-
-        }
         public async Task<bool> CheckMovie(Expression<Func<Movie, bool>> expression)
         {
             return await Context.Movies.AnyAsync(expression);
         } 
 
         public async Task<MovieDetail> GetMovieDetail(int? movieId)
-        {
+        { 
             return await Context.MovieDetails.SingleOrDefaultAsync(s => s.MovieId == movieId);
         }
+
         public async Task<List<Movie>> GetMovieAsync(string languageCode)
         {
-            return await Context.Movies.Include(x => x.Language).Include(x=>x.MovieFormats).ThenInclude(x=>x.Format)
-                .Include(x=>x.Sessions)
-                .Where(x =>x.Language.Code == languageCode)
+            return await Context.Movies.Include(x => x.Language).Include(x => x.MovieFormats).ThenInclude(x => x.Format)
+                .Include(x => x.Sessions)
+                .Where(x => x.Language.Code == languageCode)
                 .ToListAsync();
         }
+        public async Task<Movie> GetMovieWithIdAsync(int id) 
+        {
+            return await Context.Movies.Include(x => x.Language).Include(x => x.MovieFormats).ThenInclude(x => x.Format)
+                .Include(x => x.Sessions)
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync();
+        }
+
+       
+
+     
     }
 }

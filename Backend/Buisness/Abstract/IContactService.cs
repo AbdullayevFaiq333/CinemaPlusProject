@@ -9,7 +9,7 @@ namespace Buisness.Abstract
 {
     public interface IContactService
     {
-        Task<Contact> GetContactWithIdAsync(int id);
+        Task<Contact> GetContactWithIdAsync(int branchId); 
         Task<List<Contact>> GetAllContactAsync();
         Task<Contact> GetAllContactAsync(int id);
         Task<bool> AddContactAsync(Contact contact);

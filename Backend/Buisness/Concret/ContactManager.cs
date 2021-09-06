@@ -17,9 +17,9 @@ namespace Buisness.Concret
         {
             _contactDal = contactDal;
         }
-        public async Task<Contact> GetContactWithIdAsync(int id)
+        public async Task<Contact> GetContactWithIdAsync(int branchId)
         {
-            return await _contactDal.GetAsync(x => x.Id == id);
+            return await _contactDal.GetAsync(x => x.BranchId == branchId);
         }
 
         public async Task<List<Contact>> GetAllContactAsync()
