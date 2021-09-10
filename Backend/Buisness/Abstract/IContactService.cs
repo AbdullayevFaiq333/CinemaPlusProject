@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Buisness.Abstract
 {
     public interface IContactService
-    {
+    { 
         Task<Contact> GetContactWithIdAsync(int branchId); 
         Task<List<Contact>> GetAllContactAsync();
         Task<Contact> GetAllContactAsync(int id);

@@ -1,11 +1,15 @@
-﻿using Buisness.Abstract;
+﻿using AdminPanel.Utils;
+using Buisness.Abstract;
 using DataAccess.Concret;
 using Entities.Models;
 using Entity.Params;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,14 +20,17 @@ namespace AdminPanel.Controllers
         private readonly IMovieService _movieService;
         private readonly ILanguageService _languageService;
         private readonly IMovieDetailService _movieDetailService;
+        private readonly IHostEnvironment _environment;
 
 
 
-        public MovieController(IMovieService movieService, ILanguageService languageService, IMovieDetailService movieDetailService) 
+
+        public MovieController(IMovieService movieService, ILanguageService languageService, IMovieDetailService movieDetailService, IHostEnvironment environment) 
         {
             _movieService = movieService;
             _languageService = languageService;
             _movieDetailService = movieDetailService;
+            _environment = environment;
 
         }
 
@@ -65,16 +72,97 @@ namespace AdminPanel.Controllers
                 return View();
             }
 
+            if (movieParams.Age >= 168)
+            {
+                ModelState.AddModelError("Age", "Not everyone can be Shirali baba !");
+                return View();
+            }
+
             if (movieParams.StartTime > movieParams.EndTime)
             {
                 ModelState.AddModelError("EndTime", "The end time cannot come before the start time !");
                 return View();
             }
 
-            if (movieParams.Age >= 168)
+           
+
+            if (movieParams == null)
+                return BadRequest();
+
+            var folderList = new List<string>
             {
-                ModelState.AddModelError("Age", "Not everyone can be Shirali baba !");
-                return View();
+                Constants.MovieImageFolderPath,
+                @"C:\Users\gyugh\Kompyuter\Документы\Рабочий стол\last clone\CinemaPlusProject\Frontend\public\images\movies"
+            };
+
+           var fileName =  await FileUtil.GenerateFileAsync(folderList, movieParams.Photo);
+
+            var newFileName = string.Empty;
+
+
+            if (movieParams.Photo != null)
+            {
+                if (movieParams.Photo.Length > 0 &&
+                    (movieParams.Photo.ContentType == "image/jpeg"
+                      || movieParams.Photo.ContentType == "image/jpg"
+                    || movieParams.Photo.ContentType == "image/png"
+                    || movieParams.Photo.ContentType == "image/x-png"
+                    || movieParams.Photo.ContentType == "image/pjpeg"))
+
+                {
+
+                   
+                    newFileName = String.Concat("movies/" + fileName);
+
+                    // Combines two strings into a path.
+                    var filepath =
+            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
+            .Root + $@"\{newFileName}";
+
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        movieParams.Photo.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+            }
+
+
+          
+
+            movieParams.Image = newFileName;
+
+            Movie movie = new ()
+            {
+
+                Age = movieParams.Age,
+                Name = movieParams.Name,
+                Image = movieParams.Image,
+                EndTime = movieParams.EndTime,
+                StartTime = movieParams.StartTime,
+                LanguageId = movieParams.LanguageId
+
+            };
+            var mov = await _movieService.AddMovieAsync(movie);
+            if (mov == true)
+            {
+                MovieDetail movieDetail = new ()
+                {
+
+                    About = movieParams.About,
+                    Actors = movieParams.Actors,
+                    Country = movieParams.Country,
+                    Duration = movieParams.Duration,
+                    LanguageId = movieParams.LanguageId,
+                    Director = movieParams.Director,
+                    Treyler = movieParams.Treyler,
+                    Genre = movieParams.Genre,
+                    MovieId = movie.Id
+
+
+                };
+                await _movieDetailService.AddMovieDetailAsync(movieDetail);
+
             }
 
 
@@ -145,6 +233,8 @@ namespace AdminPanel.Controllers
             if (movieDetail == null)
                 return NotFound();
 
+
+
             MovieParams movieParams = new()
             {
                 Treyler = movieDetail.Treyler,
@@ -178,17 +268,15 @@ namespace AdminPanel.Controllers
                 return View(movieParams);
             }
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
-            
-          var isMovieUpdatedData = await _movieService.UpdateMovieAsync(movieParams, oldPhoto);
 
-            if(isMovieUpdatedData == false)
+            var isMovieUpdatedData = await _movieService.UpdateMovieAsync(movieParams, oldPhoto);
+
+            if (isMovieUpdatedData == false)
             {
                 // shekilsiz yuklemek olmaz!!!!
             }
 
-            return RedirectToAction("Index");
-
-
+            return RedirectToAction("Index");       
         }
         #endregion
 

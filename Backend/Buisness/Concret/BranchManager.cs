@@ -34,7 +34,6 @@ namespace Buisness.Concret
         public async Task<Branch> GetBranchWithIdAsync(int id) 
         {
             return await _branchDal.GetBranchWithInclude(id);
-            //return await _branchDal.GetAsync(x => x.Id == id);
         }
 
         public async Task<List<Branch>> GetAllBranchAsync()
@@ -71,7 +70,7 @@ namespace Buisness.Concret
                     var fileExtension = Path.GetExtension(fileName);
 
                     // concatenating  FileName + FileExtension
-                    newFileNamePhoto = String.Concat("photos/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+                    newFileNamePhoto = String.Concat("branch/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
 
                     // Combines two strings into a path.
                     var filepath =
@@ -170,6 +169,7 @@ namespace Buisness.Concret
                     MediaSalesDepartment = branchParams.MediaSalesDepartment,
                     WorkingHours = branchParams.WorkingHours,
                     BranchId = branch.Id,
+                    Map = branchParams.Map
 
                 };
                 await _contactDal.AddAsync(contact);
@@ -202,7 +202,7 @@ namespace Buisness.Concret
                 return false;
 
 
-            var newFileName = string.Empty;
+            var newFileNamePhotos = string.Empty;
 
             if (branchParams.PhotosPhoto != null)
             {
@@ -217,7 +217,7 @@ namespace Buisness.Concret
                     if (oldPhoto != null)
                     {
                         var oldFilePath = Path.Combine(
-         _environment.ContentRootPath, "wwwroot", "Uploads", "movies", oldPhoto);
+         _environment.ContentRootPath, "wwwroot", "Uploads", "branch", oldPhoto);
                         if (System.IO.File.Exists(oldFilePath))
                             System.IO.File.Delete(oldFilePath);
                     }
@@ -233,12 +233,12 @@ namespace Buisness.Concret
                     var fileExtension = Path.GetExtension(fileName);
 
                     // concatenating  FileName + FileExtension
-                    newFileName = String.Concat("movies/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+                    newFileNamePhotos = String.Concat("branch/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
 
                     // Combines two strings into a path.
                     var filepath =
             new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
-            .Root + $@"\{newFileName}";
+            .Root + $@"\{newFileNamePhotos}";
 
                     using (FileStream fs = System.IO.File.Create(filepath))
                     {
@@ -247,11 +247,65 @@ namespace Buisness.Concret
                     }
                 }
 
-                branchParams.PhotosImage = newFileName;
+                branchParams.PhotosImage = newFileNamePhotos;
             }
             else
                 branchParams.PhotosImage = oldPhoto;
-                branchParams.TariffImage = oldPhoto;
+
+
+
+            var newFileNameTariff = string.Empty;
+
+            if (branchParams.TariffPhoto != null)
+            {
+                if (branchParams.TariffPhoto.Length > 0 &&
+                    (branchParams.TariffPhoto.ContentType == "image/jpeg"
+                      || branchParams.TariffPhoto.ContentType == "image/jpg"
+                    || branchParams.TariffPhoto.ContentType == "image/png"
+                    || branchParams.TariffPhoto.ContentType == "image/x-png"
+                    || branchParams.TariffPhoto.ContentType == "image/pjpeg"))
+
+                {
+                    if (oldPhoto != null)
+                    {
+                        var oldFilePath = Path.Combine(
+         _environment.ContentRootPath, "wwwroot", "Uploads", "tariffs", oldPhoto);
+                        if (System.IO.File.Exists(oldFilePath))
+                            System.IO.File.Delete(oldFilePath);
+                    }
+
+                    //Getting FileName
+                    var fileName = Path.GetFileName(branchParams.TariffPhoto.FileName);
+                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(branchParams.TariffPhoto.FileName);
+
+                    //Assigning Unique Filename (Guid)
+                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+
+                    // concatenating  FileName + FileExtension
+                    newFileNameTariff = String.Concat("tariffs/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
+
+                    // Combines two strings into a path.
+                    var filepath =
+            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
+            .Root + $@"\{newFileNameTariff}";
+
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        branchParams.TariffPhoto.CopyTo(fs);
+                        fs.Flush();
+                    }
+                }
+
+                branchParams.PhotosImage = newFileNameTariff;
+            }
+            else
+                branchParams.PhotosImage = oldPhoto;
+
+
+
 
 
             Branch branch = new Branch
@@ -264,6 +318,8 @@ namespace Buisness.Concret
             };
 
             var allBranch = await _branchDal.UpdateAsync(branch);
+
+
             if (allBranch == true)
             {
                 Contact contact = new Contact
@@ -274,12 +330,14 @@ namespace Buisness.Concret
                     Email = branchParams.Email,
                     MediaSalesDepartment = branchParams.MediaSalesDepartment,
                     WorkingHours = branchParams.WorkingHours,
-                    BranchId = branch.Id,
+                    Map = branchParams.Map,
+                    BranchId = branch.Id
 
                 };
-                await _contactDal.AddAsync(contact);
+                await _contactDal.UpdateAsync(contact);
 
             }
+
             if (allBranch == true)
             {
                 Tariff tariff = new Tariff
@@ -288,7 +346,7 @@ namespace Buisness.Concret
                     Image = branchParams.TariffImage,
 
                 };
-                await _tariffDal.AddAsync(tariff);
+                await _tariffDal.UpdateAsync(tariff);
             }
 
 
@@ -306,8 +364,6 @@ namespace Buisness.Concret
         public async Task<Branch> GetBranchAsync(int? id)
         {
             return await _branchDal.GetBranchWithInclude(id.Value);
-        }
-
-       
+        }       
     }
 }

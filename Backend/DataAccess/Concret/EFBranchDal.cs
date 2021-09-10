@@ -35,8 +35,9 @@ namespace DataAccess.Concret
         {
             
             return await Context.Branches.Include(x => x.Language).Include(x => x.Tariff).Include(x => x.Contact)
-                .FirstOrDefaultAsync(x => x.Id == id);
-        }
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync(); ;
+         }
 
         public async Task<Contact> GetContact(int? branchId)
         {

@@ -34,93 +34,8 @@ namespace Buisness.Concret
 
         public async Task<bool> AddMovieAsync(MovieParams movieParams)
         {
-            if (movieParams == null)
-                return false;
-
-
-            var newFileName = string.Empty;
-
-
-            if (movieParams.Photo != null)
-            {
-                if (movieParams.Photo.Length > 0 &&
-                    (movieParams.Photo.ContentType == "image/jpeg"
-                      || movieParams.Photo.ContentType == "image/jpg"
-                    || movieParams.Photo.ContentType == "image/png"
-                    || movieParams.Photo.ContentType == "image/x-png"
-                    || movieParams.Photo.ContentType == "image/pjpeg"))
-
-                {
-
-                    //Getting FileName
-                    var fileName = Path.GetFileName(movieParams.Photo.FileName);
-                    var fileNameWithoutExt = Path.GetFileNameWithoutExtension(movieParams.Photo.FileName);
-
-                    //Assigning Unique Filename (Guid)
-                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                    //Getting file Extension
-                    var fileExtension = Path.GetExtension(fileName);
-
-                    // concatenating  FileName + FileExtension
-                    newFileName = String.Concat("movies/" + myUniqueFileName + "-" + fileNameWithoutExt, fileExtension);
-
-                    // Combines two strings into a path.
-                    var filepath =
-            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads"))
-            .Root + $@"\{newFileName}";
-
-                    using (FileStream fs = System.IO.File.Create(filepath))
-                    {
-                        movieParams.Photo.CopyTo(fs);
-                        fs.Flush();
-                    }
-                }
-            }
-
-            //Admin panelden istifade etdiyniz melumatlar chixmalidi ortag bir yere
-            //nece edilecek ki ? ortaq bir sey yaradib ordan alinacaq referance
-            //okeydi?coxxxx sagolun)
-            var folderList = new List<string>
-            {
-                //AdminPanel.Utils.Constants.MovieImageFolderPath,
-                @"D:\Programming\CodeAcademy\FrontEnd\FinalProject\limak-az--front-end\public\images"
-            };
-
-            movieParams.Image = newFileName;
-
-            Movie movie = new Movie
-            {
-
-                Age = movieParams.Age,
-                Name = movieParams.Name,
-                Image = movieParams.Image,
-                EndTime = movieParams.EndTime,
-                StartTime = movieParams.StartTime,
-                LanguageId = movieParams.LanguageId
-
-            };
-            var mov = await _movieDal.AddAsync(movie);
-            if (mov == true)
-            {
-                MovieDetail movieDetail = new MovieDetail
-                {
-
-                    About = movieParams.About,
-                    Actors = movieParams.Actors,
-                    Country = movieParams.Country,
-                    Duration = movieParams.Duration,
-                    LanguageId = movieParams.LanguageId,
-                    Director = movieParams.Director,
-                    Treyler = movieParams.Treyler,
-                    Genre = movieParams.Genre,
-                    MovieId = movie.Id
-
-
-                };
-                await _movieDetailDal.AddAsync(movieDetail);
-
-            }
+           
+            await _movieDal.AddAsync(movieParams);
 
 
             return true;
@@ -193,6 +108,8 @@ namespace Buisness.Concret
             else
                 movieParams.Image = oldPhoto;
 
+
+
             Movie movie = new Movie
             {
                 Id = movieParams.MovieId,
@@ -250,6 +167,11 @@ namespace Buisness.Concret
             return await _movieDal.GetMovieDetail(movieId);
         }
 
-       
+        public async Task<bool> AddMovieAsync(Movie movie)
+        {
+            await _movieDal.AddAsync(movie);
+
+            return true;
+        }
     }
 }

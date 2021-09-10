@@ -39,7 +39,7 @@
                         <span class="text-danger" asp-validation-for="OurAddress"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="Phone" class="form-control" placeholder="Phone">
+                        <input asp-for="Phone" class="form-control" placeholder="+994 50 111 11 11">
                         <span class="text-danger" asp-validation-for="Phone"></span>
                     </div>
                     <div class="form-group form-group-float">
@@ -60,16 +60,14 @@
                     </div>
                     <button type="button" class="btn btn-secondary" disabled style="width: 200px; height: 30px; margin-bottom: 10px; text-align: center">Branch Photo</button>
                     <div class="form-group form-group-float">
-                        <input type="file" asp-for="PhotosImage" class="form-control" placeholder="Branch">
-                        <span class="text-danger" asp-validation-for="PhotosImage"></span>
+                        <input type="file" asp-for="PhotosPhoto" class="form-control" placeholder="Branch">
+                        <span class="text-danger" asp-validation-for="PhotosPhoto"></span>
                     </div>
                     <button type="button" class="btn btn-secondary" disabled style="width: 200px; height: 30px; margin-bottom: 10px; text-align: center">Tariff Photo</button>
                     <div class="form-group form-group-float">
-                        <input type="file" asp-for="TariffImage" class="form-control" placeholder="Tariff">
-                        <span class="text-danger" asp-validation-for="TariffImage"></span>
+                        <input type="file" asp-for="TariffPhoto" class="form-control" placeholder="Tariff">
+                        <span class="text-danger" asp-validation-for="TariffPhoto"></span>
                     </div>
-
-
                     <button type="submit" class="btn bg-blue-800">Submit<i class="icon-ml-2"></i></button>
                 </form>
             </div>

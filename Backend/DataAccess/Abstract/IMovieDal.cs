@@ -1,5 +1,6 @@
 ﻿using Core.Repository;
 using Entities.Models;
+using Entity.Params;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -13,7 +14,9 @@ namespace DataAccess.Abstract
         Task<List<Movie>> GetMovieAsync(string languageCode);
         Task<bool> CheckMovie(Expression<Func<Movie, bool>> expression);
         Task<MovieDetail> GetMovieDetail(int? movieId);
-        Task<Movie> GetMovieWithIdAsync(int id); 
+        Task<Movie> GetMovieWithIdAsync(int id);
+
+        Task<bool> AddAsync(MovieParams movieParams);
 
 
 

@@ -17,7 +17,7 @@ namespace Buisness.Concret
         {
             _movieDetailDal = movieDetailDal;
         }
-        public async Task<MovieDetail> GetMovieDetailWithIdAsync(int movieId)
+        public async Task<MovieDetail> GetMovieDetailWithIdAsync(int movieId) 
         {
             return await _movieDetailDal.GetAsync(x => x.MovieId == movieId);
         }

@@ -1,4 +1,4 @@
-﻿@model Branch
+﻿@model BranchParams
 
 
 @{
@@ -27,12 +27,54 @@
                     </a>
 
                     <div class="form-group form-group-float">
-                        <input asp-for="Name" class="form-control" placeholder="Name">
+                        <input asp-for="Name" value="@Model.Name" class="form-control" placeholder="Name">
                         <span class="text-danger" asp-validation-for="Name"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <input asp-for="Description" class="form-control" placeholder="Description">
+                        <input asp-for="Description" value="@Model.Description" class="form-control" placeholder="Description">
                         <span class="text-danger" asp-validation-for="Description"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="OurAddress" value="@Model.OurAddress" class="form-control" placeholder="Out Address">
+                        <span class="text-danger" asp-validation-for="OurAddress"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="Phone" value="@Model.Phone" class="form-control" placeholder="Phone">
+                        <span class="text-danger" asp-validation-for="Phone"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="Email" value="@Model.Email" class="form-control" placeholder="Email">
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="MediaSalesDepartment" value="@Model.MediaSalesDepartment" class="form-control" placeholder="Media Sales Department">
+                        <span class="text-danger" asp-validation-for="MediaSalesDepartment"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="WorkingHours" value="@Model.WorkingHours" class="form-control" placeholder="Working Hours">
+                        <span class="text-danger" asp-validation-for="WorkingHours"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <input asp-for="Map" value="@Model.Map" class="form-control" placeholder="Map">
+                        <span class="text-danger" asp-validation-for="Map"></span>
+                    </div>
+                    <button type="button" class="btn btn-secondary" disabled style="width: 200px; height: 30px; margin-bottom: 10px; text-align: center">Branch Photo</button>
+                    <div class="form-group form-group-float">
+                        <input type="file" asp-for="PhotosPhoto" class="form-control" placeholder="Photos">
+                        <span class="text-danger" asp-validation-for="PhotosPhoto"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <img src="/Uploads/@Model.PhotosImage" width="200" />
+                        <input type="hidden" name="OldPhoto" value="@Model.PhotosImage" />
+                    </div>
+                    <button type="button" class="btn btn-secondary" disabled style="width: 200px; height: 30px; margin-bottom: 10px; text-align: center">Branch Photo</button>
+                    <div class="form-group form-group-float">
+                        <input type="file" asp-for="TariffPhoto" class="form-control" placeholder="Tariff">
+                        <span class="text-danger" asp-validation-for="TariffPhoto"></span>
+                    </div>
+                    <div class="form-group form-group-float">
+                        <img src="/Uploads/@Model.TariffImage" width="200" />
+                        <input type="hidden" name="OldPhoto" value="@Model.TariffImage" />
                     </div>
 
                     <button type="submit" class="btn bg-blue-800">Submit<i class="icon-ml-2"></i></button>

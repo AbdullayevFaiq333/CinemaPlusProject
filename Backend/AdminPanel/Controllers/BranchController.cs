@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AdminPanel.Controllers 
@@ -38,7 +39,7 @@ namespace AdminPanel.Controllers
             return View(branch);
         }
 
-        #endregion
+        #endregion 
 
         #region Create
         public async Task<IActionResult> Create(int? id)
@@ -67,7 +68,8 @@ namespace AdminPanel.Controllers
             {
                 ModelState.AddModelError("Name", "Please change the context.Title is already exist !");
                 return View();
-            }
+            }         
+
 
             await _branchService.AddBranchAsync(brancParams);
 
@@ -76,11 +78,71 @@ namespace AdminPanel.Controllers
         #endregion
 
         #region Update
-        public async Task<IActionResult> Update()
+        public async Task<IActionResult> Update(int? id)
         {
+            if (id == null)
+                return NotFound();
+
             ViewBag.Languages = await _languageService.GetAllLanguageAsync();
 
-            return View();
+            var branch = await _branchService.GetBranchWithIdAsync((int)id);
+
+
+            if (branch == null)
+                return NotFound();
+
+            var contact = await _contactService.GetContactWithIdAsync(branch.Id);
+            var tariff = await _tariffService.GetTariffWithIdAsync(branch.Id);
+            var photos = await _photosService.GetPhotosWithIdAsync(branch.Id);
+
+            if (contact == null)
+                return NotFound();
+            if (tariff == null)
+                return NotFound();
+            if (photos == null)
+                return NotFound();
+
+            BranchParams branchParams= new()
+            {
+                MediaSalesDepartment = contact.MediaSalesDepartment,
+                WorkingHours = contact.WorkingHours,
+                Description = branch.Description,
+                OurAddress = contact.OurAddress,
+                LanguageId = branch.LanguageId,
+                TariffImage = tariff.Image,
+                PhotosImage = photos.Image,
+                ContactId = contact.Id,
+                Phone = contact.Phone,
+                Email = contact.Email,
+                BranchId = branch.Id,
+                TariffId = tariff.Id,
+                PhotosId = photos.Id,
+                Name = branch.Name,
+                Map = contact.Map,
+            };
+            return View(branchParams);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(BranchParams branchParams, string oldPhoto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(branchParams);
+            }
+            ViewBag.Languages = await _languageService.GetAllLanguageAsync();
+
+            var isBranchUpdatedData = await _branchService.UpdateBranchAsync(branchParams, oldPhoto);
+
+            if (isBranchUpdatedData == false)
+            {
+                // shekilsiz yuklemek olmaz!!!!
+            }
+
+            return RedirectToAction("Index");
+
+
         }
         #endregion
 

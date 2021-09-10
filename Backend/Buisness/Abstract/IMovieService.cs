@@ -15,6 +15,7 @@ namespace Buisness.Abstract
         Task<List<Movie>> GetAllMovieAsync(string languageCode);
 
         Task<bool> AddMovieAsync(MovieParams movieParams);
+        Task<bool> AddMovieAsync(Movie movie);
         Task<bool> UpdateMovieAsync(MovieParams movieParams, string oldPhoto); 
         Task<bool> DeleteMovieAsync(int? id);
         Task<bool> MovieAnyAsync(Expression<Func<Movie, bool>> expression);

@@ -42,8 +42,23 @@ namespace DataAccess.Concret
                 .SingleOrDefaultAsync();
         }
 
-       
+        public async Task<bool> AddAsync(MovieParams movieParams)
+        {
+            Movie movie = new Movie
+            {
 
-     
+                Age = movieParams.Age,
+                Name = movieParams.Name,
+                Image = movieParams.Image,
+                EndTime = movieParams.EndTime,
+                StartTime = movieParams.StartTime,
+                LanguageId = movieParams.LanguageId
+
+            };
+
+            await Context.AddAsync(movie);
+
+            return true;
+        }
     }
 }

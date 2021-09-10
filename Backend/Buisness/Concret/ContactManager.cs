@@ -14,7 +14,7 @@ namespace Buisness.Concret
         private readonly IContactDal _contactDal;
 
         public ContactManager(IContactDal contactDal)
-        {
+        { 
             _contactDal = contactDal;
         }
         public async Task<Contact> GetContactWithIdAsync(int branchId)
