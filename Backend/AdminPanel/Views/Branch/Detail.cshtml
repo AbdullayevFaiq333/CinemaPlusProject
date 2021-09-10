@@ -64,7 +64,7 @@
                         <tr>
                             <th scope="row">Map</th>
                             <td>
-                                <iframe src="Map" class="map"
+                                <iframe src="@branchParams.Map" class="map"
                                         allowfullscreen="" loading="lazy"></iframe>
                             </td>
                         </tr>
@@ -72,7 +72,7 @@
                             <th scope="row">Branch Photo</th>
                             <td>
                                 <div class="form-group form-group-float">
-                                    <img src="/Uploads/@branchParams.PhotosImage" width="250" />
+                                    <img src="/Uploads/branch/@branchParams.PhotosImage" width="250" />
                                     <input type="hidden" name="oldPhoto" value="@branchParams.PhotosPhoto" />
                                 </div>
                             </td>

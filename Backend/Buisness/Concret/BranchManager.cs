@@ -145,7 +145,7 @@ namespace Buisness.Concret
 
             };
 
-            var allBranch = await _branchDal.AddAsync(branch);
+            var allBranch = await _branchDal.UpdateAsync(branch);
           
 
             if (allBranch == true)
@@ -155,7 +155,7 @@ namespace Buisness.Concret
                     Image = branchParams.TariffImage,
                     BranchId = branch.Id
                 };
-                await _tariffDal.AddAsync(tariff);
+                await _tariffDal.UpdateAsync(tariff);
             }
 
             if (allBranch == true)
@@ -172,7 +172,7 @@ namespace Buisness.Concret
                     Map = branchParams.Map
 
                 };
-                await _contactDal.AddAsync(contact);
+                await _contactDal.UpdateAsync(contact);
                 
             }      
 
@@ -299,11 +299,10 @@ namespace Buisness.Concret
                     }
                 }
 
-                branchParams.PhotosImage = newFileNameTariff;
+                branchParams.TariffImage = newFileNameTariff;
             }
             else
-                branchParams.PhotosImage = oldPhoto;
-
+                branchParams.TariffImage = oldPhoto;
 
 
 
@@ -313,8 +312,9 @@ namespace Buisness.Concret
 
                 Name = branchParams.Name,
                 Description = branchParams.Description,
-                LanguageId = branchParams.LanguageId
-
+                LanguageId = branchParams.LanguageId,
+                PhotosId = branchParams.PhotosId,
+                Id = branchParams.BranchId
             };
 
             var allBranch = await _branchDal.UpdateAsync(branch);
@@ -331,8 +331,8 @@ namespace Buisness.Concret
                     MediaSalesDepartment = branchParams.MediaSalesDepartment,
                     WorkingHours = branchParams.WorkingHours,
                     Map = branchParams.Map,
-                    BranchId = branch.Id
-
+                    BranchId = branch.Id,
+                    Id = branchParams.ContactId
                 };
                 await _contactDal.UpdateAsync(contact);
 
@@ -344,6 +344,8 @@ namespace Buisness.Concret
                 {
 
                     Image = branchParams.TariffImage,
+                    BranchId = branchParams.BranchId,
+                    Id = branchParams.TariffId
 
                 };
                 await _tariffDal.UpdateAsync(tariff);

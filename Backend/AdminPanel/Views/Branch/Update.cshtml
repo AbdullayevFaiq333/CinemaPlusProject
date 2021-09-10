@@ -2,7 +2,7 @@
 
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Update";
 }
 
 <div class="content text-center">
@@ -14,7 +14,11 @@
 
             <div class="card-body">
                 <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-                <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Branch">
+                <form method="post" enctype="multipart/form-data" asp-action="Update" asp-controller="Branch">
+                    <input  type="hidden" asp-for="BranchId"/>
+                    <input  type="hidden" asp-for="ContactId"/>
+                    <input  type="hidden" asp-for="PhotosId"/>
+                    <input  type="hidden" asp-for="TariffId"/>
                     <select name="LanguageId" id="language" class="btn btn-light">
                         @foreach (var item in ViewBag.Languages)
                         {
@@ -64,10 +68,10 @@
                         <span class="text-danger" asp-validation-for="PhotosPhoto"></span>
                     </div>
                     <div class="form-group form-group-float">
-                        <img src="/Uploads/@Model.PhotosImage" width="200" />
+                        <img src="/Uploads/branch/@Model.PhotosImage" width="200" />
                         <input type="hidden" name="OldPhoto" value="@Model.PhotosImage" />
                     </div>
-                    <button type="button" class="btn btn-secondary" disabled style="width: 200px; height: 30px; margin-bottom: 10px; text-align: center">Branch Photo</button>
+                    <button type="button" class="btn btn-secondary" disabled style="width: 200px; height: 30px; margin-bottom: 10px; text-align: center">Tariff Photo</button>
                     <div class="form-group form-group-float">
                         <input type="file" asp-for="TariffPhoto" class="form-control" placeholder="Tariff">
                         <span class="text-danger" asp-validation-for="TariffPhoto"></span>

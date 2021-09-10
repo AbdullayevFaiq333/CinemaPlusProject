@@ -92,7 +92,7 @@ namespace AdminPanel.Controllers
             var folderList = new List<string>
             {
                 Constants.MovieImageFolderPath,
-                @"C:\Users\gyugh\Kompyuter\Документы\Рабочий стол\last clone\CinemaPlusProject\Frontend\public\images\movies"
+                @"C:\CinemaPlus\Frontend\public\images\movies"
             };
 
            var fileName =  await FileUtil.GenerateFileAsync(folderList, movieParams.Photo);

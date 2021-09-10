@@ -347,23 +347,23 @@ namespace CinemaPlus.Controllers
             if (movies == null)
                 return NotFound();
 
-            List<MovieDto> moviesDto = new List<MovieDto>();
-            foreach (var movie in movies)
-            {
-                var movieDto = new MovieDto
-                {
-                    Id = movie.Id,
-                    Age = movie.Age,
-                    EndTime = movie.EndTime,
-                    Name = movie.Name,
-                    StartTime = movie.StartTime,
-                    Image = Path.Combine(@"C:\Users\gyugh\Kompyuter\Документы\Рабочий стол\last clone\CinemaPlusProject\Backend\AdminPanel\wwwroot\Uploads\",movie.Image)
-                };
-                moviesDto.Add(movieDto);
-            }
+            //List<MovieDto> moviesDto = new List<MovieDto>();
+            //foreach (var movie in movies)
+            //{
+            //    var movieDto = new MovieDto
+            //    {
+            //        Id = movie.Id,
+            //        Age = movie.Age,
+            //        EndTime = movie.EndTime,
+            //        Name = movie.Name,
+            //        StartTime = movie.StartTime,
+            //        Image = Path.Combine(@"C:\CinemaPlus\Backend\AdminPanel\wwwroot\Uploads\", movie.Image)
+            //    };
+            //    moviesDto.Add(movieDto);
+            //}
 
-            //var movieDto = _mapper.Map<List<MovieDto>>(movies);
-            return Ok(moviesDto);
+            var movieDto = _mapper.Map<List<MovieDto>>(movies);
+            return Ok(movieDto);
         }
 
         [HttpGet("getContentWebsiteMovieWidthId/{id}")]
